@@ -1,0 +1,1246 @@
+{
+  "version": "0.8.0-oxygen-sfx",
+  "characters": {
+    "rbc": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 128.90365448504983,
+      "frames": {
+        "idle": "assets/characters/rbc_idle.webp",
+        "action": "assets/characters/rbc_action.webp",
+        "hurt": "assets/characters/rbc_hurt.webp",
+        "victory": "assets/characters/rbc_victory.webp"
+      },
+      "source": "assets/source-atlases/erythrocyte-oxygen.png",
+      "sourceCoordinateSpace": [
+        1536,
+        1024
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 171,
+          "top": 108,
+          "right": 683,
+          "bottom": 504
+        },
+        "action": {
+          "left": 833,
+          "top": 39,
+          "right": 1475,
+          "bottom": 506
+        },
+        "hurt": {
+          "left": 169,
+          "top": 553,
+          "right": 711,
+          "bottom": 942
+        },
+        "victory": {
+          "left": 914,
+          "top": 548,
+          "right": 1449,
+          "bottom": 953
+        }
+      }
+    },
+    "platelet": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 159.44444444444446,
+      "frames": {
+        "idle": "assets/characters/platelet_idle.webp",
+        "action": "assets/characters/platelet_action.webp",
+        "hurt": "assets/characters/platelet_hurt.webp",
+        "victory": "assets/characters/platelet_victory.webp"
+      },
+      "source": "assets/source-atlases/innate.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 39,
+          "top": 392,
+          "right": 288,
+          "bottom": 614
+        },
+        "action": {
+          "left": 353,
+          "top": 410,
+          "right": 644,
+          "bottom": 613
+        },
+        "hurt": {
+          "left": 705,
+          "top": 412,
+          "right": 951,
+          "bottom": 614
+        },
+        "victory": {
+          "left": 1010,
+          "top": 354,
+          "right": 1264,
+          "bottom": 615
+        }
+      }
+    },
+    "neutrophil": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 115.92000000000002,
+      "frames": {
+        "idle": "assets/characters/neutrophil_idle.webp",
+        "action": "assets/characters/neutrophil_action.webp",
+        "hurt": "assets/characters/neutrophil_hurt.webp",
+        "victory": "assets/characters/neutrophil_victory.webp"
+      },
+      "source": "assets/source-atlases/innate.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 29,
+          "top": 675,
+          "right": 317,
+          "bottom": 906
+        },
+        "action": {
+          "left": 337,
+          "top": 676,
+          "right": 690,
+          "bottom": 902
+        },
+        "hurt": {
+          "left": 699,
+          "top": 675,
+          "right": 949,
+          "bottom": 905
+        },
+        "victory": {
+          "left": 994,
+          "top": 644,
+          "right": 1257,
+          "bottom": 905
+        }
+      }
+    },
+    "plasma": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 144.2,
+      "frames": {
+        "idle": "assets/characters/plasma_idle.webp",
+        "action": "assets/characters/plasma_action.webp",
+        "hurt": "assets/characters/plasma_hurt.webp",
+        "victory": "assets/characters/plasma_victory.webp"
+      },
+      "source": "assets/source-atlases/support.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 71,
+          "top": 701,
+          "right": 294,
+          "bottom": 930
+        },
+        "action": {
+          "left": 351,
+          "top": 680,
+          "right": 656,
+          "bottom": 930
+        },
+        "hurt": {
+          "left": 725,
+          "top": 710,
+          "right": 928,
+          "bottom": 930
+        },
+        "victory": {
+          "left": 999,
+          "top": 670,
+          "right": 1256,
+          "bottom": 930
+        }
+      }
+    },
+    "macrophage": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 141.7283950617284,
+      "frames": {
+        "idle": "assets/characters/macrophage_idle.webp",
+        "action": "assets/characters/macrophage_action.webp",
+        "hurt": "assets/characters/macrophage_hurt.webp",
+        "victory": "assets/characters/macrophage_victory.webp"
+      },
+      "source": "assets/source-atlases/innate.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 12,
+          "top": 956,
+          "right": 313,
+          "bottom": 1236
+        },
+        "action": {
+          "left": 319,
+          "top": 960,
+          "right": 681,
+          "bottom": 1236
+        },
+        "hurt": {
+          "left": 682,
+          "top": 970,
+          "right": 973,
+          "bottom": 1234
+        },
+        "victory": {
+          "left": 983,
+          "top": 952,
+          "right": 1274,
+          "bottom": 1238
+        }
+      }
+    },
+    "dendritic": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 127.75000000000001,
+      "frames": {
+        "idle": "assets/characters/dendritic_idle.webp",
+        "action": "assets/characters/dendritic_action.webp",
+        "hurt": "assets/characters/dendritic_hurt.webp",
+        "victory": "assets/characters/dendritic_victory.webp"
+      },
+      "source": "assets/source-atlases/specialists.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 23,
+          "top": 677,
+          "right": 325,
+          "bottom": 913
+        },
+        "action": {
+          "left": 334,
+          "top": 677,
+          "right": 689,
+          "bottom": 913
+        },
+        "hurt": {
+          "left": 690,
+          "top": 677,
+          "right": 969,
+          "bottom": 913
+        },
+        "victory": {
+          "left": 998,
+          "top": 630,
+          "right": 1278,
+          "bottom": 913
+        }
+      }
+    },
+    "nk_cell": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 137.03389830508473,
+      "frames": {
+        "idle": "assets/characters/nk_cell_idle.webp",
+        "action": "assets/characters/nk_cell_action.webp",
+        "hurt": "assets/characters/nk_cell_hurt.webp",
+        "victory": "assets/characters/nk_cell_victory.webp"
+      },
+      "source": "assets/source-atlases/specialists.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 28,
+          "top": 84,
+          "right": 324,
+          "bottom": 325
+        },
+        "action": {
+          "left": 349,
+          "top": 87,
+          "right": 683,
+          "bottom": 324
+        },
+        "hurt": {
+          "left": 684,
+          "top": 85,
+          "right": 961,
+          "bottom": 323
+        },
+        "victory": {
+          "left": 1003,
+          "top": 87,
+          "right": 1273,
+          "bottom": 325
+        }
+      }
+    },
+    "cytotoxic_t": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 130.85714285714286,
+      "frames": {
+        "idle": "assets/characters/cytotoxic_t_idle.webp",
+        "action": "assets/characters/cytotoxic_t_action.webp",
+        "hurt": "assets/characters/cytotoxic_t_hurt.webp",
+        "victory": "assets/characters/cytotoxic_t_victory.webp"
+      },
+      "source": "assets/source-atlases/specialists.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 27,
+          "top": 394,
+          "right": 329,
+          "bottom": 629
+        },
+        "action": {
+          "left": 349,
+          "top": 397,
+          "right": 694,
+          "bottom": 629
+        },
+        "hurt": {
+          "left": 695,
+          "top": 397,
+          "right": 984,
+          "bottom": 629
+        },
+        "victory": {
+          "left": 1007,
+          "top": 400,
+          "right": 1269,
+          "bottom": 629
+        }
+      }
+    },
+    "b_cell": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 121.01694915254237,
+      "frames": {
+        "idle": "assets/characters/b_cell_idle.webp",
+        "action": "assets/characters/b_cell_action.webp",
+        "hurt": "assets/characters/b_cell_hurt.webp",
+        "victory": "assets/characters/b_cell_victory.webp"
+      },
+      "source": "assets/source-atlases/support.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 52,
+          "top": 129,
+          "right": 344,
+          "bottom": 343
+        },
+        "action": {
+          "left": 351,
+          "top": 131,
+          "right": 676,
+          "bottom": 341
+        },
+        "hurt": {
+          "left": 717,
+          "top": 128,
+          "right": 913,
+          "bottom": 343
+        },
+        "victory": {
+          "left": 992,
+          "top": 91,
+          "right": 1258,
+          "bottom": 343
+        }
+      }
+    },
+    "helper_t": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 156.47058823529412,
+      "frames": {
+        "idle": "assets/characters/helper_t_idle.webp",
+        "action": "assets/characters/helper_t_action.webp",
+        "hurt": "assets/characters/helper_t_hurt.webp",
+        "victory": "assets/characters/helper_t_victory.webp"
+      },
+      "source": "assets/source-atlases/specialists.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 29,
+          "top": 976,
+          "right": 328,
+          "bottom": 1236
+        },
+        "action": {
+          "left": 329,
+          "top": 951,
+          "right": 668,
+          "bottom": 1236
+        },
+        "hurt": {
+          "left": 692,
+          "top": 992,
+          "right": 962,
+          "bottom": 1235
+        },
+        "victory": {
+          "left": 996,
+          "top": 951,
+          "right": 1274,
+          "bottom": 1234
+        }
+      }
+    },
+    "memory_b": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 105.39325842696628,
+      "frames": {
+        "idle": "assets/characters/memory_b_idle.webp",
+        "action": "assets/characters/memory_b_action.webp",
+        "hurt": "assets/characters/memory_b_hurt.webp",
+        "victory": "assets/characters/memory_b_victory.webp"
+      },
+      "source": "assets/source-atlases/support.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 37,
+          "top": 431,
+          "right": 332,
+          "bottom": 644
+        },
+        "action": {
+          "left": 349,
+          "top": 429,
+          "right": 708,
+          "bottom": 644
+        },
+        "hurt": {
+          "left": 715,
+          "top": 433,
+          "right": 971,
+          "bottom": 644
+        },
+        "victory": {
+          "left": 1009,
+          "top": 407,
+          "right": 1270,
+          "bottom": 644
+        }
+      }
+    },
+    "complement": {
+      "pivot": [
+        106,
+        228
+      ],
+      "referenceHeight": 110,
+      "frames": {
+        "idle": "assets/characters/complement_idle.webp",
+        "action": "assets/characters/complement_action.webp",
+        "hurt": "assets/characters/complement_hurt.webp",
+        "victory": "assets/characters/complement_victory.webp"
+      },
+      "source": "assets/source-atlases/support.png",
+      "sourceCoordinateSpace": [
+        1280,
+        1280
+      ],
+      "sourceBoxes": {
+        "idle": {
+          "left": 48,
+          "top": 990,
+          "right": 321,
+          "bottom": 1214
+        },
+        "action": {
+          "left": 341,
+          "top": 1001,
+          "right": 687,
+          "bottom": 1216
+        },
+        "hurt": {
+          "left": 701,
+          "top": 1004,
+          "right": 929,
+          "bottom": 1218
+        },
+        "victory": {
+          "left": 992,
+          "top": 963,
+          "right": 1248,
+          "bottom": 1211
+        }
+      }
+    }
+  },
+  "enemies": {
+    "coccus": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 169.344,
+      "frames": {
+        "idle": "assets/enemies/coccus_idle.webp",
+        "attack": "assets/enemies/coccus_attack.webp",
+        "hurt": "assets/enemies/coccus_hurt.webp",
+        "defeat": "assets/enemies/coccus_defeat.webp"
+      },
+      "source": "enemies_basic",
+      "sourceBoxes": {
+        "idle": [
+          49,
+          74,
+          237,
+          263
+        ],
+        "attack": [
+          280,
+          78,
+          480,
+          260
+        ],
+        "hurt": [
+          542,
+          81,
+          726,
+          259
+        ],
+        "defeat": [
+          761,
+          132,
+          1004,
+          262
+        ]
+      }
+    },
+    "bacillus": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 178.142,
+      "frames": {
+        "idle": "assets/enemies/bacillus_idle.webp",
+        "attack": "assets/enemies/bacillus_attack.webp",
+        "hurt": "assets/enemies/bacillus_hurt.webp",
+        "defeat": "assets/enemies/bacillus_defeat.webp"
+      },
+      "source": "enemies_basic",
+      "sourceBoxes": {
+        "idle": [
+          34,
+          291,
+          259,
+          493
+        ],
+        "attack": [
+          278,
+          293,
+          515,
+          493
+        ],
+        "hurt": [
+          537,
+          302,
+          753,
+          494
+        ],
+        "defeat": [
+          763,
+          388,
+          1005,
+          497
+        ]
+      }
+    },
+    "toxin_bacteria": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 161.223,
+      "frames": {
+        "idle": "assets/enemies/toxin_bacteria_idle.webp",
+        "attack": "assets/enemies/toxin_bacteria_attack.webp",
+        "hurt": "assets/enemies/toxin_bacteria_hurt.webp",
+        "defeat": "assets/enemies/toxin_bacteria_defeat.webp"
+      },
+      "source": "enemies_basic",
+      "sourceBoxes": {
+        "idle": [
+          33,
+          512,
+          230,
+          738
+        ],
+        "attack": [
+          248,
+          512,
+          504,
+          734
+        ],
+        "hurt": [
+          538,
+          522,
+          734,
+          733
+        ],
+        "defeat": [
+          757,
+          591,
+          1003,
+          737
+        ]
+      }
+    },
+    "capsule_bacterium": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 162.526,
+      "frames": {
+        "idle": "assets/enemies/capsule_bacterium_idle.webp",
+        "attack": "assets/enemies/capsule_bacterium_attack.webp",
+        "hurt": "assets/enemies/capsule_bacterium_hurt.webp",
+        "defeat": "assets/enemies/capsule_bacterium_defeat.webp"
+      },
+      "source": "enemies_basic",
+      "sourceBoxes": {
+        "idle": [
+          28,
+          783,
+          248,
+          976
+        ],
+        "attack": [
+          272,
+          783,
+          509,
+          975
+        ],
+        "hurt": [
+          533,
+          789,
+          760,
+          975
+        ],
+        "defeat": [
+          761,
+          870,
+          1010,
+          983
+        ]
+      }
+    },
+    "flagellated_bacteria": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 174.137,
+      "frames": {
+        "idle": "assets/enemies/flagellated_bacteria_idle.webp",
+        "attack": "assets/enemies/flagellated_bacteria_attack.webp",
+        "hurt": "assets/enemies/flagellated_bacteria_hurt.webp",
+        "defeat": "assets/enemies/flagellated_bacteria_defeat.webp"
+      },
+      "source": "enemies_basic",
+      "sourceBoxes": {
+        "idle": [
+          38,
+          1005,
+          256,
+          1232
+        ],
+        "attack": [
+          259,
+          1012,
+          511,
+          1231
+        ],
+        "hurt": [
+          545,
+          1009,
+          757,
+          1233
+        ],
+        "defeat": [
+          763,
+          1114,
+          997,
+          1230
+        ]
+      }
+    },
+    "free_virus": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 183.647,
+      "frames": {
+        "idle": "assets/enemies/free_virus_idle.webp",
+        "attack": "assets/enemies/free_virus_attack.webp",
+        "hurt": "assets/enemies/free_virus_hurt.webp",
+        "defeat": "assets/enemies/free_virus_defeat.webp"
+      },
+      "source": "enemies_basic",
+      "sourceBoxes": {
+        "idle": [
+          20,
+          1258,
+          243,
+          1481
+        ],
+        "attack": [
+          269,
+          1261,
+          494,
+          1474
+        ],
+        "hurt": [
+          526,
+          1273,
+          740,
+          1474
+        ],
+        "defeat": [
+          766,
+          1348,
+          1003,
+          1502
+        ]
+      }
+    },
+    "shielded_virus": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 98.506,
+      "frames": {
+        "idle": "assets/enemies/shielded_virus_idle.webp",
+        "attack": "assets/enemies/shielded_virus_attack.webp",
+        "hurt": "assets/enemies/shielded_virus_hurt.webp",
+        "defeat": "assets/enemies/shielded_virus_defeat.webp"
+      },
+      "source": "enemies_advanced",
+      "sourceBoxes": {
+        "idle": [
+          64,
+          14,
+          287,
+          233
+        ],
+        "attack": [
+          316,
+          14,
+          665,
+          233
+        ],
+        "hurt": [
+          721,
+          14,
+          988,
+          233
+        ],
+        "defeat": [
+          1051,
+          78,
+          1353,
+          239
+        ]
+      }
+    },
+    "infected_cell": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 97.412,
+      "frames": {
+        "idle": "assets/enemies/infected_cell_idle.webp",
+        "attack": "assets/enemies/infected_cell_attack.webp",
+        "hurt": "assets/enemies/infected_cell_hurt.webp",
+        "defeat": "assets/enemies/infected_cell_defeat.webp"
+      },
+      "source": "enemies_advanced",
+      "sourceBoxes": {
+        "idle": [
+          45,
+          241,
+          278,
+          448
+        ],
+        "attack": [
+          327,
+          252,
+          684,
+          450
+        ],
+        "hurt": [
+          726,
+          253,
+          1004,
+          454
+        ],
+        "defeat": [
+          1035,
+          280,
+          1362,
+          467
+        ]
+      }
+    },
+    "bacteria_alpha": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 99.387,
+      "frames": {
+        "idle": "assets/enemies/bacteria_alpha_idle.webp",
+        "attack": "assets/enemies/bacteria_alpha_attack.webp",
+        "hurt": "assets/enemies/bacteria_alpha_hurt.webp",
+        "defeat": "assets/enemies/bacteria_alpha_defeat.webp"
+      },
+      "source": "enemies_advanced",
+      "sourceBoxes": {
+        "idle": [
+          47,
+          459,
+          292,
+          656
+        ],
+        "attack": [
+          343,
+          465,
+          676,
+          655
+        ],
+        "hurt": [
+          736,
+          472,
+          1018,
+          659
+        ],
+        "defeat": [
+          1049,
+          502,
+          1355,
+          668
+        ]
+      }
+    },
+    "bacteria_beta": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 91.875,
+      "frames": {
+        "idle": "assets/enemies/bacteria_beta_idle.webp",
+        "attack": "assets/enemies/bacteria_beta_attack.webp",
+        "hurt": "assets/enemies/bacteria_beta_hurt.webp",
+        "defeat": "assets/enemies/bacteria_beta_defeat.webp"
+      },
+      "source": "enemies_advanced",
+      "sourceBoxes": {
+        "idle": [
+          43,
+          665,
+          280,
+          875
+        ],
+        "attack": [
+          309,
+          670,
+          666,
+          878
+        ],
+        "hurt": [
+          731,
+          670,
+          1020,
+          882
+        ],
+        "defeat": [
+          1038,
+          709,
+          1365,
+          888
+        ]
+      }
+    },
+    "virus_gamma": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 123.846,
+      "frames": {
+        "idle": "assets/enemies/virus_gamma_idle.webp",
+        "attack": "assets/enemies/virus_gamma_attack.webp",
+        "hurt": "assets/enemies/virus_gamma_hurt.webp",
+        "defeat": "assets/enemies/virus_gamma_defeat.webp"
+      },
+      "source": "enemies_advanced",
+      "sourceBoxes": {
+        "idle": [
+          34,
+          880,
+          292,
+          1110
+        ],
+        "attack": [
+          357,
+          883,
+          690,
+          1108
+        ],
+        "hurt": [
+          731,
+          886,
+          1008,
+          1108
+        ],
+        "defeat": [
+          1048,
+          919,
+          1363,
+          1110
+        ]
+      }
+    },
+    "boss_bacterial_colony": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 97.869,
+      "frames": {
+        "idle": "assets/enemies/boss_bacterial_colony_idle.webp",
+        "attack": "assets/enemies/boss_bacterial_colony_attack.webp",
+        "hurt": "assets/enemies/boss_bacterial_colony_hurt.webp",
+        "defeat": "assets/enemies/boss_bacterial_colony_hurt.webp"
+      },
+      "source": "bosses",
+      "sourceBoxes": {
+        "idle": [
+          24,
+          51,
+          314,
+          238
+        ],
+        "attack": [
+          346,
+          50,
+          686,
+          235
+        ],
+        "hurt": [
+          715,
+          55,
+          1002,
+          238
+        ]
+      }
+    },
+    "boss_capsule_titan": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 103.462,
+      "frames": {
+        "idle": "assets/enemies/boss_capsule_titan_idle.webp",
+        "attack": "assets/enemies/boss_capsule_titan_attack.webp",
+        "hurt": "assets/enemies/boss_capsule_titan_hurt.webp",
+        "defeat": "assets/enemies/boss_capsule_titan_hurt.webp"
+      },
+      "source": "bosses",
+      "sourceBoxes": {
+        "idle": [
+          18,
+          269,
+          316,
+          475
+        ],
+        "attack": [
+          337,
+          275,
+          706,
+          478
+        ],
+        "hurt": [
+          722,
+          276,
+          1008,
+          477
+        ]
+      }
+    },
+    "boss_virus_factory": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 118.933,
+      "frames": {
+        "idle": "assets/enemies/boss_virus_factory_idle.webp",
+        "attack": "assets/enemies/boss_virus_factory_attack.webp",
+        "hurt": "assets/enemies/boss_virus_factory_hurt.webp",
+        "defeat": "assets/enemies/boss_virus_factory_hurt.webp"
+      },
+      "source": "bosses",
+      "sourceBoxes": {
+        "idle": [
+          37,
+          501,
+          291,
+          724
+        ],
+        "attack": [
+          350,
+          495,
+          678,
+          727
+        ],
+        "hurt": [
+          740,
+          506,
+          980,
+          728
+        ]
+      }
+    },
+    "boss_variant": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 131.523,
+      "frames": {
+        "idle": "assets/enemies/boss_variant_idle.webp",
+        "attack": "assets/enemies/boss_variant_attack.webp",
+        "hurt": "assets/enemies/boss_variant_hurt.webp",
+        "defeat": "assets/enemies/boss_variant_hurt.webp"
+      },
+      "source": "bosses",
+      "sourceBoxes": {
+        "idle": [
+          28,
+          742,
+          291,
+          998
+        ],
+        "attack": [
+          342,
+          747,
+          690,
+          995
+        ],
+        "hurt": [
+          743,
+          744,
+          1002,
+          996
+        ]
+      }
+    },
+    "boss_biofilm_colossus": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 114.569,
+      "frames": {
+        "idle": "assets/enemies/boss_biofilm_colossus_idle.webp",
+        "attack": "assets/enemies/boss_biofilm_colossus_attack.webp",
+        "hurt": "assets/enemies/boss_biofilm_colossus_hurt.webp",
+        "defeat": "assets/enemies/boss_biofilm_colossus_hurt.webp"
+      },
+      "source": "bosses",
+      "sourceBoxes": {
+        "idle": [
+          7,
+          1022,
+          323,
+          1245
+        ],
+        "attack": [
+          342,
+          1022,
+          713,
+          1247
+        ],
+        "hurt": [
+          720,
+          1023,
+          1021,
+          1246
+        ]
+      }
+    },
+    "boss_viral_core": {
+      "pivot": [
+        128,
+        224
+      ],
+      "referenceHeight": 131.981,
+      "frames": {
+        "idle": "assets/enemies/boss_viral_core_idle.webp",
+        "attack": "assets/enemies/boss_viral_core_attack.webp",
+        "hurt": "assets/enemies/boss_viral_core_hurt.webp",
+        "defeat": "assets/enemies/boss_viral_core_hurt.webp"
+      },
+      "source": "bosses",
+      "sourceBoxes": {
+        "idle": [
+          22,
+          1251,
+          325,
+          1502
+        ],
+        "attack": [
+          347,
+          1254,
+          690,
+          1500
+        ],
+        "hurt": [
+          730,
+          1249,
+          1014,
+          1502
+        ]
+      }
+    }
+  },
+  "effects": {
+    "antibody_impact": {
+      "frames": [
+        "assets/effects/antibody_impact_00.webp",
+        "assets/effects/antibody_impact_01.webp",
+        "assets/effects/antibody_impact_02.webp",
+        "assets/effects/antibody_impact_03.webp"
+      ],
+      "duration": 0.6,
+      "loop": false
+    },
+    "healing": {
+      "frames": [
+        "assets/effects/healing_00.webp",
+        "assets/effects/healing_01.webp",
+        "assets/effects/healing_02.webp",
+        "assets/effects/healing_03.webp"
+      ],
+      "duration": 0.6,
+      "loop": false
+    },
+    "toxin": {
+      "frames": [
+        "assets/effects/toxin_00.webp",
+        "assets/effects/toxin_01.webp",
+        "assets/effects/toxin_02.webp",
+        "assets/effects/toxin_03.webp"
+      ],
+      "duration": 0.6,
+      "loop": false
+    },
+    "shield": {
+      "frames": [
+        "assets/effects/shield_00.webp",
+        "assets/effects/shield_01.webp",
+        "assets/effects/shield_02.webp",
+        "assets/effects/shield_03.webp"
+      ],
+      "duration": 0.6,
+      "loop": false
+    }
+  },
+  "items": {
+    "oxygen": "assets/items/oxygen.webp",
+    "nutrient": "assets/items/nutrient.webp",
+    "energy": "assets/items/energy.webp",
+    "health": "assets/items/health.webp",
+    "antibody": "assets/items/antibody.webp",
+    "signal": "assets/items/signal.webp",
+    "fibrin": "assets/items/fibrin.webp",
+    "clot": "assets/items/clot.webp",
+    "plasma_pool": "assets/items/plasma_pool.webp",
+    "tile_normal": "assets/items/tile_normal.webp",
+    "tile_infected": "assets/items/tile_infected.webp",
+    "tile_wound": "assets/items/tile_wound.webp",
+    "vesicle_chest": "assets/items/vesicle_chest.webp",
+    "upgrade_star": "assets/items/upgrade_star.webp",
+    "healing": "assets/items/healing.webp",
+    "research": "assets/items/research.webp"
+  },
+  "backgrounds": [
+    "assets/backgrounds/level1_skin_wound.webp",
+    "assets/backgrounds/level2_capillary.webp",
+    "assets/backgrounds/level3_tissue.webp",
+    "assets/backgrounds/level4_lymphnode.webp",
+    "assets/backgrounds/level5_systemic.webp"
+  ]
+}
