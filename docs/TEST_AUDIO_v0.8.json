@@ -1,0 +1,17 @@
+{
+  "passed": 10,
+  "checks": [
+    "21 PCM WAV files are valid, non-silent, clipped safely and embedded byte-for-byte",
+    "No autoplay or queued battle sound before user unlock",
+    "Unlock decodes all audio once without fetch",
+    "Repeated interactions do not decode twice; per-sound rate limit works",
+    "Mixer never exceeds 12 active voices",
+    "Pause stops battle audio but still allows menu feedback",
+    "Mute and volume survive setting writes and block playback",
+    "Background-tab audio is silent",
+    "Unsupported Web Audio does not crash gameplay",
+    "One damaged audio asset does not block other effects"
+  ],
+  "browserPlayback": false,
+  "note": "PCM and mixer control verified with mocked Web Audio. Device playback/listening test not performed."
+}

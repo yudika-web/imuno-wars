@@ -1,0 +1,27 @@
+{
+  "version": "0.3.0-interaction-fix",
+  "status": "passed_with_environment_limits",
+  "checks": {
+    "javascript_syntax": true,
+    "referenced_assets_found": 196,
+    "missing_assets": 0,
+    "logic_smoke_tests_passed": 9,
+    "logic_smoke_tests": [
+      "pointer mapping",
+      "placement responsive and inspectable",
+      "primed production responds quickly",
+      "b cell visibly tags recognized target",
+      "platelet closes wound with fibrin feedback",
+      "projectile damage arrival",
+      "all abilities execute",
+      "five level seeded simulation finite",
+      "pointer event pipeline installed"
+    ],
+    "browser_screenshot_test": false,
+    "native_canvas_test_rerun": false
+  },
+  "environment_notes": [
+    "Chromium headless did not complete startup in the current container.",
+    "@napi-rs/canvas is not installed, so tools/test_game.cjs could not be rerun here."
+  ]
+}

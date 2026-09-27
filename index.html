@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>IMUNO WARS: Battle in the Bloodstream</title>
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body>
+  <main id="app" class="app-shell">
+    <section id="splashScreen" class="splash-screen screen active" aria-label="Layar pembuka">
+      <img class="splash-art" src="assets/menu/start-screen.webp" alt="Pasukan sel imun menghadapi patogen — IMUNO WARS">
+      <div class="splash-footer">
+        <div id="loadingPanel" class="loading-panel" role="status" aria-live="polite">
+          <strong>MEMUAT<span class="loading-dots" aria-hidden="true">…</span></strong>
+          <progress id="loadingProgress" max="100" value="0" aria-label="Kemajuan pemuatan aset"></progress>
+          <p id="loadingStatus">Memuat aset…</p>
+        </div>
+        <button id="touchStartBtn" class="touch-start primary-btn hidden" disabled>Sentuh untuk Mulai <span aria-hidden="true">▶</span></button>
+        <p class="splash-note">IMUNO WARS · Pertahanan dimulai dari dalam</p>
+      </div>
+    </section>
+
+    <section id="startScreen" class="start-screen screen" aria-label="Menu utama">
+      <div class="menu-orbits" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="main-menu-content">
+        <p class="menu-eyebrow">BATTLE IN THE BLOODSTREAM</p>
+        <h1 class="menu-title">IMUNO <span>WARS</span></h1>
+        <p class="menu-tagline">Sel kecil. Pertahanan besar.</p>
+        <nav class="main-menu-buttons" aria-label="Menu utama">
+          <button id="startBtn" class="menu-button menu-play" disabled><span aria-hidden="true">▶</span> Mulai Misi <small>PIMPIN PASUKANMU</small></button>
+          <button id="openGuideBtn" class="menu-button"><span aria-hidden="true">✦</span> Cara Bermain</button>
+          <button id="menuSettingsBtn" class="menu-button"><span aria-hidden="true">⚙</span> Pengaturan Suara</button>
+        </nav>
+        <p class="menu-progress-note">5 misi · 11 pasukan · Satu pertahanan</p>
+      </div>
+      <footer class="menu-footer"><span>v0.9 · IMUNO WARS</span><button id="backSplashBtn" class="text-button">Layar pembuka ↗</button></footer>
+    </section>
+
+    <section id="levelScreen" class="level-screen screen" aria-label="Pilih level">
+      <header class="screen-header">
+        <div>
+          <h1>Pilih Misi</h1>
+          <p>Selesaikan level secara berurutan untuk membuka mekanik baru.</p><p id="saveStatus" class="small-note"></p>
+        </div>
+        <button id="levelBackBtn" class="icon-text-btn">← Kembali</button>
+      </header>
+      <div id="levelGrid" class="level-grid"></div>
+    </section>
+
+    <section id="gameScreen" class="game-screen screen" aria-label="Permainan">
+      <div class="game-layout">
+        <section class="battle-stage">
+          <div class="canvas-wrap">
+            <canvas id="gameCanvas" width="1100" height="650" aria-label="Arena pertahanan 5 kali 9"></canvas>
+            <div id="toast" class="toast" role="status" aria-live="polite"></div>
+            <div id="waveBanner" class="wave-banner" aria-live="polite"></div>
+          </div>
+        </section>
+      </div>
+
+      <div id="gameLiveHUD" class="live-hud">
+        <div class="topbar">
+          <div class="resource-strip" aria-label="Resource">
+            <div class="resource-pill" title="Energi"><img src="assets/icons/energy.webp" alt="Energi"><span id="energyValue">0</span></div>
+            <div class="resource-pill secondary-resource" title="Oksigen"><img src="assets/icons/oxygen.webp" alt="Oksigen"><span id="oxygenValue">0</span></div>
+            <div class="resource-pill secondary-resource" title="Nutrisi"><img src="assets/icons/nutrient.webp" alt="Nutrisi"><span id="nutrientValue">0</span></div>
+            <div class="resource-pill secondary-resource" title="Sinyal imun"><img src="assets/icons/signal.webp" alt="Sinyal imun"><span id="signalValue">0</span></div>
+            <div class="resource-pill tissue" title="Kesehatan jaringan"><img src="assets/icons/health.webp" alt="Tissue Health"><span id="healthValue">100%</span></div>
+          </div>
+          <div class="battle-progress">
+            <span id="waveText">Persiapan</span>
+            <div class="progress-track"><div id="waveProgressBar" class="progress-fill"></div></div>
+          </div>
+          <button id="pauseBtn" class="square-btn" title="Menu jeda (ESC / Space)" aria-label="Buka menu jeda" aria-controls="pauseOverlay" aria-expanded="false"><img src="assets/ui/pause.webp" alt=""></button>
+        </div>
+        <aside class="unit-sidebar" aria-label="Pilihan pasukan">
+          <button id="unitToggleBtn" class="unit-toggle" aria-expanded="true" aria-controls="unitCards"><span aria-hidden="true">▦</span> Pasukan <span id="selectedUnitText">Pilih unit</span><span class="dock-chevron" aria-hidden="true">⌃</span></button>
+          <div id="unitCards" class="unit-cards"></div>
+        </aside>
+        <div class="battle-bottom"><div id="abilityBar" class="ability-bar" aria-label="Kemampuan aktif"></div></div>
+      </div>
+
+      <div id="pauseOverlay" class="pause-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle" tabindex="-1">
+        <div class="pause-menu">
+          <header class="pause-heading"><div><span class="kicker">PERTEMPURAN DIJEDA</span><h2 id="pauseTitle">Menu Misi</h2><strong id="missionTitle">Misi</strong><p id="missionSubtitle"></p><p id="threatText"></p><p id="pauseResources"></p></div><button id="resumeBtn" class="primary-btn">Lanjutkan <small>ESC</small></button></header>
+          <nav class="pause-actions" aria-label="Kontrol misi">
+            <button id="restartBtn" class="secondary-btn">↻ Ulangi</button>
+            <button id="speedBtn" class="secondary-btn">Kecepatan <span id="speedLabel">1×</span></button>
+            <button id="homeBtn" class="secondary-btn">⌂ Pilih Misi</button>
+            <button id="soundBtn" class="secondary-btn" aria-pressed="true">SFX: AKTIF</button>
+            <button id="pauseSettingsBtn" class="secondary-btn">⚙ Musik &amp; SFX</button>
+            <label class="volume-control">Volume SFX <input id="sfxVolume" type="range" min="0" max="100" value="55" aria-label="Volume efek suara"></label>
+          </nav>
+          <p id="audioStatus" class="small-note"></p>
+          <aside class="intel-sidebar">
+            <div id="bossPanel" class="boss-panel hidden"></div>
+            <div id="antibodyPanel" class="antibody-panel hidden"><h3>Antigen & Antibodi</h3><p class="tiny-copy">Kumpulkan 3 sampel. Pilih antibodi yang siap untuk mengaktifkan dan melanjutkan permainan.</p><div id="antibodyButtons" class="antibody-buttons"></div></div>
+            <section class="intel-card"><h3>Catatan Misi</h3><div id="bioLog" class="bio-log"></div></section>
+            <section class="intel-card"><h3>Strategi</h3><p id="hintText"></p><div id="unitInspector" class="unit-inspector" aria-live="polite"><strong>Pilih pasukan</strong><span>Sentuh kartu, lalu kotak arena; mouse juga mendukung drag & drop.</span></div><p class="pause-shortcuts">ESC / Space: jeda · 1–9: pilih unit<br>Kartu di atas: geser untuk melihat pasukan lainnya.</p></section>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Informasi misi">
+    <div class="modal-card glass-card">
+      <button id="modalCloseBtn" class="modal-close" aria-label="Tutup">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div id="audioSettings" class="audio-settings hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" tabindex="-1">
+    <div class="settings-card">
+      <p class="menu-eyebrow">SESUAIKAN SUASANA</p><h2 id="settingsTitle">Pengaturan Suara</h2>
+      <div class="audio-setting-row"><label for="musicVolume">Musik latar <output id="musicVolumeValue">35%</output></label><input id="musicVolume" type="range" min="0" max="100" value="35"><button id="musicMuteBtn" class="secondary-btn" aria-pressed="false">Bisukan musik</button></div>
+      <div class="audio-setting-row"><label for="settingsSfxVolume">Efek suara <output id="settingsSfxValue">55%</output></label><input id="settingsSfxVolume" type="range" min="0" max="100" value="55"><button id="settingsSfxMuteBtn" class="secondary-btn" aria-pressed="false">Bisukan SFX</button><button id="testSfxBtn" class="text-button">▶ Coba efek suara</button></div>
+      <p id="musicStatus" class="small-note" role="status"></p>
+      <p class="small-note">Pengaturan tersimpan otomatis di perangkat ini.</p>
+      <button id="closeSettingsBtn" class="primary-btn">Selesai</button>
+    </div>
+  </div>
+
+  <script src="data/game-data.js"></script>
+  <script src="data/sprite-data.js"></script>
+  <script src="data/sprite-metrics.js"></script>
+  <script src="data/audio-data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

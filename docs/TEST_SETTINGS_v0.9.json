@@ -1,0 +1,12 @@
+{
+  "passed": 6,
+  "checks": [
+    "Menu settings opens as a modal and focuses the music slider",
+    "Each slider changes only its own audio channel",
+    "Music and SFX mute are independent and reflected in aria state",
+    "ESC is captured before gameplay and restores focus without resuming it",
+    "Pause settings preserves an already inert underlying dialog",
+    "Tab and Shift Tab stay within the audio dialog"
+  ],
+  "browserTest": false
+}
