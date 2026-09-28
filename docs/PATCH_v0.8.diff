@@ -1,0 +1,581 @@
+--- a/index.html
++++ b/index.html
+@@ -33,7 +33,7 @@
+             <div><strong>5</strong><span>Level</span></div>
+             <div><strong>2</strong><span>Sistem imun</span></div>
+           </div>
+-          <p class="small-note">v0.7 · Fantasy Arsenal · Mainkan offline · Tanpa audio</p>
++          <p class="small-note">v0.8 · Oxygen & SFX · Mainkan offline · Atur suara lewat menu jeda</p>
+         </div>
+ 
+         <div class="start-visual glass-card" aria-label="Preview karakter">
+@@ -73,80 +73,56 @@
+     </section>
+ 
+     <section id="gameScreen" class="game-screen screen" aria-label="Permainan">
+-      <div class="topbar">
+-        <div class="mission-block">
+-          <button id="homeBtn" class="square-btn" title="Kembali ke pemilihan level"><img src="assets/ui/home.webp" alt="Home"></button>
+-          <div>
+-            <strong id="missionTitle">Misi</strong>
+-            <span id="missionSubtitle">Subjudul</span>
+-          </div>
+-        </div>
+-
+-        <div class="resource-strip" aria-label="Resource">
+-          <div class="resource-pill"><img src="assets/icons/energy.webp" alt="Energi"><span id="energyValue">0</span></div>
+-          <div class="resource-pill"><img src="assets/icons/oxygen.webp" alt="Oksigen"><span id="oxygenValue">0</span></div>
+-          <div class="resource-pill"><img src="assets/icons/nutrient.webp" alt="Nutrisi"><span id="nutrientValue">0</span></div>
+-          <div class="resource-pill"><img src="assets/icons/signal.webp" alt="Sinyal imun"><span id="signalValue">0</span></div>
+-          <div class="resource-pill tissue"><img src="assets/icons/health.webp" alt="Tissue Health"><span id="healthValue">100%</span></div>
+-        </div>
+-
+-        <div class="control-strip">
+-          <button id="pauseBtn" class="square-btn" title="Pause"><img src="assets/ui/pause.webp" alt="Pause"></button>
+-          <button id="speedBtn" class="square-btn" title="Kecepatan"><img src="assets/ui/speed.webp" alt="Speed"><span id="speedLabel" class="speed-label">1×</span></button>
+-          <button id="restartBtn" class="square-btn" title="Restart"><img src="assets/ui/restart.webp" alt="Restart"></button>
+-        </div>
+-      </div>
+-
+       <div class="game-layout">
+-        <aside class="unit-sidebar glass-card">
+-          <div class="panel-heading">
+-            <h2>Pasukan Sel</h2>
+-            <span id="selectedUnitText">Pilih unit</span>
+-          </div>
+-          <div id="unitCards" class="unit-cards"></div>
+-          <div id="unitInspector" class="unit-inspector" aria-live="polite">
+-            <strong>Siap menempatkan unit</strong>
+-            <span>Pilih unit lalu sentuh/klik tile arena.</span>
+-          </div>
+-        </aside>
+-
+         <section class="battle-stage">
+           <div class="canvas-wrap">
+             <canvas id="gameCanvas" width="1100" height="650" aria-label="Arena pertahanan 5 kali 9"></canvas>
+-            <div id="pauseOverlay" class="pause-overlay hidden">JEDA<span>Tekan ▶ atau Space untuk melanjutkan</span></div>
+             <div id="toast" class="toast" role="status" aria-live="polite"></div>
+-            <div id="waveBanner" class="wave-banner"></div>
+-          </div>
+-
+-          <div class="battle-bottom glass-card">
+-            <div class="battle-progress">
+-              <div class="progress-labels">
+-                <span id="waveText">Wave 1/4</span>
+-                <span id="threatText">Threat: stabil</span>
+-              </div>
+-              <div class="progress-track"><div id="waveProgressBar" class="progress-fill"></div></div>
+-            </div>
+-            <div id="abilityBar" class="ability-bar"></div>
++            <div id="waveBanner" class="wave-banner" aria-live="polite"></div>
+           </div>
+         </section>
++      </div>
+ 
+-        <aside class="intel-sidebar glass-card">
+-          <div class="panel-heading"><h2>Intel Misi</h2><span>LIVE</span></div>
+-          <div id="bossPanel" class="boss-panel hidden"></div>
+-          <div id="antibodyPanel" class="antibody-panel hidden">
+-            <h3>Antigen & Antibodi</h3>
+-            <p class="tiny-copy">Sel Dendritik mengumpulkan sampel. Setelah antigen dikenali, aktifkan antibodi yang cocok.</p>
+-            <div id="antibodyButtons" class="antibody-buttons"></div>
++      <div id="gameLiveHUD" class="live-hud">
++        <div class="topbar">
++          <div class="resource-strip" aria-label="Resource">
++            <div class="resource-pill" title="Energi"><img src="assets/icons/energy.webp" alt="Energi"><span id="energyValue">0</span></div>
++            <div class="resource-pill secondary-resource" title="Oksigen"><img src="assets/icons/oxygen.webp" alt="Oksigen"><span id="oxygenValue">0</span></div>
++            <div class="resource-pill secondary-resource" title="Nutrisi"><img src="assets/icons/nutrient.webp" alt="Nutrisi"><span id="nutrientValue">0</span></div>
++            <div class="resource-pill secondary-resource" title="Sinyal imun"><img src="assets/icons/signal.webp" alt="Sinyal imun"><span id="signalValue">0</span></div>
++            <div class="resource-pill tissue" title="Kesehatan jaringan"><img src="assets/icons/health.webp" alt="Tissue Health"><span id="healthValue">100%</span></div>
+           </div>
+-          <div class="intel-card">
+-            <h3>Catatan Misi</h3>
+-            <div id="bioLog" class="bio-log"></div>
++          <div class="battle-progress">
++            <span id="waveText">Persiapan</span>
++            <div class="progress-track"><div id="waveProgressBar" class="progress-fill"></div></div>
+           </div>
+-          <div class="intel-card">
+-            <h3>Strategi</h3>
+-            <p id="hintText">Tempatkan Eritrosit terlebih dahulu untuk ekonomi energi.</p>
+-          </div>
++          <button id="pauseBtn" class="square-btn" title="Menu jeda (ESC / Space)" aria-label="Buka menu jeda" aria-controls="pauseOverlay" aria-expanded="false"><img src="assets/ui/pause.webp" alt=""></button>
++        </div>
++        <aside class="unit-sidebar collapsed" aria-label="Pilihan pasukan">
++          <button id="unitToggleBtn" class="unit-toggle" aria-expanded="false" aria-controls="unitCards"><span aria-hidden="true">▦</span> Pasukan <span id="selectedUnitText">Pilih unit</span><span class="dock-chevron" aria-hidden="true">⌃</span></button>
++          <div id="unitCards" class="unit-cards" hidden></div>
+         </aside>
++        <div class="battle-bottom"><div id="abilityBar" class="ability-bar" aria-label="Kemampuan aktif"></div></div>
++      </div>
++
++      <div id="pauseOverlay" class="pause-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle" tabindex="-1">
++        <div class="pause-menu">
++          <header class="pause-heading"><div><span class="kicker">PERTEMPURAN DIJEDA</span><h2 id="pauseTitle">Menu Misi</h2><strong id="missionTitle">Misi</strong><p id="missionSubtitle"></p><p id="threatText"></p><p id="pauseResources"></p></div><button id="resumeBtn" class="primary-btn">Lanjutkan <small>ESC</small></button></header>
++          <nav class="pause-actions" aria-label="Kontrol misi">
++            <button id="restartBtn" class="secondary-btn">↻ Ulangi</button>
++            <button id="speedBtn" class="secondary-btn">Kecepatan <span id="speedLabel">1×</span></button>
++            <button id="homeBtn" class="secondary-btn">⌂ Pilih Misi</button>
++            <button id="soundBtn" class="secondary-btn" aria-pressed="true">Suara: AKTIF</button>
++            <label class="volume-control">Volume SFX <input id="sfxVolume" type="range" min="0" max="100" value="55" aria-label="Volume efek suara"></label>
++          </nav>
++          <p id="audioStatus" class="small-note"></p>
++          <aside class="intel-sidebar">
++            <div id="bossPanel" class="boss-panel hidden"></div>
++            <div id="antibodyPanel" class="antibody-panel hidden"><h3>Antigen & Antibodi</h3><p class="tiny-copy">Kumpulkan 3 sampel. Pilih antibodi yang siap untuk mengaktifkan dan melanjutkan permainan.</p><div id="antibodyButtons" class="antibody-buttons"></div></div>
++            <section class="intel-card"><h3>Catatan Misi</h3><div id="bioLog" class="bio-log"></div></section>
++            <section class="intel-card"><h3>Strategi</h3><p id="hintText"></p><div id="unitInspector" class="unit-inspector" aria-live="polite"><strong>Pilih pasukan</strong><span>Sentuh kartu, lalu kotak arena; mouse juga mendukung drag & drop.</span></div><p class="pause-shortcuts">ESC / Space: jeda · 1–9: pilih unit<br>Ketuk Pasukan untuk membuka / melipat daftar.</p></section>
++          </aside>
++        </div>
+       </div>
+     </section>
+   </main>
+@@ -161,6 +137,8 @@
+   <script src="data/game-data.js"></script>
+   <script src="data/sprite-data.js"></script>
+   <script src="data/sprite-metrics.js"></script>
++  <script src="data/audio-data.js"></script>
++  <script src="js/audio.js"></script>
+   <script src="js/game.js"></script>
+ </body>
+ </html>
+--- a/css/game.css
++++ b/css/game.css
+@@ -15,3 +15,48 @@
+ @media(max-width:980px){.game-screen.active{height:auto;min-height:100svh;overflow:visible;padding:8px;gap:8px}.game-layout{display:flex;flex-direction:column}.topbar{grid-template-columns:minmax(0,1fr) auto;position:sticky;top:0;z-index:30;gap:8px}.resource-strip{grid-column:1/-1;grid-row:2;justify-content:center;overflow-x:auto}.control-strip{grid-column:2;grid-row:1}.resource-pill{flex:1;justify-content:center;max-width:140px}.unit-sidebar{order:1;overflow:visible}.unit-sidebar .panel-heading{margin-bottom:8px;padding-bottom:7px}.unit-cards{display:flex;overflow-x:auto;padding-bottom:7px;scrollbar-width:thin}.unit-card{flex:0 0 152px;min-height:58px}.unit-inspector{padding:6px 0 0;margin-top:2px}.unit-inspector span{display:none}.battle-stage{order:2;gap:8px}.canvas-wrap{max-height:none;flex:none;aspect-ratio:1100/650;width:100%}#gameCanvas{position:absolute;inset:0}.intel-sidebar{order:3;display:grid;grid-template-columns:1fr 1fr;overflow:visible}.intel-sidebar .panel-heading{grid-column:1/-1}.battle-bottom{padding:8px}.ability-btn{height:42px}.ability-name{display:block}.start-stage{gap:20px;grid-template-columns:1fr 1fr}.hero-clash{height:320px}.start-tip ol{gap:10px}.start-tip li{font-size:.62rem}.start-screen{padding:24px}.hero-title{font-size:clamp(3rem,7.3vw,5rem)}}
+ @media(max-width:650px){.screen{padding:14px}.start-stage{grid-template-columns:1fr;gap:15px}.start-copy{padding:8px}.hero-title{font-size:3.9rem;margin-top:20px}.hero-title .title-accent{display:inline}.hero-title>span{font-size:clamp(2.5rem,10.4vw,4rem)}.hero-title small{letter-spacing:.15em;margin-top:13px;font-size:.58rem}.kicker{font-size:.6rem;letter-spacing:.1em}.lead{font-size:.83rem;margin-bottom:15px}.feature-chips{margin-bottom:20px;gap:5px}.feature-chip{font-size:.57rem}.start-actions{display:grid;grid-template-columns:1.2fr 1fr;gap:9px}.start-copy .primary-btn{min-width:0}.primary-btn,.secondary-btn{font-size:.77rem;padding:13px 15px}.start-stats{gap:22px;margin-bottom:10px}.start-stats strong{font-size:1.2rem}.start-visual{padding:9px;transform:none}.hero-clash{height:260px}.start-tip{padding-top:12px}.start-tip ol{gap:14px}.start-tip li{font-size:.66rem}.screen-header{margin:10px auto 22px;align-items:flex-start}.screen-header h1{font-size:1.7rem}.screen-header p{font-size:.72rem}.icon-text-btn{font-size:.7rem;padding:10px 13px}.level-grid{grid-template-columns:1fr 1fr;gap:10px}.level-thumb{height:120px}.level-body{padding:12px}.level-body h2{font-size:.9rem}.level-body p{font-size:.66rem}.topbar{padding:8px;min-height:0}.mission-block{gap:8px}.mission-block strong{font-size:.7rem}.mission-block span{display:none}.square-btn{width:34px;height:34px;border-radius:8px}.square-btn img{width:25px;height:25px}.control-strip{gap:5px}.resource-strip{gap:4px}.resource-pill{height:32px;min-width:0;padding:3px;gap:3px;font-size:.7rem}.resource-pill img{width:23px;height:23px}.unit-card{flex-basis:142px}.intel-sidebar{grid-template-columns:1fr}.ability-name{display:none}.ability-btn{min-width:37px;height:36px}.ability-btn img{height:26px;width:26px}.wave-banner{font-size:.59rem;padding:6px 9px;top:7%}.toast{font-size:.57rem;padding:6px 9px;bottom:6px}.progress-labels{font-size:.55rem}.pause-overlay{font-size:1.3rem}.pause-overlay span{font-size:.6rem}.modal{padding:10px}.modal-card{padding:22px 17px}.modal h2{font-size:1.4rem}.intro-facts,.guide-grid{grid-template-columns:1fr}.intro-facts{gap:6px}.fact-chip{padding:9px}.modal p{font-size:.77rem}}
+ @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
++
++/* v0.8 full-viewport battle. These rules apply to every screen width. */
++#gameScreen.active{position:fixed;inset:0;display:block;width:100vw;width:100dvw;height:100vh;height:100dvh;min-height:0;padding:0;overflow:hidden;background:#0a1b26;isolation:isolate}
++#gameScreen .game-layout,#gameScreen .battle-stage,#gameScreen .canvas-wrap{position:absolute;inset:0;width:100%;height:100%;min-height:0;max-height:none;display:block;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;aspect-ratio:auto;background:#0a1b26}
++#gameScreen #gameCanvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;touch-action:none;border:0;border-radius:0}
++#gameScreen .canvas-wrap:after{display:none}
++.live-hud{position:absolute;inset:0;z-index:10;pointer-events:none}
++#gameScreen .topbar{position:absolute;top:max(8px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));display:flex;gap:12px;align-items:center;justify-content:space-between;min-height:0;height:43px;padding:3px 5px;background:linear-gradient(90deg,#061925be,#07192380);border:1px solid #78b7bd3d;border-radius:10px;box-shadow:none;pointer-events:none;backdrop-filter:blur(5px)}
++#gameScreen .resource-strip{display:flex;flex:none;gap:7px;overflow:visible;padding:0;grid-area:auto}
++#gameScreen .resource-pill{flex:none;min-width:0;max-width:none;height:30px;padding:2px 5px;gap:4px;background:transparent;border:0;border-radius:5px;font-size:.78rem;pointer-events:none}
++#gameScreen .resource-pill img{width:23px;height:23px}#gameScreen .resource-pill.tissue{background:#50203280}
++#gameScreen .topbar .battle-progress{flex:1;max-width:260px;min-width:65px;font-size:.65rem;text-align:right;line-height:1.2;color:#f0fbff;text-shadow:0 1px 3px #000}
++#gameScreen .progress-track{height:4px;background:#00121daa;margin-top:5px}
++#gameScreen #pauseBtn{width:33px;height:33px;pointer-events:auto;box-shadow:none;flex:none}#gameScreen #pauseBtn img{width:23px;height:23px}
++#gameScreen .unit-sidebar{position:absolute;left:max(10px,env(safe-area-inset-left));bottom:max(54px,calc(env(safe-area-inset-bottom) + 54px));width:auto;max-width:calc(100% - 20px);max-height:none;min-height:0;padding:0;border:0;overflow:visible;background:transparent;box-shadow:none;pointer-events:none;display:flex;flex-direction:column-reverse;gap:6px}
++#gameScreen .unit-toggle{pointer-events:auto;align-self:flex-start;display:flex;align-items:center;gap:9px;height:33px;padding:5px 11px;border:1px solid #8cb9bb7d;border-radius:8px;background:#082333d9;color:#d5f5ec;font-size:.69rem;font-weight:900;box-shadow:0 3px 9px #0003;backdrop-filter:blur(5px)}
++#selectedUnitText{font-size:.59rem;color:#9dc4ce;font-weight:600;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dock-chevron{transform:rotate(180deg)}.collapsed .dock-chevron{transform:none}
++#gameScreen .unit-cards{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;max-width:min(100%,1050px);padding:5px 5px 8px;pointer-events:auto;touch-action:pan-x;background:#061c2ad9;border:1px solid #73b5b050;border-radius:10px;scrollbar-width:thin;backdrop-filter:blur(6px)}
++#gameScreen .unit-cards[hidden]{display:none}
++#gameScreen .unit-card{flex:0 0 125px;min-height:52px;height:54px;padding:2px 5px 2px 1px;grid-template-columns:43px minmax(0,1fr);grid-template-rows:1fr auto;gap:0 3px;transform:none;box-shadow:none;background:#193c48eb;touch-action:pan-x}
++#gameScreen .unit-card>img{width:44px;height:44px;grid-row:1/3}#gameScreen .unit-card strong{font-size:.6rem;line-height:1.08}#gameScreen .unit-card .cost{font-size:.6rem;grid-column:2;justify-content:flex-start}#gameScreen .unit-card .cost img{width:12px;height:12px}#gameScreen .unit-role{display:none}#gameScreen .unit-hotkey{font-size:.46rem}
++#gameScreen .battle-bottom{position:absolute;left:50%;bottom:max(8px,env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:calc(100% - 20px);display:block;padding:3px 4px;border:1px solid #6da2b443;border-radius:10px;background:#071c2cbd;box-shadow:none;pointer-events:auto;backdrop-filter:blur(5px)}
++#gameScreen .ability-bar{display:flex;justify-content:flex-start;gap:5px;padding:0;overflow-x:auto;max-width:100%;scrollbar-width:none}#gameScreen .ability-btn{flex:none;min-width:51px;max-width:none;height:33px;padding:3px 6px;box-shadow:none;background:#173846a6}#gameScreen .ability-btn img{width:24px;height:24px}#gameScreen .ability-name{display:block;font-size:.5rem}
++#gameScreen .toast{position:fixed;bottom:auto;top:65px;z-index:60;max-width:85%;font-size:.73rem}#gameScreen .wave-banner{top:21%;z-index:5}
++/* Pause is a separate full-screen dialog, never a permanent dashboard column. */
++#gameScreen .pause-overlay{position:fixed;inset:0;z-index:50;display:block;overflow-y:auto;overscroll-behavior:contain;padding:max(22px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom));background:#03131ae8;backdrop-filter:blur(9px);pointer-events:auto;letter-spacing:normal;color:var(--ink);font-size:1rem;font-weight:400}
++.pause-menu{max-width:1040px;margin:0 auto}.pause-heading{display:flex;align-items:center;justify-content:space-between;gap:18px}.pause-heading h2{font-size:2rem;margin:12px 0}.pause-heading strong{display:block;color:#e2f7ff;font-size:.98rem}.pause-heading p{color:#9ec1cd;font-size:.75rem;margin:7px 0}.pause-heading .primary-btn{flex:none}.pause-heading small{margin-left:10px;font-size:.6rem;opacity:.7}
++.pause-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:22px}.pause-actions .secondary-btn{font-size:.75rem;padding:11px 15px}.volume-control{display:flex;align-items:center;gap:10px;font-size:.7rem;color:#b0d0dd;margin:5px}.volume-control input{width:105px;accent-color:#70e6c0}
++#gameScreen .pause-overlay .intel-sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:auto;min-height:0;max-height:none;margin:20px 0 0;padding:0;border:0;overflow:visible;background:transparent;box-shadow:none}
++#gameScreen .pause-overlay .intel-card,#gameScreen .pause-overlay .boss-panel,#gameScreen .pause-overlay .antibody-panel{padding:17px;background:#102d39c7;border:1px solid #47697770;border-radius:12px}
++#gameScreen .pause-overlay h3{font-size:.8rem;margin-bottom:12px}#gameScreen .pause-overlay .intel-card p,#gameScreen .pause-overlay .tiny-copy{font-size:.78rem;line-height:1.65}#gameScreen .pause-overlay .bio-log{max-height:290px}#gameScreen .pause-overlay .log-entry{font-size:.73rem;padding:0 0 9px 10px}#gameScreen .pause-overlay .boss-name{font-size:.88rem}#gameScreen .pause-overlay .boss-meta{font-size:.66rem}#gameScreen .pause-overlay .antibody-buttons{grid-template-columns:repeat(4,minmax(0,1fr))}#gameScreen .pause-overlay .unit-inspector{position:static;display:block}#gameScreen .pause-overlay .unit-inspector span{display:block;font-size:.72rem}.pause-shortcuts{margin-top:18px!important;color:#759eae!important}
++#gameScreen .pause-overlay span{letter-spacing:normal}.pause-overlay #speedLabel{font-size:inherit;color:var(--gold);font-weight:900}
++@media(max-width:650px){
++ #gameScreen .topbar{height:38px;left:5px;right:5px;gap:5px;padding:2px 4px}#gameScreen .resource-strip{gap:2px}#gameScreen .resource-pill{font-size:.64rem;padding:2px;gap:2px}#gameScreen .resource-pill img{width:19px;height:19px}#gameScreen .secondary-resource{display:none}#gameScreen .battle-progress{font-size:.58rem}#gameScreen #pauseBtn{width:30px;height:30px}
++ #gameScreen .unit-sidebar{left:6px;max-width:calc(100% - 12px)}#gameScreen .unit-toggle{height:31px;font-size:.63rem}#gameScreen .unit-cards{gap:5px}#gameScreen .unit-card{flex-basis:112px;height:52px;min-height:52px}
++ #gameScreen .ability-name{display:none}#gameScreen .ability-btn{min-width:37px;padding:3px;height:32px}#gameScreen .battle-bottom{max-width:calc(100% - 12px)}#gameScreen .wave-banner{font-size:.7rem;top:22%}#gameScreen .toast{font-size:.65rem;top:54px}
++ #gameScreen .pause-overlay{padding:18px 12px}.pause-heading{align-items:flex-start}.pause-heading h2{font-size:1.5rem}.pause-heading .primary-btn{font-size:.72rem;padding:11px}.pause-heading strong{font-size:.78rem}.pause-heading small{display:none}.pause-actions{gap:7px;margin-top:15px}.pause-actions .secondary-btn{font-size:.69rem;padding:10px}
++ #gameScreen .pause-overlay .intel-sidebar{grid-template-columns:1fr;gap:10px;margin-top:12px}#gameScreen .pause-overlay .intel-card,#gameScreen .pause-overlay .boss-panel,#gameScreen .pause-overlay .antibody-panel{padding:13px}
++}
++@media(max-height:500px) and (min-width:651px){#gameScreen .topbar{height:35px;top:4px}#gameScreen .unit-sidebar{bottom:46px}#gameScreen .unit-toggle{height:28px}#gameScreen .battle-bottom{bottom:4px}#gameScreen .unit-card{height:48px;min-height:48px}#gameScreen .wave-banner{top:18%}.pause-heading h2{font-size:1.4rem;margin:6px 0}.pause-actions{margin-top:12px}}
++/* Keep collapsed controls on the outer bottom edge, clear of last-row centers. */
++#gameScreen .unit-sidebar{bottom:max(8px,env(safe-area-inset-bottom))}
++#gameScreen .battle-bottom{left:auto;right:max(10px,env(safe-area-inset-right));transform:none;max-width:calc(100% - 265px)}
++@media(max-width:650px){#gameScreen .unit-toggle{max-width:96px;gap:5px;padding:5px 7px}#selectedUnitText{display:none}#gameScreen .battle-bottom{right:6px;max-width:calc(100% - 110px)}}
++@media(max-height:500px) and (min-width:651px){#gameScreen .unit-sidebar{bottom:4px}}
+--- a/js/game.js
++++ b/js/game.js
+@@ -3,6 +3,7 @@
+ 
+   const DATA = window.IMMUNO_DATA;
+   const SPRITES = window.IMMUNO_SPRITES;
++  const sfx=(name,options)=>window.IMMUNO_SOUND?.play(name,options);
+   const $ = (sel) => document.querySelector(sel);
+   const $$ = (sel) => [...document.querySelectorAll(sel)];
+   const canvas = $('#gameCanvas');
+@@ -124,6 +125,7 @@
+   function showScreen(name){
+     Object.values(screens).forEach(s=>s.classList.remove('active'));
+     screens[name].classList.add('active');
++    if(name!=='game'){window.IMMUNO_SOUND?.stopAll();setPauseUI(false);}
+     if(name==='levels') renderLevelSelect();
+     if(name==='game') draw();
+   }
+@@ -178,6 +180,8 @@
+ 
+   // ---------- level setup ----------
+   function startLevel(levelId){
++    window.IMMUNO_SOUND?.stopAll();window.IMMUNO_SOUND?.setPaused(false);
++    setPauseUI(false);setUnitDock(false);
+     const level = DATA.levels[levelId-1];
+     state.level = level;
+     state.levelIndex = levelId-1;
+@@ -232,6 +236,7 @@
+     $('#beginLevelBtn').onclick = () => {
+       closeModal();
+       state.running = true;
++      sfx('ui_click',{ui:true});
+       state.lastFrame = performance.now();
+       accumulator = 0;
+       state.intermissionUntil = state.elapsed + 0.45;
+@@ -254,12 +259,13 @@
+ 
+   function renderUnitCards(){
+     const units = Object.entries(DATA.units).filter(([,u])=>u.unlock<=state.level.id);
+-    $('#unitCards').innerHTML = units.map(([key,u],index) => `<button class="unit-card ${state.selectedUnit===key?'selected':''}" data-unit="${key}" title="${u.description}">
++    $('#unitCards').innerHTML = units.map(([key,u],index) => `<button draggable="true" class="unit-card ${state.selectedUnit===key?'selected':''}" data-unit="${key}" title="${u.description}">
+       <span class="role-dot role-${u.role}"></span><img src="${u.asset}" alt="${u.name}">
+       <span class="unit-card-copy"><strong>${u.name}</strong><span class="unit-role">${u.weapon||roleLabel(u.role)}</span></span><span class="unit-hotkey">${index<9?index+1:''}</span>
+       <span class="cost"><img src="assets/icons/energy.webp" alt="Energy">${u.cost}</span>
+     </button>`).join('');
+     $$('.unit-card').forEach(btn=>btn.addEventListener('click',()=>{
++      sfx('ui_click',{ui:true});setUnitDock(false);
+       state.selectedUnit=btn.dataset.unit;
+       state.selectedPlacedId=null;
+       renderUnitCards();
+@@ -267,7 +273,14 @@
+       updateHUD();
+       draw();
+     }));
++    $$('.unit-card').forEach(btn=>btn.addEventListener('dragstart',ev=>{
++      if(!state.running||state.paused||!ev.dataTransfer){ev.preventDefault();return;}
++      state.selectedUnit=btn.dataset.unit;state.selectedPlacedId=null;
++      ev.dataTransfer.setData('application/x-immunofront-unit',btn.dataset.unit);ev.dataTransfer.effectAllowed='copy';
++      updateUnitInspector();
++    }));
+     $('#selectedUnitText').textContent = DATA.units[state.selectedUnit]?.name || 'Pilih unit';
++    $('#unitToggleBtn').setAttribute('aria-label',`Pasukan: ${DATA.units[state.selectedUnit]?.name||'pilih unit'}. Buka atau lipat daftar.`);
+     updateUnitInspector();
+   }
+ 
+@@ -315,13 +328,14 @@
+     panel.classList.remove('hidden');
+     $('#antibodyButtons').innerHTML = ANTIGENS.map(k=>{
+       const a=DATA.antigens[k], count=state.antigenSamples[k], known=count>=3, active=state.activeAntibody===k&&state.elapsed<state.antibodyUntil;
+-      return `<button class="antibody-btn ${known?'':'locked'} ${active?'active':''}" data-antigen="${k}" title="${known?'Aktifkan antibodi — biaya 15 signal':'Butuh 3 sampel'}"><span class="sample-count">${Math.min(3,count)}/3</span><img src="${a.icon}" alt="${a.name}">${a.label}</button>`;
++      return `<button class="antibody-btn ${known?'':'locked'} ${active?'active':''}" data-antigen="${k}" title="${known?'Aktifkan & lanjutkan — biaya 15 signal':'Butuh 3 sampel'}"><span class="sample-count">${Math.min(3,count)}/3</span><img src="${a.icon}" alt="${a.name}">${a.label}</button>`;
+     }).join('');
+-    $$('.antibody-btn').forEach(btn=>btn.addEventListener('click',()=>activateAntibody(btn.dataset.antigen)));
++    $$('.antibody-btn').forEach(btn=>btn.addEventListener('click',()=>chooseAntibody(btn.dataset.antigen)));
+   }
+ 
+   // ---------- wave system ----------
+   function beginWave(index){
++    sfx('wave');
+     state.waveIndex=index;
+     state.waveActive=true;
+     state.spawnQueue=[];
+@@ -352,7 +366,7 @@
+     state.enemies.push(enemy);
+     burst('toxin',enemy.x,enemy.y,52);
+     if(state.activeAntibody===enemy.antigen && state.elapsed<state.antibodyUntil) enemy.taggedUntil=state.antibodyUntil;
+-    if(tpl.boss){ addLog(`${tpl.name} memasuki pembuluh.`); updateBossPanel(); }
++    if(tpl.boss){ sfx('boss');addLog(`${tpl.name} memasuki pembuluh.`); updateBossPanel(); }
+   }
+ 
+   function updateWaveSystem(){
+@@ -429,6 +443,7 @@
+     if(closedWound){ burst('shield',unit.x,unit.y,105); resourcePop('fibrin',unit.x,unit.y,1); }
+     else burst('healing',unit.x,unit.y,72);
+     state.effects.push({type:'pulse',x:unit.x,y:unit.y,life:.7,maxLife:.7,size:42});
++    sfx('place');
+     toast(`${tpl.name} ditempatkan • aktif`);
+     updateHUD();
+     updateUnitInspector();
+@@ -458,6 +473,7 @@
+   }
+   function applyDamage(enemy, amount, uType=''){ 
+     if(enemy.dead||enemy.hp<=0)return;
++    sfx(enemy.shield>0?'shield':'hit');
+     enemy.hurtUntil=state.elapsed+.16;
+     const tpl=DATA.enemies[enemy.type];
+     let dmg=amount*damageMultiplierAgainst(enemy,uType);
+@@ -546,6 +562,7 @@
+ 
+   const WEAPON_COLORS={neutrophil:'#65f0ff',macrophage:'#44e6c5',nk_cell:'#bf8aff',cytotoxic_t:'#78b5ff',b_cell:'#ffe177',memory_b:'#dba3ff'};
+   function fireWeapon(u,target,damage,tagDuration=0){
++    sfx(({neutrophil:'blaster',macrophage:'heavy',nk_cell:'pulse',cytotoxic_t:'arc',b_cell:'antibody',memory_b:'antibody'})[u.type]);
+     const life=tagDuration ? .28 : .22;
+     const color=WEAPON_COLORS[u.type]||'#7aeede';
+     state.projectiles.push({x:u.x+30,y:u.y+2,targetId:target.id,targetX:target.x,targetY:target.y,damage,source:u.type,life,maxLife:life,item:tagDuration?'antibody':'energy',tagDuration,color});
+@@ -595,6 +612,7 @@
+         e.dead=true;
+         const impact=tpl.boss?30:tpl.kind==='infected'?16:10;
+         state.tissue=Math.max(0,state.tissue-impact);
++        sfx('breach');
+         hitEffect(GRID.x-35,e.y,'#ff6977');
+         addLog(`${tpl.name} menembus pertahanan: Tissue Health −${impact}.`);
+       }
+@@ -607,6 +625,7 @@
+   }
+ 
+   function onEnemyKilled(e){
++    sfx('enemy_down');
+     const tpl=DATA.enemies[e.type];
+     state.energy+=tpl.reward;
+     if(tpl.kind==='bacteria'||tpl.kind==='virus'||tpl.kind==='infected') state.signal+=2;
+@@ -618,6 +637,7 @@
+   }
+ 
+   function sampleAntigen(k,n){
++    sfx('scan');
+     const before=state.antigenSamples[k];
+     state.antigenSamples[k]=Math.min(3,before+n);
+     state.signal+=3*n;
+@@ -632,6 +652,7 @@
+     if(!state.running||state.paused)return;
+     if(state.antigenSamples[k]<3){toast('Antigen belum dikenali. Kumpulkan 3 sampel dengan Sel Dendritik.');return;}
+     if(state.signal<15){toast('Immune Signal belum cukup (butuh 15).');return;}
++    sfx('antibody');
+     state.signal-=15; state.activeAntibody=k; state.antibodyUntil=state.elapsed+14;
+     let count=0;
+     state.enemies.forEach(e=>{if(e.antigen===k){e.taggedUntil=state.antibodyUntil;burst('antibody_impact',e.x,e.y,82);count++;}});
+@@ -646,7 +667,8 @@
+     if(!state.running||state.paused)return;
+     const a=DATA.abilities[key];
+     if(!a||a.unlock>state.level.id)return;
+-    if(state.elapsed<(state.cooldowns[key]||0)){toast('Buff masih cooldown.');return;}
++    if(state.elapsed<(state.cooldowns[key]||0)){sfx('invalid');toast('Buff masih cooldown.');return;}
++    sfx('ability');
+     state.cooldowns[key]=state.elapsed+a.cooldown;
+     if(key==='oxygen'){
+       state.buffs.oxygenUntil=state.elapsed+12; banner('OXYGEN BOOST'); addLog('Suplai O₂ meningkat sementara.');
+@@ -718,7 +740,7 @@
+   }
+   function act(actor,duration=.42){actor.actionUntil=state.elapsed+duration;}
+   function burst(name,x,y,size=80){state.effects.push({type:'vfx',name,x,y,size,life:.6,maxLife:.6});}
+-  function resourcePop(item,x,y,value){state.effects.push({type:'resource',item,value,x,y:y-15,life:1.1,maxLife:1.1});}
++  function resourcePop(item,x,y,value){if(item==='oxygen')sfx('oxygen');if(item==='nutrient')sfx('heal');state.effects.push({type:'resource',item,value,x,y:y-15,life:1.1,maxLife:1.1});}
+   function fallen(kind,actor){
+     if(!SPRITES[kind][actor.type])return;
+     state.effects.push({type:'fallen',kind,actor:actor.type,x:actor.x,y:actor.y,life:.75,maxLife:.75});
+@@ -728,6 +750,7 @@
+   // ---------- victory / defeat ----------
+   function winLevel(){
+     if(state.levelWon)return; state.levelWon=true;state.running=false;
++    sfx('victory');
+     unlockThrough(state.level.id+1);
+     const q=state.level.quiz;
+     showModal(`<span class="result-badge">MISSION COMPLETE</span><h2>${state.level.title} selesai</h2>
+@@ -747,6 +770,7 @@
+     if($('#finishBtn'))$('#finishBtn').onclick=()=>{closeModal();showScreen('levels');};
+   }
+   function loseLevel(){
++    sfx('defeat');
+     state.running=false;
+     showModal(`<span class="result-badge" style="background:#fff0f1;color:#a64150">TISSUE FAILURE</span><h2>Pertahanan runtuh</h2><p>Patogen menembus terlalu banyak lane dan Tissue Health mencapai 0%.</p><p>Strategi cepat: perbanyak Eritrosit di awal, letakkan tank/barrier pada lane dengan tekanan tinggi, lalu simpan buff untuk gelombang BOSS.</p><div class="modal-actions"><button class="secondary-btn" id="loseLevels">Pilih Level</button><button class="primary-btn" id="retryBtn">Ulangi Level</button></div>`,false);
+     $('#retryBtn').onclick=()=>{closeModal();startLevel(state.level.id);};
+@@ -838,14 +862,17 @@
+     }
+     if(allied&&a.type==='plasma')drawImageSafe(SPRITES.items.plasma_pool,a.x-37,footY-20,74,32,.5);
+     if(allied&&a.type==='rbc'&&active){
+-      // Gold motes travel inward while the cell gathers energy.
+-      ctx.save();ctx.fillStyle='#ffe784';ctx.shadowColor='#ffbf3f';ctx.shadowBlur=10;
+-      for(let i=0;i<8;i++){const q=(state.elapsed*1.8+i/8)%1,angle=i*Math.PI/4+state.elapsed*.3,r=56*(1-q)+10;ctx.globalAlpha=q;ctx.beginPath();ctx.arc(a.x+Math.cos(angle)*r,a.y+Math.sin(angle)*r*.75,2.3,0,Math.PI*2);ctx.fill();}ctx.restore();
++      // Separate round oxygen bubbles, gently drifting inward/up; no fire aura.
++      for(let i=0;i<6;i++){
++        const q=(state.elapsed*.7+i/6)%1,angle=i*Math.PI/3;
++        const radius=49*(1-q)+15;
++        oxygenBubble(a.x+Math.cos(angle)*radius,a.y-15+Math.sin(angle)*radius*.6-q*15,3+i%3,Math.sin(q*Math.PI)*.75);
++      }
+     }
+     const recoil=allied&&active&&WEAPON_COLORS[a.type]?-Math.sin(Math.min(1,Math.max(0,((a.actionUntil-state.elapsed)/.42)))*Math.PI)*2.5:0;
+     drawSprite(kind,a.type,pose,a.x+recoil,footY+bob);
+     if(allied&&a.type==='rbc'){
+-      const charge=Math.min(1,a.resourceTimer/4);ctx.fillStyle='rgba(8,24,38,.7)';ctx.fillRect(a.x-20,footY+7,40,3);ctx.fillStyle='#ffd46b';ctx.fillRect(a.x-20,footY+7,40*charge,3);
++      const charge=Math.min(1,a.resourceTimer/4);ctx.fillStyle='rgba(8,24,38,.7)';ctx.fillRect(a.x-20,footY+7,40,3);ctx.fillStyle='#8ceaff';ctx.fillRect(a.x-20,footY+7,40*charge,3);
+     }
+     if(a.hp<a.maxHp||tpl.boss)healthBar(a.x-(tpl.boss?44:29),footY+6,tpl.boss?88:58,a.hp/a.maxHp,allied?'#70cf91':tpl.boss?'#ef6577':'#f0a856');
+     if(!allied){
+@@ -853,6 +880,11 @@
+       if(a.shield>0){ctx.beginPath();ctx.ellipse(a.x,a.y-6,tpl.boss?59:41,tpl.boss?56:40,0,0,Math.PI*2);ctx.strokeStyle='rgba(74,202,245,.7)';ctx.lineWidth=3;ctx.stroke();}
+       ctx.fillStyle='rgba(48,22,58,.86)';ctx.beginPath();ctx.arc(a.x-30,a.y-32,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='700 11px system-ui';ctx.textAlign='center';ctx.fillText(DATA.antigens[a.antigen].label,a.x-30,a.y-28);
+     }
++  }
++  function oxygenBubble(x,y,r,alpha=1){
++    ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,alpha));ctx.lineWidth=1.2;
++    ctx.fillStyle='rgba(106,221,253,.25)';ctx.strokeStyle='#b4f5ff';ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.stroke();
++    ctx.fillStyle='#f0ffff';ctx.beginPath();ctx.arc(x-r*.3,y-r*.35,Math.max(.7,r*.2),0,Math.PI*2);ctx.fill();ctx.restore();
+   }
+   function draw(){
+     ctx.clearRect(0,0,canvas.width,canvas.height);
+@@ -874,7 +906,6 @@
+       ctx.fill();
+     }
+ 
+-    ctx.save();ctx.fillStyle='rgba(8,24,38,.82)';roundRect(ctx,GRID.x,20,254,29,8);ctx.fill();ctx.font='800 12px system-ui';ctx.fillStyle='#def9ee';ctx.textAlign='left';ctx.fillText('IMMUNO SQUAD  /  PERTAHANKAN JARINGAN',GRID.x+10,39);ctx.restore();
+     // tissue base and spawn edge
+     ctx.fillStyle='rgba(218,244,245,.86)';ctx.fillRect(36,GRID.y,62,GRID.rows*GRID.th);
+     ctx.fillStyle='rgba(18,47,65,.62)';ctx.fillRect(GRID.x+GRID.cols*GRID.tw+10,GRID.y,60,GRID.rows*GRID.th);
+@@ -948,7 +979,7 @@
+       }else if(ef.type==='muzzle'){
+         ctx.save();ctx.globalAlpha=a;ctx.fillStyle=ef.color;ctx.shadowColor=ef.color;ctx.shadowBlur=14;ctx.beginPath();ctx.moveTo(ef.x-7,ef.y);ctx.lineTo(ef.x+15,ef.y-7*a);ctx.lineTo(ef.x+8,ef.y);ctx.lineTo(ef.x+15,ef.y+7*a);ctx.closePath();ctx.fill();ctx.restore();
+       }else if(ef.type==='chargeRelease'){
+-        ctx.save();ctx.globalAlpha=a;ctx.strokeStyle='#ffe184';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(ef.x,ef.y+28,23+(1-a)*37,9+(1-a)*13,0,0,Math.PI*2);ctx.stroke();ctx.restore();
++        for(let i=0;i<6;i++)oxygenBubble(ef.x-28+i*11+Math.sin(i)*6,ef.y+8-(1-a)*(42+i*3),3+i%3,a*.8);
+       }else if(ef.type==='vfx'){
+         const frames=SPRITES.effects[ef.name].frames;
+         const frame=Math.min(frames.length-1,Math.floor((1-a)*frames.length));
+@@ -1004,15 +1035,60 @@
+     }else accumulator=0;
+     requestAnimationFrame(frame);
+   }
++  function setUnitDock(open){
++    $('.unit-sidebar').classList.toggle('collapsed',!open);
++    $('#unitCards').hidden=!open;
++    $('#unitToggleBtn').setAttribute('aria-expanded',String(open));
++  }
++  function setPauseUI(paused){
++    $('#pauseOverlay').classList.toggle('hidden',!paused);
++    $('#gameLiveHUD').inert=paused;
++    $('#pauseBtn').setAttribute('aria-expanded',String(paused));
++    $('#pauseBtn').setAttribute('aria-pressed',String(paused));
++    if(paused){
++      updateHUD();renderAntibodyPanel();
++      setText($('#pauseResources'),`Energi ${Math.floor(state.energy)} · O₂ ${Math.floor(state.oxygen)} · Nutrisi ${Math.floor(state.nutrient)} · Signal ${Math.floor(state.signal)}`);
++    }
++  }
+   function togglePause(){
+     if(!state.running||!screens.game.classList.contains('active')||!$('#modal').classList.contains('hidden'))return;
+     state.paused=!state.paused;accumulator=0;state.lastFrame=performance.now();
++    window.IMMUNO_SOUND?.setPaused(state.paused);sfx('pause',{ui:true});
+     $('#pauseBtn img').src=state.paused?'assets/ui/play.webp':'assets/ui/pause.webp';
+-    $('#pauseBtn').setAttribute('aria-pressed',String(state.paused));
+-    $('#pauseBtn').title=state.paused?'Lanjutkan':'Jeda';
+-    $('#pauseOverlay').classList.toggle('hidden',!state.paused);
+-    toast(state.paused?'Game dijeda. Tekan tombol ▶ atau Space untuk melanjutkan.':'Game dilanjutkan.');
++    $('#pauseBtn').title=state.paused?'Lanjutkan':'Menu jeda (ESC / Space)';
++    setPauseUI(state.paused);
++    if(state.paused)$('#resumeBtn').focus?.();else $('#pauseBtn').focus?.();
+     draw();
++  }
++  function chooseAntibody(key){
++    if(state.paused){
++      if(state.antigenSamples[key]<3){toast('Butuh 3 sampel antigen.');return;}
++      if(state.signal<15){toast('Butuh 15 Immune Signal.');return;}
++      togglePause();
++    }
++    activateAntibody(key);
++  }
++  function handleGameKey(ev){
++    if(ev.repeat||!screens.game.classList.contains('active')||!$('#modal').classList.contains('hidden'))return;
++    if(state.paused&&ev.code==='Tab'){
++      const items=$$('#pauseOverlay button, #pauseOverlay input').filter(el=>!el.disabled&&el.getClientRects().length);
++      if(items.length){const index=items.indexOf(document.activeElement);if(ev.shiftKey&&(index<=0)){ev.preventDefault();items[items.length-1].focus();}else if(!ev.shiftKey&&(index<0||index===items.length-1)){ev.preventDefault();items[0].focus();}}
++      return;
++    }
++    if(ev.code==='Escape'){ev.preventDefault();togglePause();return;}
++    if(['INPUT','TEXTAREA','SELECT'].includes(ev.target?.tagName)||ev.target?.isContentEditable)return;
++    if(ev.code==='Space'){ev.preventDefault();togglePause();return;}
++    if(state.paused)return;
++    if(/^[1-9]$/.test(ev.key)){
++      const keys=Object.keys(DATA.units).filter(k=>DATA.units[k].unlock<=state.level.id),key=keys[Number(ev.key)-1];
++      if(key){state.selectedUnit=key;state.selectedPlacedId=null;renderUnitCards();updateHUD();draw();sfx('ui_click',{ui:true});}
++    }
++  }
++  function handleUnitDrop(ev){
++    const key=ev.dataTransfer?.getData('application/x-immunofront-unit');
++    if(!DATA.units[key]||DATA.units[key].unlock>state.level?.id||state.paused||!state.running)return;
++    ev.preventDefault();const cell=cellFromPointer(ev);if(!cell)return;
++    state.selectedUnit=key;placeUnit(cell.r,cell.c);renderUnitCards();setUnitDock(false);draw();
+   }
+ 
+   // ---------- events ----------
+@@ -1020,9 +1096,11 @@
+   $('#openGuideBtn').addEventListener('click',guideModal);
+   $('#levelBackBtn').addEventListener('click',()=>showScreen('start'));
+   $('#modalCloseBtn').addEventListener('click',closeModal);
+-  $('#homeBtn').addEventListener('click',()=>{state.running=false;showScreen('levels');});
++  $('#homeBtn').addEventListener('click',()=>{state.running=false;state.paused=false;window.IMMUNO_SOUND?.setPaused(false);showScreen('levels');});
+   $('#restartBtn').addEventListener('click',()=>startLevel(state.level.id));
+   $('#pauseBtn').addEventListener('click',togglePause);
++  $('#resumeBtn').addEventListener('click',togglePause);
++  $('#unitToggleBtn').addEventListener('click',()=>{setUnitDock($('#unitCards').hidden);sfx('ui_click',{ui:true});});
+   $('#speedBtn').addEventListener('click',()=>{
+     state.speed=state.speed===1?1.5:state.speed===1.5?2:1;$('#speedLabel').textContent=`${state.speed}×`;
+   });
+@@ -1039,16 +1117,12 @@
+   canvas.addEventListener('pointerleave',()=>state.hoverCell=null);
+   canvas.addEventListener('pointerdown',handleCanvasPointer,{passive:false});
+   canvas.addEventListener('contextmenu',ev=>ev.preventDefault());
+-  window.addEventListener('keydown',ev=>{
+-    if(ev.repeat||!screens.game.classList.contains('active')||!$('#modal').classList.contains('hidden'))return;
+-    if(['INPUT','TEXTAREA','SELECT'].includes(ev.target?.tagName)||ev.target?.isContentEditable)return;
+-    if(ev.code==='Space'){ev.preventDefault();togglePause();}
+-    if(/^[1-9]$/.test(ev.key)){
+-      const keys=Object.keys(DATA.units).filter(k=>DATA.units[k].unlock<=state.level.id);
+-      const k=keys[Number(ev.key)-1];
+-      if(k){state.selectedUnit=k;state.selectedPlacedId=null;renderUnitCards();updateHUD();draw();}
+-    }
++  canvas.addEventListener('dragover',ev=>{
++    if(state.running&&!state.paused&&Array.from(ev.dataTransfer?.types||[]).includes('application/x-immunofront-unit')){ev.preventDefault();ev.dataTransfer.dropEffect='copy';state.hoverCell=cellFromPointer(ev);}
+   });
++  canvas.addEventListener('drop',handleUnitDrop);
++  window.addEventListener('dragend',()=>{state.hoverCell=null;});
++  window.addEventListener('keydown',handleGameKey);
+   document.addEventListener('visibilitychange',()=>{
+     if(document.hidden&&state.running&&!state.paused)togglePause();
+     state.lastFrame=performance.now();accumulator=0;
+--- a/js/audio.js
++++ b/js/audio.js
+@@ -0,0 +1,54 @@
++(() => {
++  'use strict';
++  const bank=window.IMMUNO_AUDIO_DATA||{},buffers=new Map(),voices=new Set(),lastPlayed=new Map();
++  let context=null,master=null,ready=false,pending=null,paused=false,muted=false,volume=.55,failed=0;
++  try{muted=localStorage.getItem('immunofrontSfxMuted')==='true';const saved=localStorage.getItem('immunofrontSfxVolume');if(saved!==null&&Number.isFinite(Number(saved)))volume=Math.max(0,Math.min(1,Number(saved)));}catch{}
++  function save(){try{localStorage.setItem('immunofrontSfxMuted',String(muted));localStorage.setItem('immunofrontSfxVolume',String(volume));}catch{}}
++  function updateUI(){
++    const button=document.querySelector('#soundBtn'),slider=document.querySelector('#sfxVolume'),status=document.querySelector('#audioStatus');
++    if(button){button.textContent=muted?'Suara: MATI':'Suara: AKTIF';button.setAttribute('aria-pressed',String(!muted));}
++    if(slider)slider.value=String(Math.round(volume*100));
++    if(status)status.textContent=failed?'Sebagian SFX tidak tersedia.':!(window.AudioContext||window.webkitAudioContext)?'Audio tidak didukung browser ini.':muted?'SFX dibisukan.':ready?'SFX siap • dapat dimainkan offline':'SFX aktif setelah interaksi pertama.';
++  }
++  function dispose(voice){voices.delete(voice);try{voice.source.disconnect();voice.gain.disconnect();}catch{}}
++  function stopAll(){for(const voice of [...voices]){try{voice.source.stop();}catch{}dispose(voice);}}
++  function setMuted(value){muted=!!value;if(muted)stopAll();if(master)master.gain.value=muted?0:volume;save();updateUI();}
++  function setVolume(value){volume=Math.max(0,Math.min(1,Number(value)||0));if(master)master.gain.value=muted?0:volume;save();updateUI();}
++  async function unlock(){
++    try{
++      if(!context){
++        const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio){updateUI();return false;}
++        context=new Audio();master=context.createGain();master.gain.value=muted?0:volume;
++        const limiter=context.createDynamicsCompressor();limiter.threshold.value=-14;limiter.knee.value=12;limiter.ratio.value=6;limiter.attack.value=.003;limiter.release.value=.12;
++        master.connect(limiter);limiter.connect(context.destination);
++      }
++      if(context.state==='suspended')await context.resume();
++      if(!pending)pending=Promise.all(Object.entries(bank).map(async([name,entry])=>{
++        try{const raw=atob(entry.wav),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);buffers.set(name,await context.decodeAudioData(bytes.buffer));}catch{failed++;}
++      })).then(()=>{ready=true;updateUI();return buffers.size>0;});
++      return await pending;
++    }catch{updateUI();return false;}
++  }
++  function play(name,options={}){
++    if(!ready||muted||volume===0||!context||context.state!=='running'||document.hidden||(paused&&!options.ui))return false;
++    const entry=bank[name],buffer=buffers.get(name);if(!entry||!buffer)return false;
++    const now=context.currentTime;if(now-(lastPlayed.get(name)??-Infinity)<entry.cooldown)return false;
++    lastPlayed.set(name,now);
++    // Retire oldest voice before adding one: battle crowds cannot grow the mixer.
++    if(voices.size>=12){const oldest=voices.values().next().value;try{oldest.source.stop();}catch{}dispose(oldest);}
++    try{
++      const source=context.createBufferSource(),gain=context.createGain();source.buffer=buffer;gain.gain.value=entry.volume*(options.volume??1);
++      source.connect(gain);gain.connect(master);const voice={source,gain};voices.add(voice);source.onended=()=>dispose(voice);source.start();return true;
++    }catch{return false;}
++  }
++  function setPaused(value){paused=!!value;if(paused)stopAll();}
++  window.IMMUNO_SOUND={unlock,play,setMuted,setVolume,setPaused,stopAll,get muted(){return muted;}};
++  // Audio starts only following a trusted user gesture; autoplay stays untouched.
++  document.addEventListener('pointerdown',()=>{void unlock();},{passive:true});
++  document.addEventListener('keydown',()=>{void unlock();});
++  document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAll();});
++  document.querySelector('#soundBtn')?.addEventListener('click',()=>{setMuted(!muted);if(!muted)void unlock().then(()=>play('ui_click',{ui:true}));});
++  document.querySelector('#sfxVolume')?.addEventListener('input',ev=>setVolume(Number(ev.target.value)/100));
++  document.querySelector('#sfxVolume')?.addEventListener('change',()=>play('ui_click',{ui:true}));
++  updateUI();
++})();

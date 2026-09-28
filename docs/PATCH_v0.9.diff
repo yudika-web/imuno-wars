@@ -1,0 +1,437 @@
+--- a/index.html
++++ b/index.html
+@@ -8,57 +8,33 @@
+ </head>
+ <body>
+   <main id="app" class="app-shell">
+-    <section id="startScreen" class="start-screen screen active" aria-label="Layar awal">
+-      <div class="start-stage">
+-        <div class="start-copy glass-card">
+-          <span class="kicker">SQUAD DEFENSE / IMMUNE SYSTEM</span>
+-          <h1 class="hero-title">
+-            <span>IMMUNO<span class="title-accent">FRONT</span></span>
+-            <small>Battle in the Bloodstream</small>
+-          </h1>
+-          <p class="lead">Isi energi. Siapkan pasukan. Tahan invasi patogen dengan senjata fantasi dan kekuatan sistem imun.</p>
+-          <div class="feature-chips" aria-label="Fitur utama">
+-            <span class="feature-chip">5 level progresif</span>
+-            <span class="feature-chip">Innate + adaptive immunity</span>
+-            <span class="feature-chip">11 unit + Complement</span>
+-            <span class="feature-chip">Sistem antibodi & antigen</span>
+-          </div>
+-          <div class="start-actions">
+-            <button id="startBtn" class="primary-btn" disabled>Menyiapkan game…</button>
+-            <button id="openGuideBtn" class="secondary-btn">Cara Bermain</button>
+-          </div>
+-          <p id="loadingStatus" class="small-note" role="status">Memuat aset…</p>
+-          <div class="start-stats" aria-hidden="true">
+-            <div><strong>11</strong><span>Unit</span></div>
+-            <div><strong>5</strong><span>Level</span></div>
+-            <div><strong>2</strong><span>Sistem imun</span></div>
+-          </div>
+-          <p class="small-note">v0.8.1 · Squad Cards · Mainkan offline · Atur suara lewat menu jeda</p>
++    <section id="splashScreen" class="splash-screen screen active" aria-label="Layar pembuka">
++      <img class="splash-art" src="assets/menu/start-screen.webp" alt="Pasukan sel imun menghadapi patogen — IMUNO WARS">
++      <div class="splash-footer">
++        <div id="loadingPanel" class="loading-panel" role="status" aria-live="polite">
++          <strong>MEMUAT<span class="loading-dots" aria-hidden="true">…</span></strong>
++          <progress id="loadingProgress" max="100" value="0" aria-label="Kemajuan pemuatan aset"></progress>
++          <p id="loadingStatus">Memuat aset…</p>
+         </div>
++        <button id="touchStartBtn" class="touch-start primary-btn hidden" disabled>Sentuh untuk Mulai <span aria-hidden="true">▶</span></button>
++        <p class="splash-note">IMMUNOFRONT · Pertahanan dimulai dari dalam</p>
++      </div>
++    </section>
+ 
+-        <div class="start-visual glass-card" aria-label="Preview karakter">
+-          <div class="hero-clash">
+-            <div class="team team-allies">
+-              <img class="hero-unit unit-rbc" src="assets/characters/rbc_action.webp" alt="Eritrosit mengisi energi">
+-              <img class="hero-unit unit-neu" src="assets/characters/neutrophil.webp" alt="Neutrofil">
+-              <img class="hero-unit unit-pla" src="assets/characters/platelet.webp" alt="Trombosit berperisai">
+-            </div>
+-            <div class="versus-badge">VS</div>
+-            <div class="team team-enemies">
+-              <img class="hero-unit unit-bad-1" src="assets/enemies/coccus.webp" alt="Bakteri">
+-              <img class="hero-unit unit-bad-2" src="assets/enemies/bacillus.webp" alt="Bakteri batang">
+-            </div>
+-          </div>
+-          <div class="start-tip">
+-            <strong>RENCANA PERTAHANAN</strong>
+-            <ol>
+-              <li>Isi energi dengan Eritrosit.</li>
+-              <li>Pasang perisai dan penembak.</li>
+-              <li>Kenali antigen. Hentikan invasi.</li>
+-            </ol>
+-          </div>
+-        </div>
++    <section id="startScreen" class="start-screen screen" aria-label="Menu utama">
++      <div class="menu-orbits" aria-hidden="true"><i></i><i></i><i></i></div>
++      <div class="main-menu-content">
++        <p class="menu-eyebrow">BATTLE IN THE BLOODSTREAM</p>
++        <h1 class="menu-title">IMMUNO<span>FRONT</span></h1>
++        <p class="menu-tagline">Sel kecil. Pertahanan besar.</p>
++        <nav class="main-menu-buttons" aria-label="Menu utama">
++          <button id="startBtn" class="menu-button menu-play" disabled><span aria-hidden="true">▶</span> Mulai Misi <small>PIMPIN PASUKANMU</small></button>
++          <button id="openGuideBtn" class="menu-button"><span aria-hidden="true">✦</span> Cara Bermain</button>
++          <button id="menuSettingsBtn" class="menu-button"><span aria-hidden="true">⚙</span> Pengaturan Suara</button>
++        </nav>
++        <p class="menu-progress-note">5 misi · 11 pasukan · Satu pertahanan</p>
+       </div>
++      <footer class="menu-footer"><span>v0.9 · IMMUNOFRONT</span><button id="backSplashBtn" class="text-button">Layar pembuka ↗</button></footer>
+     </section>
+ 
+     <section id="levelScreen" class="level-screen screen" aria-label="Pilih level">
+@@ -112,7 +88,8 @@
+             <button id="restartBtn" class="secondary-btn">↻ Ulangi</button>
+             <button id="speedBtn" class="secondary-btn">Kecepatan <span id="speedLabel">1×</span></button>
+             <button id="homeBtn" class="secondary-btn">⌂ Pilih Misi</button>
+-            <button id="soundBtn" class="secondary-btn" aria-pressed="true">Suara: AKTIF</button>
++            <button id="soundBtn" class="secondary-btn" aria-pressed="true">SFX: AKTIF</button>
++            <button id="pauseSettingsBtn" class="secondary-btn">⚙ Musik &amp; SFX</button>
+             <label class="volume-control">Volume SFX <input id="sfxVolume" type="range" min="0" max="100" value="55" aria-label="Volume efek suara"></label>
+           </nav>
+           <p id="audioStatus" class="small-note"></p>
+@@ -134,11 +111,24 @@
+     </div>
+   </div>
+ 
++  <div id="audioSettings" class="audio-settings hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" tabindex="-1">
++    <div class="settings-card">
++      <p class="menu-eyebrow">SESUAIKAN SUASANA</p><h2 id="settingsTitle">Pengaturan Suara</h2>
++      <div class="audio-setting-row"><label for="musicVolume">Musik latar <output id="musicVolumeValue">35%</output></label><input id="musicVolume" type="range" min="0" max="100" value="35"><button id="musicMuteBtn" class="secondary-btn" aria-pressed="false">Bisukan musik</button></div>
++      <div class="audio-setting-row"><label for="settingsSfxVolume">Efek suara <output id="settingsSfxValue">55%</output></label><input id="settingsSfxVolume" type="range" min="0" max="100" value="55"><button id="settingsSfxMuteBtn" class="secondary-btn" aria-pressed="false">Bisukan SFX</button><button id="testSfxBtn" class="text-button">▶ Coba efek suara</button></div>
++      <p id="musicStatus" class="small-note" role="status"></p>
++      <p class="small-note">Pengaturan tersimpan otomatis di perangkat ini.</p>
++      <button id="closeSettingsBtn" class="primary-btn">Selesai</button>
++    </div>
++  </div>
++
+   <script src="data/game-data.js"></script>
+   <script src="data/sprite-data.js"></script>
+   <script src="data/sprite-metrics.js"></script>
+   <script src="data/audio-data.js"></script>
+   <script src="js/audio.js"></script>
++  <script src="js/music.js"></script>
++  <script src="js/settings.js"></script>
+   <script src="js/game.js"></script>
+ </body>
+ </html>
+--- a/css/game.css
++++ b/css/game.css
+@@ -95,3 +95,26 @@
+  #gameScreen .topbar{height:49px;top:3px}#gameScreen .resource-strip{width:75px;gap:2px}#gameScreen .resource-pill{width:75px;height:22px;padding:1px 5px;font-size:.64rem}#gameScreen .resource-pill img{width:18px;height:18px}
+  #gameScreen .unit-sidebar{top:3px;left:94px;bottom:auto}#gameScreen .unit-cards{gap:4px;padding:2px 4px 4px;border-width:1px}#gameScreen .unit-card{flex-basis:47px;height:45px;min-height:45px;grid-template-rows:8px minmax(0,1fr) 11px;padding:1px 2px;border-width:1px}#gameScreen .unit-card-copy strong{font-size:.38rem}#gameScreen .unit-card>img{width:36px;height:30px;margin:-3px 0 0}#gameScreen .unit-card .cost{font-size:.49rem;padding:0;line-height:1}#gameScreen .unit-card .cost img{width:9px;height:9px}#gameScreen .unit-card .unit-hotkey{font-size:.36rem;top:11px}#gameScreen .toast{top:60px}
+ }
++
++/* v0.9: artwork-led title screen, game menu and independent audio settings. */
++.splash-screen.active{position:fixed;inset:0;display:block;padding:0;height:100dvh;overflow:hidden;background:#160b22}
++.splash-art{width:100%;height:100%;object-fit:contain;display:block}
++.splash-footer{position:absolute;inset:auto 0 0;display:flex;align-items:center;flex-direction:column;gap:9px;padding:50px 16px max(14px,env(safe-area-inset-bottom));background:linear-gradient(transparent,#070e25ec);text-align:center}
++.loading-panel{width:min(390px,85vw);color:#eafcff;text-shadow:0 2px 4px #000}.loading-panel strong{font-size:.9rem;letter-spacing:.26em}.loading-panel p{font-size:.67rem;margin:8px 0}.loading-panel progress{display:block;appearance:none;width:100%;height:10px;margin-top:12px;border:1px solid #5dcbe2;border-radius:20px;overflow:hidden;background:#09243b;accent-color:#77e7d2}.loading-panel progress::-webkit-progress-bar{background:#09243b}.loading-panel progress::-webkit-progress-value{background:linear-gradient(90deg,#2695d7,#97ffe1);border-radius:20px}.loading-panel progress::-moz-progress-bar{background:#77e7d2}.loading-panel.loaded strong,.loading-panel.loaded progress{display:none}.loading-panel.loaded p{margin:0;color:#d4e7ec;font-size:.6rem}
++.touch-start.primary-btn{min-width:min(360px,85vw);padding:17px 27px;border:2px solid #fff3b0;border-radius:14px;color:#163543;font-size:1.1rem;background:linear-gradient(#ffed9c,#edb33e);box-shadow:0 5px 0 #96531b,0 0 30px #ffc34555;text-transform:uppercase;letter-spacing:.035em;animation:touch-glow 2.5s ease-in-out infinite}.touch-start span{margin-left:18px}.splash-note{font-size:.6rem;color:#b2c4da;margin:5px 0 0;letter-spacing:.09em}
++@keyframes touch-glow{50%{box-shadow:0 5px 0 #96531b,0 0 42px #ffc34599}}
++#startScreen.active{position:relative;isolation:isolate;display:flex;align-items:center;min-height:100vh;min-height:100dvh;padding:clamp(28px,5vw,80px);overflow:hidden;background:#211225 url('../assets/menu/main-menu.webp') center/cover no-repeat}
++#startScreen:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#0315257a,transparent 70%)}
++.main-menu-content{width:49%;max-width:590px;position:relative;z-index:2;padding-bottom:28px}
++.menu-eyebrow{color:#a1f1e9;font-size:.68rem;letter-spacing:.2em;font-weight:900;margin:0 0 14px;text-shadow:0 2px 6px #001622}
++.menu-title{font-family:Trebuchet MS,system-ui,sans-serif;font-size:clamp(2.9rem,5.8vw,6.2rem);font-style:italic;font-weight:1000;letter-spacing:-.065em;line-height:.98;color:#b7f4ff;text-shadow:0 3px 0 #226492,0 7px 0 #072d4c,0 10px 18px #0009;margin:0 0 23px;white-space:nowrap}.menu-title span{color:#ffd66a;text-shadow:0 3px 0 #bc7129,0 7px 0 #633020,0 10px 18px #0009}
++.menu-tagline{color:#e4f6ff;font-size:clamp(.8rem,1.3vw,1.15rem);letter-spacing:.03em;margin:0 0 32px;text-shadow:0 2px 5px #000}
++.main-menu-buttons{display:flex;flex-direction:column;gap:13px;max-width:335px}
++.menu-button{position:relative;display:block;width:100%;padding:16px 24px;border:2px solid #6bb7cb;border-radius:12px;text-align:left;font-size:1rem;font-weight:900;color:#e4fbff;background:linear-gradient(#254e69f5,#122c49f5);box-shadow:0 5px 0 #081c32, inset 0 1px 0 #c7f6ff4d;transition:transform .15s,filter .15s}
++.menu-button>span{display:inline-block;width:30px;color:#84ece6}.menu-button small{display:block;font-size:.52rem;letter-spacing:.17em;margin:6px 0 0 32px;font-weight:900}.menu-button.menu-play{padding:18px 24px;color:#263a40;border-color:#fff0ac;background:linear-gradient(#ffe89b,#eeb33e);box-shadow:0 5px 0 #855021,0 0 24px #ecaf352a;font-size:1.25rem}.menu-play>span{color:#286176}.menu-button:hover{filter:brightness(1.14);transform:translateY(-2px)}.menu-button:active{transform:translateY(2px)}
++.menu-progress-note{font-size:.65rem;color:#a9cbd9;margin-top:25px;letter-spacing:.05em}.menu-footer{position:absolute;left:max(24px,env(safe-area-inset-left));right:max(24px,env(safe-area-inset-right));bottom:max(15px,env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.56rem;color:#bed2df;z-index:3}.text-button{border:0;background:transparent;color:#b9edec;padding:8px;text-decoration:underline;text-underline-offset:3px;font-size:.73rem}
++.menu-orbits{position:absolute;inset:0;overflow:hidden;pointer-events:none}.menu-orbits i{position:absolute;width:25px;height:25px;border:1px solid #92f8ff80;border-radius:50%;box-shadow:inset 2px 2px 5px #d1fdff80,0 0 15px #6fefff33;left:45%;bottom:15%;animation:menu-bubble 9s ease-in-out infinite}.menu-orbits i:nth-child(2){left:55%;bottom:65%;width:13px;height:13px;animation-delay:-3s}.menu-orbits i:nth-child(3){left:88%;bottom:8%;width:35px;height:35px;animation-delay:-6s}@keyframes menu-bubble{50%{transform:translate(10px,-35px);opacity:.4}}
++.audio-settings{position:fixed;inset:0;z-index:250;display:flex;align-items:center;justify-content:center;padding:24px;background:#020e1de8;backdrop-filter:blur(10px);overflow-y:auto}.settings-card{width:min(100%,480px);max-height:100%;overflow-y:auto;padding:30px;border:2px solid #51849a;border-radius:20px;background:linear-gradient(#173f52,#0a2035);box-shadow:0 12px 0 #031323,0 25px 80px #0007}.settings-card h2{font-size:1.8rem;margin:0 0 24px;color:#ffdf89}.audio-setting-row{padding:16px 0;border-top:1px solid #91cbcf33}.audio-setting-row label{display:flex;justify-content:space-between;color:#e1f5ff;font-size:.95rem;font-weight:900}.audio-setting-row output{color:#8ee8d1}.audio-setting-row input{width:100%;height:36px;accent-color:#7dedcf;cursor:pointer}.audio-setting-row .secondary-btn{padding:9px 13px;font-size:.72rem}.settings-card>.primary-btn{width:100%;margin-top:14px}.settings-card .small-note{font-size:.67rem;line-height:1.5}
++@media(max-width:650px){#startScreen.active{padding:34px 24px 60px;align-items:flex-end;background-position:65% center}#startScreen:before{background:linear-gradient(0deg,#041326f5 5%,#05172ac4 55%,#0815210d)}.main-menu-content{width:100%;padding-bottom:15px}.menu-title{font-size:clamp(2.5rem,10vw,4rem);margin-bottom:14px}.menu-eyebrow{font-size:.55rem}.menu-tagline{font-size:.8rem;margin-bottom:20px}.main-menu-buttons{max-width:330px;gap:11px}.menu-button{font-size:.86rem;padding:12px 19px}.menu-button.menu-play{font-size:1.08rem;padding:14px 19px}.menu-progress-note{margin-top:18px;font-size:.56rem}.splash-art{object-fit:contain}.splash-footer{padding-top:25px}.touch-start.primary-btn{font-size:.9rem;padding:15px 19px}.settings-card{padding:22px}.settings-card h2{font-size:1.5rem}.audio-settings{padding:14px}}
++@media(max-height:520px) and (min-width:651px){#startScreen.active{padding:22px 35px 45px}.main-menu-content{padding:0}.menu-title{font-size:3.1rem;margin-bottom:12px}.menu-tagline{margin-bottom:15px;font-size:.8rem}.menu-eyebrow{font-size:.52rem;margin-bottom:10px}.main-menu-buttons{gap:9px;max-width:265px}.menu-button{padding:9px 15px;font-size:.8rem}.menu-button.menu-play{padding:10px 15px;font-size:1rem}.menu-button small{font-size:.45rem}.menu-progress-note{margin:14px 0 0;font-size:.52rem}.splash-footer{padding-top:15px;gap:4px}.touch-start.primary-btn{padding:10px 20px;font-size:.85rem}.settings-card{padding:18px 25px}.audio-settings{padding:12px}}
++@media(prefers-reduced-motion:reduce){.touch-start.primary-btn,.menu-orbits i{animation:none}}
+--- a/js/game.js
++++ b/js/game.js
+@@ -18,6 +18,7 @@
+   let lastHUDFrame = 0;
+ 
+   const screens = {
++    splash: $('#splashScreen'),
+     start: $('#startScreen'),
+     levels: $('#levelScreen'),
+     game: $('#gameScreen')
+@@ -90,6 +91,7 @@
+   // ---------- image preloading ----------
+   function collectImagePaths(){
+     const p = new Set([
++      'assets/menu/start-screen.webp','assets/menu/main-menu.webp',
+       'assets/icons/energy.webp','assets/icons/oxygen.webp','assets/icons/nutrient.webp','assets/icons/signal.webp','assets/icons/health.webp',
+       'assets/effects/tile_normal.webp','assets/effects/tile_wound.webp','assets/effects/tile_infected.webp','assets/effects/tile_plasma.webp',
+       'assets/effects/projectile.webp','assets/effects/antibody_tag.webp','assets/effects/hit.webp','assets/effects/clot_barrier.webp'
+@@ -112,6 +114,7 @@
+       const done=()=>{
+         loaded++;
+         setText($('#loadingStatus'),`Memuat aset ${loaded}/${paths.length}…`);
++        $('#loadingProgress').value=Math.round(loaded/paths.length*100);
+         resolve();
+       };
+       img.onload=()=>{images[src]=img;done();};
+@@ -125,7 +128,7 @@
+   function showScreen(name){
+     Object.values(screens).forEach(s=>s.classList.remove('active'));
+     screens[name].classList.add('active');
+-    if(name!=='game'){window.IMMUNO_SOUND?.stopAll();setPauseUI(false);}
++    if(name!=='game'){window.IMMUNO_SOUND?.stopAll();setPauseUI(false);window.IMMUNO_MUSIC?.setPaused(false);window.IMMUNO_MUSIC?.setScene('menu');}
+     if(name==='levels') renderLevelSelect();
+     if(name==='game') draw();
+   }
+@@ -181,6 +184,7 @@
+   // ---------- level setup ----------
+   function startLevel(levelId){
+     window.IMMUNO_SOUND?.stopAll();window.IMMUNO_SOUND?.setPaused(false);
++    window.IMMUNO_MUSIC?.setScene('menu');window.IMMUNO_MUSIC?.setPaused(false);
+     setPauseUI(false);setUnitDock(true);
+     const level = DATA.levels[levelId-1];
+     state.level = level;
+@@ -236,6 +240,7 @@
+     $('#beginLevelBtn').onclick = () => {
+       closeModal();
+       state.running = true;
++      window.IMMUNO_MUSIC?.setScene('battle');
+       sfx('ui_click',{ui:true});
+       state.lastFrame = performance.now();
+       accumulator = 0;
+@@ -752,6 +757,7 @@
+   // ---------- victory / defeat ----------
+   function winLevel(){
+     if(state.levelWon)return; state.levelWon=true;state.running=false;
++    window.IMMUNO_MUSIC?.setScene('menu');
+     sfx('victory');
+     unlockThrough(state.level.id+1);
+     const q=state.level.quiz;
+@@ -772,6 +778,7 @@
+     if($('#finishBtn'))$('#finishBtn').onclick=()=>{closeModal();showScreen('levels');};
+   }
+   function loseLevel(){
++    window.IMMUNO_MUSIC?.setScene('menu');
+     sfx('defeat');
+     state.running=false;
+     showModal(`<span class="result-badge" style="background:#fff0f1;color:#a64150">TISSUE FAILURE</span><h2>Pertahanan runtuh</h2><p>Patogen menembus terlalu banyak lane dan Tissue Health mencapai 0%.</p><p>Strategi cepat: perbanyak Eritrosit di awal, letakkan tank/barrier pada lane dengan tekanan tinggi, lalu simpan buff untuk gelombang BOSS.</p><div class="modal-actions"><button class="secondary-btn" id="loseLevels">Pilih Level</button><button class="primary-btn" id="retryBtn">Ulangi Level</button></div>`,false);
+@@ -815,6 +822,7 @@
+   }
+   function updateBossPanel(){
+     const boss=state.enemies.find(e=>DATA.enemies[e.type].boss&&!e.dead);
++    if(state.running)window.IMMUNO_MUSIC?.setScene(boss?'boss':'battle');
+     const panel=$('#bossPanel');
+     if(!boss){panel.classList.add('hidden');return;}
+     panel.classList.remove('hidden');
+@@ -1055,7 +1063,7 @@
+   function togglePause(){
+     if(!state.running||!screens.game.classList.contains('active')||!$('#modal').classList.contains('hidden'))return;
+     state.paused=!state.paused;accumulator=0;state.lastFrame=performance.now();
+-    window.IMMUNO_SOUND?.setPaused(state.paused);sfx('pause',{ui:true});
++    window.IMMUNO_SOUND?.setPaused(state.paused);window.IMMUNO_MUSIC?.setPaused(state.paused);sfx('pause',{ui:true});
+     $('#pauseBtn img').src=state.paused?'assets/ui/play.webp':'assets/ui/pause.webp';
+     $('#pauseBtn').title=state.paused?'Lanjutkan':'Menu jeda (ESC / Space)';
+     setPauseUI(state.paused);
+@@ -1094,6 +1102,8 @@
+   }
+ 
+   // ---------- events ----------
++  $('#touchStartBtn').addEventListener('click',()=>{if(!assetsReady)return;window.IMMUNO_MUSIC?.unlock();showScreen('start');$('#startBtn').focus?.();});
++  $('#backSplashBtn').addEventListener('click',()=>showScreen('splash'));
+   $('#startBtn').addEventListener('click',()=>{if(assetsReady)showScreen('levels');});
+   $('#openGuideBtn').addEventListener('click',guideModal);
+   $('#levelBackBtn').addEventListener('click',()=>showScreen('start'));
+@@ -1135,6 +1145,10 @@
+     assetsReady=true;
+     $('#startBtn').disabled=false;
+     setText($('#startBtn'),'Mulai Misi');
++    $('#startBtn').innerHTML='<span aria-hidden="true">▶</span> Mulai Misi <small>PIMPIN PASUKANMU</small>';
++    $('#touchStartBtn').disabled=false;$('#touchStartBtn').classList.remove('hidden');
++    $('#loadingPanel').classList.add('loaded');
++    $('#loadingProgress').value=100;
+     setText($('#loadingStatus'),failed.length?`${failed.length} aset gagal dimuat. Ekstrak seluruh ZIP; gambar cadangan digunakan sementara.`:'Semua aset siap • dapat dimainkan offline');
+     renderLevelSelect();state.lastFrame=performance.now();requestAnimationFrame(frame);
+   }).catch(err=>{
+--- a/js/audio.js
++++ b/js/audio.js
+@@ -6,14 +6,14 @@
+   function save(){try{localStorage.setItem('immunofrontSfxMuted',String(muted));localStorage.setItem('immunofrontSfxVolume',String(volume));}catch{}}
+   function updateUI(){
+     const button=document.querySelector('#soundBtn'),slider=document.querySelector('#sfxVolume'),status=document.querySelector('#audioStatus');
+-    if(button){button.textContent=muted?'Suara: MATI':'Suara: AKTIF';button.setAttribute('aria-pressed',String(!muted));}
++    if(button){button.textContent=muted?'SFX: MATI':'SFX: AKTIF';button.setAttribute('aria-pressed',String(!muted));}
+     if(slider)slider.value=String(Math.round(volume*100));
+     if(status)status.textContent=failed?'Sebagian SFX tidak tersedia.':!(window.AudioContext||window.webkitAudioContext)?'Audio tidak didukung browser ini.':muted?'SFX dibisukan.':ready?'SFX siap • dapat dimainkan offline':'SFX aktif setelah interaksi pertama.';
+   }
+   function dispose(voice){voices.delete(voice);try{voice.source.disconnect();voice.gain.disconnect();}catch{}}
+   function stopAll(){for(const voice of [...voices]){try{voice.source.stop();}catch{}dispose(voice);}}
+-  function setMuted(value){muted=!!value;if(muted)stopAll();if(master)master.gain.value=muted?0:volume;save();updateUI();}
+-  function setVolume(value){volume=Math.max(0,Math.min(1,Number(value)||0));if(master)master.gain.value=muted?0:volume;save();updateUI();}
++  function setMuted(value){muted=!!value;if(muted)stopAll();if(master)master.gain.value=muted?0:volume;save();updateUI();window.IMMUNO_SETTINGS?.refresh();}
++  function setVolume(value){volume=Math.max(0,Math.min(1,Number(value)||0));if(master)master.gain.value=muted?0:volume;save();updateUI();window.IMMUNO_SETTINGS?.refresh();}
+   async function unlock(){
+     try{
+       if(!context){
+@@ -42,7 +42,7 @@
+     }catch{return false;}
+   }
+   function setPaused(value){paused=!!value;if(paused)stopAll();}
+-  window.IMMUNO_SOUND={unlock,play,setMuted,setVolume,setPaused,stopAll,get muted(){return muted;}};
++  window.IMMUNO_SOUND={unlock,play,setMuted,setVolume,setPaused,stopAll,get muted(){return muted;},get volume(){return volume;}};
+   // Audio starts only following a trusted user gesture; autoplay stays untouched.
+   document.addEventListener('pointerdown',()=>{void unlock();},{passive:true});
+   document.addEventListener('keydown',()=>{void unlock();});
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+-# IMMUNOFRONT v0.8.1 — Squad Cards
++# IMMUNOFRONT v0.9 — Start Screen, Menu & Music
+ 
+ Game pertahanan 5 jalur × 9 kolom, 5 level, 11 unit penempatan, Complement, 6 boss, dan sistem antigen–antibodi. Seluruh gambar dan **21 SFX WAV asli hasil sintesis** disertakan; game dapat dimainkan offline.
+ 
+@@ -6,10 +6,10 @@
+ 
+ 1. Ekstrak **seluruh ZIP**. Jangan jalankan dari pratinjau ZIP.
+ 2. Buka `immunofront_game/index.html` di browser modern.
+-3. Tunggu aset siap, klik **Mulai Misi**, pilih level, lalu **Mulai Pertahanan**.
++3. Tunggu layar **MEMUAT** selesai, tekan **Sentuh untuk Mulai**, lalu **Mulai Misi**, pilih level, dan **Mulai Pertahanan**.
+ 4. Pilih kartu pasukan di tepi atas, lalu klik/sentuh kotak arena. Mouse juga bisa menyeret kartu ke kotak arena.
+ 
+-Suara diaktifkan setelah interaksi pertama sesuai aturan browser. Jika tidak terdengar, buka menu jeda dan periksa **Suara: AKTIF**, volume SFX, volume perangkat, serta mute pada tab browser.
++Musik mulai setelah **Sentuh untuk Mulai**; SFX aktif setelah interaksi pertama sesuai aturan browser. Buka **Pengaturan Suara** pada menu utama atau **Musik & SFX** di Pause untuk mengatur volume dan bisu masing-masing kanal. Jika belum terdengar, sentuh layar sekali lagi serta periksa volume perangkat dan mute tab browser.
+ 
+ Bila browser/perangkat tidak dapat membuka folder HTML lokal, sajikan seluruh folder melalui server lokal:
+ 
+@@ -39,6 +39,15 @@
+ 
+ Atlas terbaru: `assets/source-atlases/erythrocyte-oxygen.png`. Pose runtime: `assets/characters/rbc_*.webp`. Galeri: `asset-gallery.html`. Semua karakter fantasi lain dari v0.7 tetap tersedia.
+ 
++## Layar pembuka dan menu baru
++
++- Gambar `start_screen.png` yang dikirim pengguna dipakai sebagai artwork layar pembuka, dikonversi ke `assets/menu/start-screen.webp`. Komposisi dan tulisan IMUNO WARS pada gambar dipertahankan; nama proyek tetap IMMUNOFRONT.
++- Progress **MEMUAT** mengikuti penyelesaian 201 gambar runtime, bukan timer buatan. **Sentuh untuk Mulai** baru aktif setelah pemuatan selesai. Jika ada gambar gagal, pesan menjelaskan penggunaan gambar cadangan.
++- Gambar pembuka ditampilkan utuh dengan contain; ruang kosong pada rasio layar lain wajar.
++- Menu utama memakai artwork baru `assets/menu/main-menu.webp`, tombol Mulai Misi, Cara Bermain, dan Pengaturan Suara, serta gelembung animasi ringan yang mengikuti preferensi reduced motion.
++- Artwork menu dibuat menggunakan imagegen bawaan. Prompt final dan sumber referensi ada di `docs/IMAGE_PROMPT_v0.9.json`.
++- Musik dimuat melalui media browser saat dibutuhkan; tidak menghambat kesiapan arena. File lokal MP3 disertakan tanpa perubahan.
++
+ ## Audio
+ 
+ 21 efek asli dibuat secara prosedural: klik UI, placement, gelembung oksigen, healing, scanner, empat jenis tembakan, antibodi, hit, shield, musuh kalah, wave, boss, ability, kebocoran pertahanan, menang, kalah, jeda, dan input tidak tersedia.
+@@ -48,29 +57,41 @@
+ - Runtime: `js/audio.js`; bank tertanam `data/audio-data.js` tidak memakai fetch sehingga mendukung `file://`.
+ - Mixer membatasi 12 suara bersamaan, memakai cooldown per efek dan kompresor untuk mengurangi penumpukan.
+ - Buka `audio-gallery.html` untuk memutar setiap file secara terpisah.
+-- Tidak ada musik latar atau suara narator. SFX adalah hasil sintesis digital, bukan rekaman atau keluaran model generatif audio.
++- SFX adalah hasil sintesis digital. Musik memakai tiga file MP3 dari pengguna:
++  - `assets/music/start_screen_and_menu.mp3` — pembuka setelah sentuhan pertama, menu, pilih misi, briefing dan hasil misi.
++  - `assets/music/in_fight.mp3` — pertempuran biasa.
++  - `assets/music/boss_fight.mp3` — selama ada boss hidup; kembali ke musik biasa sesudahnya.
++- Satu elemen audio dipakai ulang sehingga musik tidak bertumpuk. Lagu berulang otomatis; pergantian situasi memulai track baru. Pause mempertahankan posisi lagu.
++- Volume musik default 35%, SFX 55%; volume dan status bisu masing-masing tersimpan terpisah. Membuka Pengaturan Suara dari Pause tidak melanjutkan game. ESC menutup pengaturan terlebih dahulu.
++- Tab tersembunyi menghentikan audio. Game tetap dijeda saat kembali; lanjutkan secara manual.
++- Pembatasan autoplay ditangani tanpa menghentikan game. Pada perangkat/browser yang mengunci volume media ke volume sistem, gunakan juga kontrol volume perangkat.
+ 
+ ## Patch dan validasi
+ 
+ Semua ID lama dipertahankan. Audit membandingkan 11 fungsi inti terhadap v0.7: penempatan, spawn, damage, unit/musuh, blocking, targeting, wave, metabolisme, antibodi, dan ability identik setelah panggilan suara diabaikan. Statistik serta komposisi wave tidak berubah.
+ 
+-**52 pemeriksaan otomatis lolos:**
++**74 pemeriksaan otomatis lolos:**
+ 
+ - 9 smoke test mekanik.
+-- 33 tes renderer dan interaksi, termasuk ESC/Space, modal, jeda, drag/drop, tap seluruh 45 tile pada enam ukuran viewport, antibody/resume, serta kartu tetap terbuka setelah klik/drop dan posisi geser terjaga.
++- 35 tes renderer dan interaksi, termasuk ESC/Space, modal, jeda, drag/drop, tap seluruh 45 tile pada enam ukuran viewport, antibody/resume, serta kartu tetap terbuka setelah klik/drop dan posisi geser terjaga.
+ - 10 tes PCM dan mixer audio, termasuk mute/volume, rate limit, batas 12 suara, background tab, dan kegagalan decode.
+ 
+-Laporan: `docs/TEST_REPORT_v0.8.1.json`, `docs/TEST_AUDIO_v0.8.json`, `docs/PATCH_AUDIT_v0.8.json`.
++- 14 tes lifecycle musik: autoplay, pergantian scene, race saat Pause/resume, mute, volume, background, serta kegagalan API/file.
++- 6 tes pengaturan: kanal terpisah, modal, fokus, Tab, dan ESC.
++
++Ketiga MP3 lolos decode penuh FFmpeg dan cocok byte-for-byte dengan unggahan pengguna. Laporan: `docs/TEST_REPORT_v0.9.json`, `docs/TEST_MUSIC_v0.9.json`, `docs/TEST_SETTINGS_v0.9.json`, `docs/MUSIC_ASSETS_v0.9.json`, `docs/TEST_AUDIO_v0.8.json`.
+ 
+ ```sh
+ node tools/test_logic_smoke.cjs
+ node tools/test_game.cjs
+ node tools/test_audio.cjs
++node tools/test_music.cjs
++node tools/test_settings.cjs
+ ```
+ 
+ Tes renderer memerlukan `@napi-rs/canvas`; game tidak memerlukan Node. Tes mixer memakai Web Audio tiruan untuk menguji alur kontrol, bukan pemutaran pada perangkat nyata.
+ 
+-**Batas validasi:** browser interaktif di lingkungan pengerjaan tidak diizinkan mengakses file lokal. Layout CSS dan input telah diaudit/diperiksa secara simulasi, tetapi screenshot UI browser, FPS, dan pemutaran suara pada perangkat nyata belum diuji. `docs/preview-game-v0.8.1.png` merupakan render arena dari engine, bukan screenshot HUD browser. Kampanye tidak diklaim telah ditamatkan oleh pemain manusia.
++**Batas validasi:** browser interaktif di lingkungan pengerjaan tidak diizinkan mengakses file lokal. Layout CSS dan input telah diaudit/diperiksa secara simulasi, tetapi screenshot UI browser, FPS, dan pemutaran suara pada perangkat nyata belum diuji. `docs/preview-game-v0.9.png` merupakan render arena dari engine, bukan screenshot HUD browser. Kampanye tidak diklaim telah ditamatkan oleh pemain manusia.
+ 
+ ## Mengolah aset ulang
+ 
+--- /dev/null
++++ b/js/music.js
+@@ -0,0 +1,35 @@
++(() => {
++  'use strict';
++  const paths={menu:'assets/music/start_screen_and_menu.mp3',battle:'assets/music/in_fight.mp3',boss:'assets/music/boss_fight.mp3'};
++  // Reuse the same unlocked media element across scenes; never layer two music tracks.
++  const audio=window.Audio?new Audio(paths.menu):null;
++  let scene='menu',activated=false,paused=false,muted=false,volume=.35,blocked=false,failed=false,pending=false,revision=0;
++  try{muted=localStorage.getItem('immunofrontMusicMuted')==='true';const v=localStorage.getItem('immunofrontMusicVolume');if(v!==null&&Number.isFinite(Number(v)))volume=Math.max(0,Math.min(1,Number(v)));}catch{}
++  function save(){try{localStorage.setItem('immunofrontMusicMuted',String(muted));localStorage.setItem('immunofrontMusicVolume',String(volume));}catch{}}
++  function status(){
++    const el=document.querySelector('#musicStatus');
++    if(el)el.textContent=!audio?'Musik tidak didukung browser ini.':failed?'Musik ini gagal dimuat. Pastikan folder assets/music ikut diekstrak.':muted||volume===0?'Musik dibisukan.':blocked?'Sentuh tombol atau layar untuk mengaktifkan musik.':paused?'Musik dijeda bersama permainan.':activated?'Musik: '+({menu:'Menu utama',battle:'Pertempuran',boss:'Pertempuran boss'}[scene]):'Musik dimulai setelah Sentuh untuk Mulai.';
++  }
++  function mayPlay(){return activated&&!paused&&!muted&&volume>0&&!document.hidden&&!failed;}
++  function reconcile(){
++    if(!audio){status();return;}
++    audio.volume=volume;audio.muted=muted;
++    if(!mayPlay())audio.pause();
++    else if(audio.paused&&!pending){
++      pending=true;const started=revision;
++      try{Promise.resolve(audio.play()).then(()=>{blocked=false;if(!mayPlay())audio.pause();}).catch(err=>{if(started!==revision)return;if(err?.name==='NotSupportedError')failed=true;else if(err?.name!=='AbortError')blocked=true;}).finally(()=>{pending=false;status();if(started!==revision)reconcile();});}catch{pending=false;blocked=true;}
++    }
++    status();
++  }
++  if(audio){audio.loop=true;audio.preload='metadata';audio.volume=volume;audio.addEventListener('error',()=>{failed=true;status();});}
++  function unlock(){activated=true;reconcile();}
++  function setScene(value){if(!paths[value]||value===scene)return;scene=value;revision++;failed=false;blocked=false;if(audio){audio.pause();audio.src=paths[scene];}reconcile();}
++  function setPaused(value){if(paused!==!!value)revision++;paused=!!value;reconcile();}
++  function setMuted(value){if(muted!==!!value)revision++;muted=!!value;save();reconcile();window.IMMUNO_SETTINGS?.refresh();}
++  function setVolume(value){revision++;volume=Math.max(0,Math.min(1,Number(value)||0));save();reconcile();window.IMMUNO_SETTINGS?.refresh();}
++  window.IMMUNO_MUSIC={unlock,setScene,setPaused,setMuted,setVolume,get scene(){return scene;},get muted(){return muted;},get volume(){return volume;}};
++  document.addEventListener('visibilitychange',reconcile);
++  const retry=()=>{if(activated)reconcile();};
++  document.addEventListener('pointerdown',retry,{passive:true});document.addEventListener('keydown',retry);
++  status();
++})();
+--- /dev/null
++++ b/js/settings.js
+@@ -0,0 +1,31 @@
++(() => {
++  'use strict';
++  const $=s=>document.querySelector(s),panel=$('#audioSettings'),app=$('#app'),modal=$('#modal');
++  let opener=null,priorApp=false,priorModal=false;
++  function refresh(){
++    const m=window.IMMUNO_MUSIC,s=window.IMMUNO_SOUND;
++    $('#musicVolume').value=Math.round((m?.volume??.35)*100);$('#musicVolumeValue').textContent=$('#musicVolume').value+'%';
++    $('#settingsSfxVolume').value=Math.round((s?.volume??.55)*100);$('#settingsSfxValue').textContent=$('#settingsSfxVolume').value+'%';
++    $('#musicMuteBtn').textContent=m?.muted?'Aktifkan musik':'Bisukan musik';$('#musicMuteBtn').setAttribute('aria-pressed',String(!!m?.muted));
++    $('#settingsSfxMuteBtn').textContent=s?.muted?'Aktifkan SFX':'Bisukan SFX';$('#settingsSfxMuteBtn').setAttribute('aria-pressed',String(!!s?.muted));
++  }
++  function open(){if(!panel.classList.contains('hidden'))return;opener=document.activeElement;priorApp=app.inert;priorModal=modal.inert;app.inert=true;modal.inert=true;panel.classList.remove('hidden');refresh();$('#musicVolume').focus();}
++  function close(){panel.classList.add('hidden');app.inert=priorApp;modal.inert=priorModal;opener?.focus?.();}
++  $('#menuSettingsBtn').addEventListener('click',open);$('#pauseSettingsBtn').addEventListener('click',open);$('#closeSettingsBtn').addEventListener('click',close);
++  $('#musicVolume').addEventListener('input',ev=>window.IMMUNO_MUSIC?.setVolume(Number(ev.target.value)/100));
++  $('#settingsSfxVolume').addEventListener('input',ev=>window.IMMUNO_SOUND?.setVolume(Number(ev.target.value)/100));
++  $('#musicMuteBtn').addEventListener('click',()=>window.IMMUNO_MUSIC?.setMuted(!window.IMMUNO_MUSIC.muted));
++  $('#settingsSfxMuteBtn').addEventListener('click',()=>window.IMMUNO_SOUND?.setMuted(!window.IMMUNO_SOUND.muted));
++  $('#testSfxBtn').addEventListener('click',()=>window.IMMUNO_SOUND?.unlock().then(()=>window.IMMUNO_SOUND.play('place',{ui:true})));
++  window.addEventListener('keydown',ev=>{
++    if(panel.classList.contains('hidden'))return;
++    // Capture before the game's ESC/Space handlers so settings never resumes combat.
++    if(ev.code==='Escape'){ev.preventDefault();ev.stopImmediatePropagation();close();return;}
++    if(ev.code==='Tab'){
++      const items=[...panel.querySelectorAll('button,input')].filter(el=>!el.disabled),i=items.indexOf(document.activeElement);
++      if(ev.shiftKey&&i<=0){ev.preventDefault();items.at(-1)?.focus();}else if(!ev.shiftKey&&(i===items.length-1||i<0)){ev.preventDefault();items[0]?.focus();}
++    }
++    ev.stopImmediatePropagation();
++  },true);
++  window.IMMUNO_SETTINGS={refresh};refresh();
++})();

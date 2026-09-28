@@ -1,0 +1,221 @@
+--- a/index.html
++++ b/index.html
+@@ -33,7 +33,7 @@
+             <div><strong>5</strong><span>Level</span></div>
+             <div><strong>2</strong><span>Sistem imun</span></div>
+           </div>
+-          <p class="small-note">v0.8 · Oxygen & SFX · Mainkan offline · Atur suara lewat menu jeda</p>
++          <p class="small-note">v0.8.1 · Squad Cards · Mainkan offline · Atur suara lewat menu jeda</p>
+         </div>
+ 
+         <div class="start-visual glass-card" aria-label="Preview karakter">
+@@ -98,9 +98,9 @@
+           </div>
+           <button id="pauseBtn" class="square-btn" title="Menu jeda (ESC / Space)" aria-label="Buka menu jeda" aria-controls="pauseOverlay" aria-expanded="false"><img src="assets/ui/pause.webp" alt=""></button>
+         </div>
+-        <aside class="unit-sidebar collapsed" aria-label="Pilihan pasukan">
+-          <button id="unitToggleBtn" class="unit-toggle" aria-expanded="false" aria-controls="unitCards"><span aria-hidden="true">▦</span> Pasukan <span id="selectedUnitText">Pilih unit</span><span class="dock-chevron" aria-hidden="true">⌃</span></button>
+-          <div id="unitCards" class="unit-cards" hidden></div>
++        <aside class="unit-sidebar" aria-label="Pilihan pasukan">
++          <button id="unitToggleBtn" class="unit-toggle" aria-expanded="true" aria-controls="unitCards"><span aria-hidden="true">▦</span> Pasukan <span id="selectedUnitText">Pilih unit</span><span class="dock-chevron" aria-hidden="true">⌃</span></button>
++          <div id="unitCards" class="unit-cards"></div>
+         </aside>
+         <div class="battle-bottom"><div id="abilityBar" class="ability-bar" aria-label="Kemampuan aktif"></div></div>
+       </div>
+@@ -120,7 +120,7 @@
+             <div id="bossPanel" class="boss-panel hidden"></div>
+             <div id="antibodyPanel" class="antibody-panel hidden"><h3>Antigen & Antibodi</h3><p class="tiny-copy">Kumpulkan 3 sampel. Pilih antibodi yang siap untuk mengaktifkan dan melanjutkan permainan.</p><div id="antibodyButtons" class="antibody-buttons"></div></div>
+             <section class="intel-card"><h3>Catatan Misi</h3><div id="bioLog" class="bio-log"></div></section>
+-            <section class="intel-card"><h3>Strategi</h3><p id="hintText"></p><div id="unitInspector" class="unit-inspector" aria-live="polite"><strong>Pilih pasukan</strong><span>Sentuh kartu, lalu kotak arena; mouse juga mendukung drag & drop.</span></div><p class="pause-shortcuts">ESC / Space: jeda · 1–9: pilih unit<br>Ketuk Pasukan untuk membuka / melipat daftar.</p></section>
++            <section class="intel-card"><h3>Strategi</h3><p id="hintText"></p><div id="unitInspector" class="unit-inspector" aria-live="polite"><strong>Pilih pasukan</strong><span>Sentuh kartu, lalu kotak arena; mouse juga mendukung drag & drop.</span></div><p class="pause-shortcuts">ESC / Space: jeda · 1–9: pilih unit<br>Kartu di atas: geser untuk melihat pasukan lainnya.</p></section>
+           </aside>
+         </div>
+       </div>
+--- a/css/game.css
++++ b/css/game.css
+@@ -60,3 +60,38 @@
+ #gameScreen .battle-bottom{left:auto;right:max(10px,env(safe-area-inset-right));transform:none;max-width:calc(100% - 265px)}
+ @media(max-width:650px){#gameScreen .unit-toggle{max-width:96px;gap:5px;padding:5px 7px}#selectedUnitText{display:none}#gameScreen .battle-bottom{right:6px;max-width:calc(100% - 110px)}}
+ @media(max-height:500px) and (min-width:651px){#gameScreen .unit-sidebar{bottom:4px}}
++
++/* v0.8.1: persistent top card rack, inspired by lane-defense seed packets. */
++#gameScreen .topbar{height:96px;top:max(6px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));align-items:flex-start;padding:3px 0;background:linear-gradient(#031822b8,#03182200);border:0;border-radius:0;backdrop-filter:none}
++#gameScreen .resource-strip{display:flex;flex-direction:column;gap:5px;width:77px}
++#gameScreen .resource-pill{width:77px;height:35px;justify-content:flex-start;padding:4px 7px;border:1px solid #abc9a660;background:#092633e6;border-radius:8px;color:#ffdf86;font-size:.81rem;box-shadow:0 2px 0 #04131e}
++#gameScreen .resource-pill.tissue{color:#ffd7df;background:#44232deb}#gameScreen .secondary-resource{display:none}
++#gameScreen #pauseBtn{margin-left:auto;width:36px;height:36px}
++#gameScreen .topbar .battle-progress{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:max(10px,env(safe-area-inset-left));width:190px;min-width:0;max-width:calc(100vw - 290px);text-align:left;padding:7px 9px;background:#061c2cd6;border:1px solid #73a3ae48;border-radius:8px;font-size:.67rem;pointer-events:none}
++#gameScreen .unit-sidebar{top:max(7px,env(safe-area-inset-top));bottom:auto;left:max(95px,calc(env(safe-area-inset-left) + 95px));right:max(53px,calc(env(safe-area-inset-right) + 53px));width:auto;max-width:none;display:flex;flex-direction:row;align-items:flex-start;gap:5px}
++#gameScreen .unit-toggle{align-self:flex-start;flex:0 0 24px;width:24px;max-width:24px;height:30px;margin-top:3px;padding:0;display:flex;justify-content:center;font-size:0;gap:0;border-radius:6px;background:#173d44e8;border-color:#699c8e}
++#gameScreen .unit-toggle>span:first-child{font-size:17px}#gameScreen .unit-toggle .dock-chevron,#gameScreen #selectedUnitText{display:none}
++#gameScreen .unit-cards{flex:0 1 auto;min-width:0;max-width:100%;gap:6px;padding:4px 5px 7px;border:2px solid #b4b484a6;border-radius:10px;background:linear-gradient(#394e3eed,#172d31ed);box-shadow:0 4px 0 #04151f, inset 0 1px 0 #e4e4b833;scrollbar-width:thin;scrollbar-color:#82ba9a #102732;touch-action:pan-x}
++#gameScreen .unit-card{flex:0 0 68px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:14px minmax(0,1fr) 17px;gap:0;min-height:80px;height:80px;padding:2px 3px 3px;overflow:hidden;text-align:center;border:2px solid #87bcb1;border-radius:6px;background:linear-gradient(#d1e8bd,#8fcbb6 58%,#598e83);box-shadow:inset 0 1px 0 #faffd7;transform:none;transition:border-color .12s,filter .12s}
++#gameScreen .unit-card-copy{grid-row:1;grid-column:1;align-self:center;z-index:1;padding:0 3px}
++#gameScreen .unit-card-copy strong{font-size:.51rem;line-height:1.05;color:#102e39;text-shadow:0 1px 0 #ecffd37d;display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
++#gameScreen .unit-card>img{grid-column:1;grid-row:2;width:64px;height:52px;max-width:none;justify-self:center;align-self:center;margin:-4px -3px 0;object-fit:contain;pointer-events:none;filter:drop-shadow(0 2px 1px #18394655)}
++#gameScreen .unit-card .cost{grid-column:1;grid-row:3;display:flex;align-items:center;justify-content:center;gap:2px;padding:1px 3px;margin:0;min-width:0;background:#e9f4c7;border:1px solid #517f72;border-radius:3px;color:#183841;font-size:.65rem;font-weight:1000;z-index:2}
++#gameScreen .unit-card .cost img{width:12px;height:12px;pointer-events:none}#gameScreen .unit-role{display:none}
++#gameScreen .unit-card .unit-hotkey{left:2px;top:18px;background:#183939d9;color:#e7fff2;padding:1px 3px;font-size:.45rem;z-index:3;line-height:1.1}
++#gameScreen .unit-card:hover{border-color:#ddfbe2;filter:brightness(1.06)}
++#gameScreen .unit-card.selected{border-color:#ffe087;background:linear-gradient(#ffedb4,#b6e2b6 55%,#6bad91);box-shadow:0 0 0 1px #fee497,inset 0 0 0 1px #fff0a8}
++#gameScreen .unit-card.selected strong{color:#183c3b}#gameScreen .unit-card.selected .cost{background:#ffe39a;border-color:#977e3a}
++#gameScreen .unit-card.unaffordable{opacity:.65;filter:saturate(.35)}#gameScreen .unit-card.selected.unaffordable{opacity:.85;border-color:#efb882}#gameScreen .unit-card.unaffordable .cost{color:#824440;background:#d9d4b4}
++#gameScreen .toast{top:112px}
++@media(min-width:1550px){#gameScreen .unit-card{flex-basis:78px;grid-template-rows:15px minmax(0,1fr) 18px;height:90px;min-height:90px}#gameScreen .unit-card>img{width:75px;height:60px}#gameScreen .unit-card-copy strong{font-size:.56rem}#gameScreen .unit-card .cost{font-size:.72rem}#gameScreen .toast{top:123px}}
++@media(max-width:650px){
++ #gameScreen .topbar{height:81px;left:max(5px,env(safe-area-inset-left));right:max(5px,env(safe-area-inset-right))}#gameScreen .resource-strip{width:61px;gap:4px}#gameScreen .resource-pill{width:61px;height:31px;padding:3px 4px;gap:3px;font-size:.67rem}#gameScreen .resource-pill img{width:20px;height:20px}#gameScreen #pauseBtn{width:29px;height:29px}
++ #gameScreen .unit-sidebar{left:max(71px,calc(env(safe-area-inset-left) + 71px));right:max(39px,calc(env(safe-area-inset-right) + 39px));top:max(7px,env(safe-area-inset-top));gap:3px}#gameScreen .unit-toggle{flex-basis:19px;width:19px;max-width:19px;height:25px}#gameScreen .unit-toggle>span:first-child{font-size:14px}#gameScreen .unit-cards{gap:4px;padding:3px 4px 6px;border-width:1px;border-radius:7px}
++ #gameScreen .unit-card{flex-basis:55px;height:70px;min-height:70px;grid-template-rows:12px minmax(0,1fr) 15px;padding:2px}#gameScreen .unit-card-copy{padding:0}#gameScreen .unit-card-copy strong{font-size:.44rem}#gameScreen .unit-card>img{width:55px;height:45px;margin:-3px -2px 0}#gameScreen .unit-card .cost{font-size:.6rem;padding:0 2px}#gameScreen .unit-card .cost img{width:11px;height:11px}#gameScreen .unit-card .unit-hotkey{font-size:.4rem;top:15px}
++ #gameScreen .topbar .battle-progress{left:6px;bottom:max(10px,env(safe-area-inset-bottom));width:88px;max-width:88px;padding:5px;font-size:.54rem}#gameScreen .toast{top:98px}
++}
++@media(max-height:500px) and (min-width:651px){
++ #gameScreen .topbar{height:49px;top:3px}#gameScreen .resource-strip{width:75px;gap:2px}#gameScreen .resource-pill{width:75px;height:22px;padding:1px 5px;font-size:.64rem}#gameScreen .resource-pill img{width:18px;height:18px}
++ #gameScreen .unit-sidebar{top:3px;left:94px;bottom:auto}#gameScreen .unit-cards{gap:4px;padding:2px 4px 4px;border-width:1px}#gameScreen .unit-card{flex-basis:47px;height:45px;min-height:45px;grid-template-rows:8px minmax(0,1fr) 11px;padding:1px 2px;border-width:1px}#gameScreen .unit-card-copy strong{font-size:.38rem}#gameScreen .unit-card>img{width:36px;height:30px;margin:-3px 0 0}#gameScreen .unit-card .cost{font-size:.49rem;padding:0;line-height:1}#gameScreen .unit-card .cost img{width:9px;height:9px}#gameScreen .unit-card .unit-hotkey{font-size:.36rem;top:11px}#gameScreen .toast{top:60px}
++}
+--- a/js/game.js
++++ b/js/game.js
+@@ -181,7 +181,7 @@
+   // ---------- level setup ----------
+   function startLevel(levelId){
+     window.IMMUNO_SOUND?.stopAll();window.IMMUNO_SOUND?.setPaused(false);
+-    setPauseUI(false);setUnitDock(false);
++    setPauseUI(false);setUnitDock(true);
+     const level = DATA.levels[levelId-1];
+     state.level = level;
+     state.levelIndex = levelId-1;
+@@ -258,14 +258,15 @@
+   }
+ 
+   function renderUnitCards(){
++    const deckScroll=$('#unitCards').scrollLeft||0;
+     const units = Object.entries(DATA.units).filter(([,u])=>u.unlock<=state.level.id);
+-    $('#unitCards').innerHTML = units.map(([key,u],index) => `<button draggable="true" class="unit-card ${state.selectedUnit===key?'selected':''}" data-unit="${key}" title="${u.description}">
+-      <span class="role-dot role-${u.role}"></span><img src="${u.asset}" alt="${u.name}">
++    $('#unitCards').innerHTML = units.map(([key,u],index) => `<button draggable="true" class="unit-card ${state.selectedUnit===key?'selected':''}" data-unit="${key}" aria-pressed="${state.selectedUnit===key}" title="${u.name} • ${u.cost} energi — ${u.description}">
++      <span class="role-dot role-${u.role}"></span><img draggable="false" src="${u.asset}" alt="${u.name}">
+       <span class="unit-card-copy"><strong>${u.name}</strong><span class="unit-role">${u.weapon||roleLabel(u.role)}</span></span><span class="unit-hotkey">${index<9?index+1:''}</span>
+       <span class="cost"><img src="assets/icons/energy.webp" alt="Energy">${u.cost}</span>
+     </button>`).join('');
+     $$('.unit-card').forEach(btn=>btn.addEventListener('click',()=>{
+-      sfx('ui_click',{ui:true});setUnitDock(false);
++      sfx('ui_click',{ui:true});
+       state.selectedUnit=btn.dataset.unit;
+       state.selectedPlacedId=null;
+       renderUnitCards();
+@@ -279,6 +280,7 @@
+       ev.dataTransfer.setData('application/x-immunofront-unit',btn.dataset.unit);ev.dataTransfer.effectAllowed='copy';
+       updateUnitInspector();
+     }));
++    $('#unitCards').scrollLeft=deckScroll;
+     $('#selectedUnitText').textContent = DATA.units[state.selectedUnit]?.name || 'Pilih unit';
+     $('#unitToggleBtn').setAttribute('aria-label',`Pasukan: ${DATA.units[state.selectedUnit]?.name||'pilih unit'}. Buka atau lipat daftar.`);
+     updateUnitInspector();
+@@ -1088,7 +1090,7 @@
+     const key=ev.dataTransfer?.getData('application/x-immunofront-unit');
+     if(!DATA.units[key]||DATA.units[key].unlock>state.level?.id||state.paused||!state.running)return;
+     ev.preventDefault();const cell=cellFromPointer(ev);if(!cell)return;
+-    state.selectedUnit=key;placeUnit(cell.r,cell.c);renderUnitCards();setUnitDock(false);draw();
++    state.selectedUnit=key;placeUnit(cell.r,cell.c);renderUnitCards();draw();
+   }
+ 
+   // ---------- events ----------
+--- a/data/game-data.js
++++ b/data/game-data.js
+@@ -2,7 +2,7 @@
+ window.IMMUNO_DATA = {
+   meta: {
+     title: 'IMMUNOFRONT: Battle in the Bloodstream',
+-    version: '0.8.0-oxygen-sfx',
++    version: '0.8.1-squad-cards',
+     language: 'id'
+   },
+   units: {
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+-# IMMUNOFRONT v0.8 — Oxygen, SFX & Fullscreen HUD
++# IMMUNOFRONT v0.8.1 — Squad Cards
+ 
+ Game pertahanan 5 jalur × 9 kolom, 5 level, 11 unit penempatan, Complement, 6 boss, dan sistem antigen–antibodi. Seluruh gambar dan **21 SFX WAV asli hasil sintesis** disertakan; game dapat dimainkan offline.
+ 
+@@ -7,7 +7,7 @@
+ 1. Ekstrak **seluruh ZIP**. Jangan jalankan dari pratinjau ZIP.
+ 2. Buka `immunofront_game/index.html` di browser modern.
+ 3. Tunggu aset siap, klik **Mulai Misi**, pilih level, lalu **Mulai Pertahanan**.
+-4. Klik **Pasukan**, pilih kartu, lalu klik/sentuh kotak arena. Mouse juga bisa menyeret kartu ke kotak arena.
++4. Pilih kartu pasukan di tepi atas, lalu klik/sentuh kotak arena. Mouse juga bisa menyeret kartu ke kotak arena.
+ 
+ Suara diaktifkan setelah interaksi pertama sesuai aturan browser. Jika tidak terdengar, buka menu jeda dan periksa **Suara: AKTIF**, volume SFX, volume perangkat, serta mute pada tab browser.
+ 
+@@ -23,8 +23,8 @@
+ ## Kontrol dan layar permainan
+ 
+ - Arena mengisi viewport dan mempertahankan rasio 1100:650 dengan `object-fit: contain`. Ruang kosong dapat muncul pada rasio layar berbeda; gambar tidak dipotong atau diregangkan.
+-- HUD tipis di atas berisi resource, kesehatan jaringan, progress wave, dan tombol Pause. Pada layar kecil hanya energi dan kesehatan yang tampil; resource lengkap ada di Pause.
+-- **Pasukan** di kiri bawah membuka/melipat strip unit horizontal. Setelah memilih kartu, strip otomatis dilipat. **1–9** memilih sembilan unit pertama; unit berikutnya dipilih dari strip.
++- Energi dan kesehatan jaringan di pojok kiri atas, tombol Pause di kanan atas. Progress wave ada di kiri bawah; resource lengkap ada di Pause.
++- **Kartu pasukan di tepi atas** terbuka saat misi dimulai dan tetap terbuka setelah memilih atau menempatkan unit. Tiap kartu menampilkan gambar, nama, biaya energi, dan sorotan pilihan aktif. Geser horizontal untuk melihat kartu lainnya; ikon kisi membuka/melipat daftar. **1–9** memilih sembilan unit pertama. Posisi geser dipertahankan saat kartu diperbarui.
+ - Ability bar tetap berada di tepi bawah dan bisa digeser jika ruang layar sempit.
+ - **ESC / Space** membuka atau menutup menu Pause penuh. Tombol **Lanjutkan**, **Ulangi**, **Kecepatan**, **Pilih Misi**, **Suara**, dan volume berada di menu tersebut.
+ - Catatan Misi, Strategi, detail unit, Boss, serta Antigen/Antibodi hanya terlihat melalui Pause. Panel Boss/Antibodi muncul saat relevan. Banner singkat tetap mengumumkan boss dan antigen baru.
+@@ -57,10 +57,10 @@
+ **52 pemeriksaan otomatis lolos:**
+ 
+ - 9 smoke test mekanik.
+-- 33 tes renderer dan interaksi, termasuk ESC/Space, modal, jeda, drag/drop, tap seluruh 45 tile pada enam ukuran viewport, serta antibody/resume.
++- 33 tes renderer dan interaksi, termasuk ESC/Space, modal, jeda, drag/drop, tap seluruh 45 tile pada enam ukuran viewport, antibody/resume, serta kartu tetap terbuka setelah klik/drop dan posisi geser terjaga.
+ - 10 tes PCM dan mixer audio, termasuk mute/volume, rate limit, batas 12 suara, background tab, dan kegagalan decode.
+ 
+-Laporan: `docs/TEST_REPORT_v0.8.json`, `docs/TEST_AUDIO_v0.8.json`, `docs/PATCH_AUDIT_v0.8.json`.
++Laporan: `docs/TEST_REPORT_v0.8.1.json`, `docs/TEST_AUDIO_v0.8.json`, `docs/PATCH_AUDIT_v0.8.json`.
+ 
+ ```sh
+ node tools/test_logic_smoke.cjs
+@@ -70,7 +70,7 @@
+ 
+ Tes renderer memerlukan `@napi-rs/canvas`; game tidak memerlukan Node. Tes mixer memakai Web Audio tiruan untuk menguji alur kontrol, bukan pemutaran pada perangkat nyata.
+ 
+-**Batas validasi:** browser interaktif di lingkungan pengerjaan tidak diizinkan mengakses file lokal. Layout CSS dan input telah diaudit/diperiksa secara simulasi, tetapi screenshot UI browser, FPS, dan pemutaran suara pada perangkat nyata belum diuji. `docs/preview-game-v0.8.png` merupakan render arena dari engine, bukan screenshot HUD browser. Kampanye tidak diklaim telah ditamatkan oleh pemain manusia.
++**Batas validasi:** browser interaktif di lingkungan pengerjaan tidak diizinkan mengakses file lokal. Layout CSS dan input telah diaudit/diperiksa secara simulasi, tetapi screenshot UI browser, FPS, dan pemutaran suara pada perangkat nyata belum diuji. `docs/preview-game-v0.8.1.png` merupakan render arena dari engine, bukan screenshot HUD browser. Kampanye tidak diklaim telah ditamatkan oleh pemain manusia.
+ 
+ ## Mengolah aset ulang
+ 
+--- a/tools/test_game.cjs
++++ b/tools/test_game.cjs
+@@ -145,12 +145,13 @@
+   T.handleGameKey({code:'Space',target:{tagName:'INPUT'},preventDefault(){}});assert.equal(T.state.paused,true);T.togglePause();
+  });
+  check('Unit dock toggles and mouse drop uses normal placement cost exactly once',()=>{
+-  reset(1);T.state.energy=260;T.setUnitDock(true);assert.equal(get('#unitCards').hidden,false);T.setUnitDock(false);assert.equal(get('#unitCards').hidden,true);
++  reset(1);T.state.energy=260;assert.equal(get('#unitCards').hidden,false);assert.equal(get('#unitToggleBtn')['aria-expanded'],'true');T.setUnitDock(true);assert.equal(get('#unitCards').hidden,false);T.setUnitDock(false);assert.equal(get('#unitCards').hidden,true);
+   canvas.getBoundingClientRect=()=>({left:0,top:0,width:1100,height:650});
+   const drop={clientX:168,clientY:146,dataTransfer:{getData:()=> 'rbc'},preventDefault(){}};
+   T.handleUnitDrop(drop);assert.equal(T.state.units.length,1);assert.equal(T.state.energy,210);assert.equal(get('#unitCards').hidden,true);
+   T.handleUnitDrop(drop);assert.equal(T.state.units.length,1);assert.equal(T.state.energy,210);
+-  T.togglePause();T.handleUnitDrop({...drop,clientX:268});assert.equal(T.state.units.length,1);T.togglePause();
++  T.setUnitDock(true);T.handleUnitDrop({...drop,clientX:368});assert.equal(T.state.units.length,2);assert.equal(get('#unitCards').hidden,false);
++  T.togglePause();T.handleUnitDrop({...drop,clientX:268});assert.equal(T.state.units.length,2);T.togglePause();
+  });
+  check('Tap placement maps all 45 cells on wide, portrait and landscape viewports',()=>{
+   for(const [width,height] of [[1920,1080],[2560,1080],[1366,768],[390,844],[844,390],[320,568]]){
+@@ -169,7 +170,7 @@
+   reset();T.togglePause();get('#homeBtn').click();assert.equal(T.state.running,false);assert.equal(T.state.paused,false);assert.equal(get('#pauseOverlay').classList.contains('hidden'),true);assert.equal(get('#gameLiveHUD').inert,false);
+  });
+  check('Rendered unit-card click then arena tap places selected unit normally',()=>{
+-  reset(1);T.state.energy=260;const card=queryButtons('.unit-card').find(b=>b.dataset.unit==='neutrophil');assert.ok(card);card.click();assert.equal(T.state.selectedUnit,'neutrophil');assert.equal(T.state.energy,260);
++  reset(1);T.state.energy=260;get('#unitCards').scrollLeft=160;const card=queryButtons('.unit-card').find(b=>b.dataset.unit==='neutrophil');assert.ok(card);card.click();assert.equal(T.state.selectedUnit,'neutrophil');assert.equal(T.state.energy,260);assert.equal(get('#unitCards').hidden,false);assert.equal(get('#unitCards').scrollLeft,160);assert.match(get('#unitCards').innerHTML,/data-unit="neutrophil" aria-pressed="true"/);
+   canvas.getBoundingClientRect=()=>({left:0,top:0,width:1100,height:650});T.handleCanvasPointer({clientX:268,clientY:146,button:0,cancelable:true,preventDefault(){}});
+   assert.equal(T.state.units[0].type,'neutrophil');assert.equal(T.state.energy,160);
+  });
+@@ -184,9 +185,9 @@
+  ['coccus','free_virus','shielded_virus','bacillus','boss_capsule_titan'].forEach((type,r)=>enemy(type,r,870-r*15));
+  T.state.elapsed=5;T.state.effects=[];T.state.selectedPlacedId=null;T.state.units[0].actionUntil=6;T.state.units[0].resourceTimer=3.5;T.state.units[2].actionUntil=6;T.state.units[10].actionUntil=6;T.state.units[5].actionUntil=6;T.state.units[1].actionUntil=6;T.state.enemies[1].hurtUntil=6;T.state.enemies[2].shield=100;T.state.enemies[2].taggedUntil=10;
+  T.state.projectiles.push({x:420,y:346,targetX:750,targetY:346,life:.12,maxLife:.22,item:'energy'});
+- snapshot('preview-game-v0.8.png');
++ snapshot('preview-game-v0.8.1.png');
+  // Simulate four minutes across all levels with ordinary damage and waves.
+  check('Five seeded 45-second combat simulations remain numerically valid',()=>{for(let level=1;level<=5;level++){reset(level);T.state.intermissionUntil=0;for(let r=0;r<5;r++){place('rbc',r,0);place('neutrophil',r,3);place('platelet',r,5);}for(let i=0;i<900&&T.state.running;i++){let dt=.05;T.state.elapsed+=dt;T.updateEffects(dt);T.updateUnits(dt);T.updateEnemies(dt);if(T.state.running){T.updateWaveSystem();T.updateMetabolism(dt);}}assert.ok(Number.isFinite(T.state.energy));assert.ok(Number.isFinite(T.state.tissue));assert.ok(T.state.tissue>=0);T.draw();}});
+  const report={passed:checks.length,checks,preloadedImages:Object.keys(T.images).length,browserTest:false,note:'Logic and actual canvas rendering tested using native canvas and a minimal DOM adapter. Strict browser Canvas argument checks included. Interactive browser test blocked by local-file access policy; no browser FPS or mobile-device claim.'};
+- fs.writeFileSync(path.join(out,'TEST_REPORT_v0.8.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
++ fs.writeFileSync(path.join(out,'TEST_REPORT_v0.8.1.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+ })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>clearInterval(keepAlive));

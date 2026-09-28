@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0",
+  "environment": "Node VM + linkedom DOM + native Canvas; browser layout not verified",
+  "tests": [
+    {
+      "name": "50 compatible levels; 17 units; 31 enemy types; milestones and four-pose fallback",
+      "status": "passed"
+    },
+    {
+      "name": "Initial locks and Databook prevent premature discoveries",
+      "status": "passed"
+    },
+    {
+      "name": "All 50 levels progress sequentially through real spawn/wave/victory functions",
+      "status": "passed"
+    },
+    {
+      "name": "Reload retains unlocks, Riset, stars, scores and discoveries",
+      "status": "passed"
+    },
+    {
+      "name": "Upgrade cost, tier cap and immutable base stats",
+      "status": "passed"
+    },
+    {
+      "name": "Purchased upgrades persist after reload",
+      "status": "passed"
+    },
+    {
+      "name": "Complement and five new roles affect combat",
+      "status": "passed"
+    },
+    {
+      "name": "Databook, chapter grid and upgrade UI render full content",
+      "status": "passed"
+    },
+    {
+      "name": "Reset requires two confirmations; cancel preserves data; final confirmation clears all progress",
+      "status": "passed"
+    },
+    {
+      "name": "Reset survives reload",
+      "status": "passed"
+    },
+    {
+      "name": "Legacy unlock and quiz migration",
+      "status": "passed"
+    },
+    {
+      "name": "Reset cannot resurrect legacy save",
+      "status": "passed"
+    },
+    {
+      "name": "Unavailable storage keeps session progress and shows message",
+      "status": "passed"
+    },
+    {
+      "name": "Malformed and out-of-range save fields are normalized",
+      "status": "passed"
+    }
+  ],
+  "limitations": [
+    "Sequential completion uses scripted lethal damage to verify transitions, not 50 human balance playthroughs.",
+    "CSS responsive layout and audio playback require a real browser device test."
+  ]
+}
