@@ -1,0 +1,525 @@
+{
+  "version": "1.1.0",
+  "frameCount": 144,
+  "sets": [
+    {
+      "key": "mast_cell",
+      "kind": "characters",
+      "firstLevel": 10,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/characters/mast_cell_idle.webp",
+        "action": "assets/characters/mast_cell_action.webp",
+        "hurt": "assets/characters/mast_cell_hurt.webp",
+        "victory": "assets/characters/mast_cell_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "interferon",
+      "kind": "characters",
+      "firstLevel": 21,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/characters/interferon_idle.webp",
+        "action": "assets/characters/interferon_action.webp",
+        "hurt": "assets/characters/interferon_hurt.webp",
+        "victory": "assets/characters/interferon_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "eosinophil",
+      "kind": "characters",
+      "firstLevel": 28,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/characters/eosinophil_idle.webp",
+        "action": "assets/characters/eosinophil_action.webp",
+        "hurt": "assets/characters/eosinophil_hurt.webp",
+        "victory": "assets/characters/eosinophil_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "basophil",
+      "kind": "characters",
+      "firstLevel": 35,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/characters/basophil_idle.webp",
+        "action": "assets/characters/basophil_action.webp",
+        "hurt": "assets/characters/basophil_hurt.webp",
+        "victory": "assets/characters/basophil_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "treg",
+      "kind": "characters",
+      "firstLevel": 43,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/characters/treg_idle.webp",
+        "action": "assets/characters/treg_action.webp",
+        "hurt": "assets/characters/treg_hurt.webp",
+        "victory": "assets/characters/treg_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "mast_cell",
+      "kind": "elites",
+      "firstLevel": 10,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/mast_cell_idle.webp",
+        "action": "assets/elites/mast_cell_action.webp",
+        "hurt": "assets/elites/mast_cell_hurt.webp",
+        "victory": "assets/elites/mast_cell_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "interferon",
+      "kind": "elites",
+      "firstLevel": 21,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/interferon_idle.webp",
+        "action": "assets/elites/interferon_action.webp",
+        "hurt": "assets/elites/interferon_hurt.webp",
+        "victory": "assets/elites/interferon_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "eosinophil",
+      "kind": "elites",
+      "firstLevel": 28,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/eosinophil_idle.webp",
+        "action": "assets/elites/eosinophil_action.webp",
+        "hurt": "assets/elites/eosinophil_hurt.webp",
+        "victory": "assets/elites/eosinophil_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "basophil",
+      "kind": "elites",
+      "firstLevel": 35,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/basophil_idle.webp",
+        "action": "assets/elites/basophil_action.webp",
+        "hurt": "assets/elites/basophil_hurt.webp",
+        "victory": "assets/elites/basophil_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "treg",
+      "kind": "elites",
+      "firstLevel": 43,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/treg_idle.webp",
+        "action": "assets/elites/treg_action.webp",
+        "hurt": "assets/elites/treg_hurt.webp",
+        "victory": "assets/elites/treg_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "rbc",
+      "kind": "elites",
+      "firstLevel": 1,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/rbc_idle.webp",
+        "action": "assets/elites/rbc_action.webp",
+        "hurt": "assets/elites/rbc_hurt.webp",
+        "victory": "assets/elites/rbc_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "platelet",
+      "kind": "elites",
+      "firstLevel": 1,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/platelet_idle.webp",
+        "action": "assets/elites/platelet_action.webp",
+        "hurt": "assets/elites/platelet_hurt.webp",
+        "victory": "assets/elites/platelet_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "neutrophil",
+      "kind": "elites",
+      "firstLevel": 1,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/neutrophil_idle.webp",
+        "action": "assets/elites/neutrophil_action.webp",
+        "hurt": "assets/elites/neutrophil_hurt.webp",
+        "victory": "assets/elites/neutrophil_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "macrophage",
+      "kind": "elites",
+      "firstLevel": 2,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/macrophage_idle.webp",
+        "action": "assets/elites/macrophage_action.webp",
+        "hurt": "assets/elites/macrophage_hurt.webp",
+        "victory": "assets/elites/macrophage_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "plasma",
+      "kind": "elites",
+      "firstLevel": 2,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/plasma_idle.webp",
+        "action": "assets/elites/plasma_action.webp",
+        "hurt": "assets/elites/plasma_hurt.webp",
+        "victory": "assets/elites/plasma_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "dendritic",
+      "kind": "elites",
+      "firstLevel": 3,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/dendritic_idle.webp",
+        "action": "assets/elites/dendritic_action.webp",
+        "hurt": "assets/elites/dendritic_hurt.webp",
+        "victory": "assets/elites/dendritic_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "nk_cell",
+      "kind": "elites",
+      "firstLevel": 3,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/nk_cell_idle.webp",
+        "action": "assets/elites/nk_cell_action.webp",
+        "hurt": "assets/elites/nk_cell_hurt.webp",
+        "victory": "assets/elites/nk_cell_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "cytotoxic_t",
+      "kind": "elites",
+      "firstLevel": 3,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/cytotoxic_t_idle.webp",
+        "action": "assets/elites/cytotoxic_t_action.webp",
+        "hurt": "assets/elites/cytotoxic_t_hurt.webp",
+        "victory": "assets/elites/cytotoxic_t_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "b_cell",
+      "kind": "elites",
+      "firstLevel": 4,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/b_cell_idle.webp",
+        "action": "assets/elites/b_cell_action.webp",
+        "hurt": "assets/elites/b_cell_hurt.webp",
+        "victory": "assets/elites/b_cell_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "helper_t",
+      "kind": "elites",
+      "firstLevel": 4,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/helper_t_idle.webp",
+        "action": "assets/elites/helper_t_action.webp",
+        "hurt": "assets/elites/helper_t_hurt.webp",
+        "victory": "assets/elites/helper_t_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "memory_b",
+      "kind": "elites",
+      "firstLevel": 5,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/memory_b_idle.webp",
+        "action": "assets/elites/memory_b_action.webp",
+        "hurt": "assets/elites/memory_b_hurt.webp",
+        "victory": "assets/elites/memory_b_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "complement",
+      "kind": "elites",
+      "firstLevel": 4,
+      "upgradeTier": [
+        4,
+        5
+      ],
+      "frames": {
+        "idle": "assets/elites/complement_idle.webp",
+        "action": "assets/elites/complement_action.webp",
+        "hurt": "assets/elites/complement_hurt.webp",
+        "victory": "assets/elites/complement_victory.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "enveloped_virus",
+      "kind": "enemies",
+      "firstLevel": 21,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/enveloped_virus_idle.webp",
+        "attack": "assets/enemies/enveloped_virus_attack.webp",
+        "hurt": "assets/enemies/enveloped_virus_hurt.webp",
+        "defeat": "assets/enemies/enveloped_virus_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "latent_cell",
+      "kind": "enemies",
+      "firstLevel": 24,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/latent_cell_idle.webp",
+        "attack": "assets/enemies/latent_cell_attack.webp",
+        "hurt": "assets/enemies/latent_cell_hurt.webp",
+        "defeat": "assets/enemies/latent_cell_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "viral_swarm",
+      "kind": "enemies",
+      "firstLevel": 27,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/viral_swarm_idle.webp",
+        "attack": "assets/enemies/viral_swarm_attack.webp",
+        "hurt": "assets/enemies/viral_swarm_hurt.webp",
+        "defeat": "assets/enemies/viral_swarm_defeat.webp"
+      },
+      "flipX": true
+    },
+    {
+      "key": "helminth",
+      "kind": "enemies",
+      "firstLevel": 31,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/helminth_idle.webp",
+        "attack": "assets/enemies/helminth_attack.webp",
+        "hurt": "assets/enemies/helminth_hurt.webp",
+        "defeat": "assets/enemies/helminth_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "protozoan",
+      "kind": "enemies",
+      "firstLevel": 34,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/protozoan_idle.webp",
+        "attack": "assets/enemies/protozoan_attack.webp",
+        "hurt": "assets/enemies/protozoan_hurt.webp",
+        "defeat": "assets/enemies/protozoan_defeat.webp"
+      },
+      "flipX": true
+    },
+    {
+      "key": "yeast",
+      "kind": "enemies",
+      "firstLevel": 37,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/yeast_idle.webp",
+        "attack": "assets/enemies/yeast_attack.webp",
+        "hurt": "assets/enemies/yeast_hurt.webp",
+        "defeat": "assets/enemies/yeast_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "resistant_bacteria",
+      "kind": "enemies",
+      "firstLevel": 41,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/resistant_bacteria_idle.webp",
+        "attack": "assets/enemies/resistant_bacteria_attack.webp",
+        "hurt": "assets/enemies/resistant_bacteria_hurt.webp",
+        "defeat": "assets/enemies/resistant_bacteria_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "hyphae",
+      "kind": "enemies",
+      "firstLevel": 44,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/hyphae_idle.webp",
+        "attack": "assets/enemies/hyphae_attack.webp",
+        "hurt": "assets/enemies/hyphae_hurt.webp",
+        "defeat": "assets/enemies/hyphae_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "autoreactive_cell",
+      "kind": "enemies",
+      "firstLevel": 47,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/autoreactive_cell_idle.webp",
+        "attack": "assets/enemies/autoreactive_cell_attack.webp",
+        "hurt": "assets/enemies/autoreactive_cell_hurt.webp",
+        "defeat": "assets/enemies/autoreactive_cell_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "boss_chapter_1",
+      "kind": "enemies",
+      "firstLevel": 10,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/boss_chapter_1_idle.webp",
+        "attack": "assets/enemies/boss_chapter_1_attack.webp",
+        "hurt": "assets/enemies/boss_chapter_1_hurt.webp",
+        "defeat": "assets/enemies/boss_chapter_1_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "boss_chapter_2",
+      "kind": "enemies",
+      "firstLevel": 20,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/boss_chapter_2_idle.webp",
+        "attack": "assets/enemies/boss_chapter_2_attack.webp",
+        "hurt": "assets/enemies/boss_chapter_2_hurt.webp",
+        "defeat": "assets/enemies/boss_chapter_2_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "boss_chapter_3",
+      "kind": "enemies",
+      "firstLevel": 30,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/boss_chapter_3_idle.webp",
+        "attack": "assets/enemies/boss_chapter_3_attack.webp",
+        "hurt": "assets/enemies/boss_chapter_3_hurt.webp",
+        "defeat": "assets/enemies/boss_chapter_3_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "boss_chapter_4",
+      "kind": "enemies",
+      "firstLevel": 40,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/boss_chapter_4_idle.webp",
+        "attack": "assets/enemies/boss_chapter_4_attack.webp",
+        "hurt": "assets/enemies/boss_chapter_4_hurt.webp",
+        "defeat": "assets/enemies/boss_chapter_4_defeat.webp"
+      },
+      "flipX": false
+    },
+    {
+      "key": "boss_chapter_5",
+      "kind": "enemies",
+      "firstLevel": 50,
+      "upgradeTier": null,
+      "frames": {
+        "idle": "assets/enemies/boss_chapter_5_idle.webp",
+        "attack": "assets/enemies/boss_chapter_5_attack.webp",
+        "hurt": "assets/enemies/boss_chapter_5_hurt.webp",
+        "defeat": "assets/enemies/boss_chapter_5_defeat.webp"
+      },
+      "flipX": false
+    }
+  ]
+}
