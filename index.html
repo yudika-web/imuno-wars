@@ -28,13 +28,31 @@
         <h1 class="menu-title">IMUNO <span>WARS</span></h1>
         <p class="menu-tagline">Sel kecil. Pertahanan besar.</p>
         <nav class="main-menu-buttons" aria-label="Menu utama">
-          <button id="startBtn" class="menu-button menu-play" disabled><span aria-hidden="true">▶</span> Mulai Misi <small>PIMPIN PASUKANMU</small></button>
-          <button id="openGuideBtn" class="menu-button"><span aria-hidden="true">✦</span> Cara Bermain</button>
-          <button id="menuSettingsBtn" class="menu-button"><span aria-hidden="true">⚙</span> Pengaturan Suara</button>
+          <button id="startBtn" class="menu-button menu-play" disabled>
+            <img class="menu-icon" src="assets/menu/icons/start.webp" alt="">
+            <span class="menu-button-copy"><strong>Mulai Misi</strong><small>PIMPIN PASUKANMU</small></span>
+            <span class="menu-button-arrow" aria-hidden="true">▶</span>
+          </button>
+          <button id="openUpgradeBtn" class="menu-button">
+            <img class="menu-icon" src="assets/menu/icons/upgrade.webp" alt="">
+            <span class="menu-button-copy"><strong>Upgrade Pasukan</strong><small>TINGKATKAN UNIT &amp; RISET</small></span>
+          </button>
+          <button id="openDatabookBtn" class="menu-button">
+            <img class="menu-icon" src="assets/menu/icons/databook.webp" alt="">
+            <span class="menu-button-copy"><strong>Databook</strong><small>ARSIP SEL &amp; PATOGEN</small></span>
+          </button>
+          <button id="openGuideBtn" class="menu-button">
+            <img class="menu-icon" src="assets/menu/icons/guide.webp" alt="">
+            <span class="menu-button-copy"><strong>Cara Bermain</strong><small>PANDUAN DASAR BATTLE</small></span>
+          </button>
+          <button id="menuSettingsBtn" class="menu-button">
+            <img class="menu-icon" src="assets/menu/icons/settings.webp" alt="">
+            <span class="menu-button-copy"><strong>Pengaturan Suara</strong><small>MUSIK, SFX, DAN TES AUDIO</small></span>
+          </button>
         </nav>
-        <p class="menu-progress-note">5 misi · 11 pasukan · Satu pertahanan</p>
+        <p class="menu-progress-note">50 misi · 17 pasukan · Satu pertahanan</p>
       </div>
-      <footer class="menu-footer"><span>v0.9 · IMUNO WARS</span><button id="backSplashBtn" class="text-button">Layar pembuka ↗</button></footer>
+      <footer class="menu-footer"><span>v1.1.2 · IMUNO WARS</span><button id="backSplashBtn" class="text-button">Layar pembuka ↗</button></footer>
     </section>
 
     <section id="levelScreen" class="level-screen screen" aria-label="Pilih level">
@@ -45,7 +63,20 @@
         </div>
         <button id="levelBackBtn" class="icon-text-btn">← Kembali</button>
       </header>
+      <nav id="chapterTabs" class="chapter-tabs" aria-label="Pilih bab"></nav>
+      <div class="campaign-toolbar"><p id="chapterSummary"></p><button id="levelUpgradeBtn" class="secondary-btn">Upgrade Pasukan</button></div>
       <div id="levelGrid" class="level-grid"></div>
+    </section>
+
+    <section id="upgradeScreen" class="screen archive-screen" aria-label="Upgrade pasukan">
+      <header class="screen-header"><div><p class="kicker">LABORATORIUM</p><h1>Upgrade Pasukan</h1><p>Perkuat pasukan hingga Lv5. Berlaku pada penempatan berikutnya.</p><p id="upgradeSaveStatus" class="small-note"></p></div><button id="upgradeBackBtn" class="secondary-btn">← Pilih Misi</button></header>
+      <div class="research-wallet"><img src="assets/items/research.webp" alt=""> <strong id="researchBalance">0</strong> Riset</div>
+      <div id="upgradeGrid" class="archive-grid"></div>
+    </section>
+    <section id="databookScreen" class="screen archive-screen" aria-label="Databook">
+      <header class="screen-header"><div><p class="kicker">ARSIP BIOLOGI</p><h1>Databook</h1><p id="databookCount"></p></div><button id="databookBackBtn" class="secondary-btn">← Menu</button></header>
+      <nav class="book-tabs" aria-label="Jenis catatan"><button class="secondary-btn" data-book-tab="characters" aria-pressed="true">Pasukan Sel</button><button class="secondary-btn" data-book-tab="enemies" aria-pressed="false">Patogen</button></nav>
+      <div id="databookGrid" class="archive-grid"></div>
     </section>
 
     <section id="gameScreen" class="game-screen screen" aria-label="Permainan">
@@ -118,6 +149,7 @@
       <div class="audio-setting-row"><label for="settingsSfxVolume">Efek suara <output id="settingsSfxValue">55%</output></label><input id="settingsSfxVolume" type="range" min="0" max="100" value="55"><button id="settingsSfxMuteBtn" class="secondary-btn" aria-pressed="false">Bisukan SFX</button><button id="testSfxBtn" class="text-button">▶ Coba efek suara</button></div>
       <p id="musicStatus" class="small-note" role="status"></p>
       <p class="small-note">Pengaturan tersimpan otomatis di perangkat ini.</p>
+      <button id="resetProgressBtn" class="danger-btn">Reset Progres</button>
       <button id="closeSettingsBtn" class="primary-btn">Selesai</button>
     </div>
   </div>
@@ -126,6 +158,8 @@
   <script src="data/sprite-data.js"></script>
   <script src="data/sprite-metrics.js"></script>
   <script src="data/audio-data.js"></script>
+  <script src="js/campaign.js"></script>
+  <script src="js/progression.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/music.js"></script>
   <script src="js/settings.js"></script>

@@ -1,6 +1,54 @@
-# IMUNO WARS v0.9 — Start Screen, Menu & Music
+# IMUNO WARS v1.1 — Kampanye 50 Level & Aset Baru
 
-Game pertahanan 5 jalur × 9 kolom, 5 level, 11 unit penempatan, Complement, 6 boss, dan sistem antigen–antibodi. Seluruh gambar dan **21 SFX WAV asli hasil sintesis** disertakan; game dapat dimainkan offline.
+**Pembaruan v1.1.4:** tanda bulat gelap di kepala musuh dihilangkan dari arena. Sistem antigen dan antibodi tetap dapat digunakan melalui panel permainan.
+
+**Pembaruan v1.1.3:** aura status, variasi proyektil, jejak cahaya, percikan benturan, dan gelombang kejut ditambahkan pada renderer arena. Rincian ada di `docs/CHANGELOG_v1.1.3_VFX.md`.
+
+Game pertahanan 5 jalur × 9 kolom, 50 level dalam 5 bab, 17 unit penempatan (termasuk Komplemen), 31 tipe ancaman (11 boss), dan sistem antigen–antibodi. Seluruh gambar dan **21 SFX WAV asli hasil sintesis** disertakan; game dapat dimainkan offline.
+
+
+## Kampanye, Riset, dan Databook v1.0
+
+- Pilih satu dari lima tab Bab. Setiap bab memuat 10 kartu level. Level 1–5 mempertahankan konten asli sebagai pengenalan lintas sistem; level 6–50 memperdalam tema bab. Level kelipatan lima memakai gelombang, strategi, dan kuis khusus.
+- Menang membuka level berikutnya, memberi **Riset**, dan menyimpan skor terbaik serta bintang: 3 bintang pada kesehatan jaringan ≥80%, 2 pada ≥45%, selebihnya 1. Kuis disimpan terpisah dari bintang.
+- Hadiah pertama: 35 + 10 × nomor bab, ditambah 35 pada boss bab. Mengulang level tetap memberi 8 + 2 × nomor bab Riset.
+- **Upgrade Pasukan** tersedia di menu dan pemilihan misi. Biaya Lv2–Lv5: 35, 70, 105, 140 Riset. Tiap tingkat menambah 8% HP, 7% damage, mengurangi 3,5% jeda serangan, dan menambah 2% jangkauan dari nilai dasar, untuk stat yang dimiliki unit. Stat dasar tidak diubah. Unit pendukung tanpa stat serangan tetap mendapat tambahan HP.
+- Pasukan terbuka berdasarkan progres global, termasuk saat mengulang misi lama. Kemampuan aktif dan panel antibodi tetap mengikuti pengenalan mekanik per misi.
+- **Databook → Pasukan Sel** terbuka saat syarat level tercapai. **Patogen** baru terbuka ketika tipe tersebut benar-benar muncul dalam pertempuran, termasuk panggilan boss.
+- **Pengaturan Suara → Reset Progres** membutuhkan dua konfirmasi setelah tombol reset. Membatalkan salah satu tahap mempertahankan progres. Reset menghapus progres lama dan baru, lalu menulis save awal agar data lama tidak muncul lagi; pengaturan suara dipertahankan.
+
+| Pasukan tambahan | Terbuka | Fungsi |
+| --- | ---: | --- |
+| Komplemen | 4 | Bonus serangan pada target bertanda antibodi; sprite lama dipakai |
+| Sel Mast | 10 | Denyut damage kecil dan perlambatan area |
+| Interferon | 21 | Sinyal protein, bukan sel: proteksi area 4 detik, damage diterima −28% |
+| Eosinofil | 28 | Bonus damage terhadap parasit |
+| Basofil | 35 | Perlambatan target selama 1,8 detik |
+| Sel T Regulator | 43 | Biaya jaringan kemampuan inflamasi turun dari 8 menjadi 3; membantu pemulihan saat aktif |
+
+### Aset dan batas verifikasi
+
+**144 frame ilustrasi baru sudah terpasang**: lima karakter baru (20 frame), 17 bentuk elite (68), sembilan musuh (36), dan lima boss bab (20). Semua memiliki empat pose. Bentuk dasar aktif pada Lv1–3, bentuk elite pada Lv4–5. Perubahan tampil di arena, kartu pasukan, layar Upgrade, dan Databook, serta tetap sesuai setelah reload/reset.
+
+Boss Benteng Luka, Raja Kapsul, Nukleus Replikasi, Pengubah Antigen, dan Krisis Sistemik tampil pada level 10, 20, 30, 40, dan 50. Sprite memakai WebP transparan. Eritrosit elite tetap menggunakan gelembung oksigen. Atlas sumber dan PNG resolusi sumber tersedia pada paket aset terpisah.
+
+**20 kelompok uji integrasi lulus** (`docs/TEST_REPORT_v1.1.json`), termasuk preload semua aset, rendering 144 frame dengan renderer game, perpindahan bentuk seluruh 17 pasukan dari Lv1–5, save/reload/reset, dan alur gelombang 50 level. `docs/preview-canvas-v1.1.png` menampilkan hasil renderer game dengan seluruh elite dan lima boss sekaligus dalam skenario uji.
+
+Keterbatasan: penyelesaian 50 level diuji dengan damage otomatis, bukan permainan penuh untuk menilai keseimbangan. Chromium tidak tersedia, sehingga tata letak CSS responsif, sentuhan di perangkat nyata, dan pemutaran audio belum diuji ulang di browser. Sistem musik/SFX dari v1.0 tetap disertakan.
+
+### Struktur perluasan
+
+- `data/game-data.js`: data deklaratif saja, termasuk lima level asli, bab, unit, musuh, dan milestone.
+- `js/campaign.js`: generator deterministik level 6–50; fallback Canvas tetap tersedia sebagai kompatibilitas untuk data unit primitif, tetapi tidak digunakan oleh 17 pasukan saat ini. HP musuh naik bertahap hingga ×1,396, damage hingga ×1,176 pada level 50; stat dasar tidak dimutasi.
+- `js/progression.js`: satu save `imunowarsSave` versi 1, sanitasi nilai, migrasi `immunofrontUnlocked` dan `immunofrontQuiz`, Riset, upgrade, dan penemuan. Musik/SFX tetap memiliki pengaturan sendiri.
+- `js/game.js`: titik integrasi spawn, penempatan, kemenangan, UI baru, dan peran unit. Grid 5×9 serta loop tetap dipertahankan.
+- `tests/verify-v1.1.cjs`: pengujian terisolasi dengan Node, `linkedom`, dan `@napi-rs/canvas`; tidak dimuat oleh game.
+
+Save lokal terikat browser dan asal halaman (origin). Untuk migrasi otomatis, buka versi ini pada origin yang sama dengan versi lama. Menyalin ZIP tidak menyalin localStorage perangkat lain.
+
+## Menyimpan progres lama
+
+Jangan menekan Reset Progres untuk pindah versi. Gunakan browser dan origin/alamat lokal yang sama; jika membuka langsung melalui file, mengganti lokasi folder bisa memengaruhi akses save tergantung browser. Cadangkan folder lama sebelum menggantinya.
 
 ## Jalankan
 
@@ -42,7 +90,7 @@ Atlas terbaru: `assets/source-atlases/erythrocyte-oxygen.png`. Pose runtime: `as
 ## Layar pembuka dan menu baru
 
 - Gambar `start_screen.png` yang dikirim pengguna dipakai sebagai artwork layar pembuka, dikonversi ke `assets/menu/start-screen.webp`. Komposisi dan tulisan IMUNO WARS pada gambar dipertahankan; nama proyek kini menggunakan branding IMUNO WARS.
-- Progress **MEMUAT** mengikuti penyelesaian 201 gambar runtime, bukan timer buatan. **Sentuh untuk Mulai** baru aktif setelah pemuatan selesai. Jika ada gambar gagal, pesan menjelaskan penggunaan gambar cadangan.
+- Progress **MEMUAT** mengikuti penyelesaian seluruh gambar runtime, bukan timer buatan. **Sentuh untuk Mulai** baru aktif setelah pemuatan selesai. Jika ada gambar gagal, pesan menjelaskan penggunaan gambar cadangan.
 - Gambar pembuka ditampilkan utuh dengan contain; ruang kosong pada rasio layar lain wajar.
 - Menu utama memakai artwork baru `assets/menu/main-menu.webp`, tombol Mulai Misi, Cara Bermain, dan Pengaturan Suara, serta gelembung animasi ringan yang mengikuti preferensi reduced motion.
 - Artwork menu dibuat menggunakan imagegen bawaan. Prompt final dan sumber referensi ada di `docs/IMAGE_PROMPT_v0.9.json`.
@@ -105,3 +153,13 @@ python tools/generate_sfx.py
 ```
 
 Import sprite memerlukan `sharp`, metadata memerlukan Pillow, dan audio memerlukan NumPy. Jalankan import oksigen **setelah** atlas fantasi lama agar Eritrosit tidak kembali ke desain v0.7. Atlas lama serta dokumen v0.2–v0.7 dipertahankan sebagai arsip. Jangan jalankan generator aset prototipe lama.
+
+Paket playable menyertakan pratinjau v1.1; tangkapan layar dokumentasi versi lama tidak disertakan untuk mengurangi ukuran unduhan.
+
+
+## v1.1.2 — Menu compact game UI
+- Menu utama disusun ulang agar muat satu layar tanpa scroll pada viewport umum desktop/mobile.
+- Lima ikon menu baru ditambahkan dalam format WebP transparan.
+- Tombol menu memakai layout kartu game 2 kolom, dengan tombol Mulai Misi sebagai aksi utama.
+- Konflik CSS lama pada ukuran ikon, lebar teks, dan margin label diperbaiki.
+- Struktur ID tombol lama dipertahankan agar fungsi JavaScript tetap kompatibel.
