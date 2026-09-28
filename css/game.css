@@ -316,3 +316,69 @@
   .main-menu-buttons .menu-button > img.menu-icon{width:34px;height:34px;flex-basis:34px}
   .main-menu-content{max-height:calc(100dvh - 76px)}
 }
+
+/* Campaign route: one illustrated destination, then readable mission tiles. */
+#levelScreen{background:radial-gradient(ellipse at 50% 0,#315767 0,transparent 45%),#091923}
+#levelScreen .screen-header{margin-bottom:20px}
+#levelScreen .screen-header h1{font-size:clamp(2rem,4vw,3.2rem);color:#fff4d9;text-shadow:0 3px 0 #492a40}
+#levelScreen .chapter-tabs{gap:8px;margin-bottom:14px}
+#levelScreen .chapter-tab{position:relative;min-height:92px;display:flex;flex-direction:column;justify-content:center;gap:4px;overflow:hidden;padding:12px 14px;border:2px solid #557284;border-radius:15px;background:linear-gradient(135deg,#1e4350,#102a39);box-shadow:0 5px 0 #071621;text-align:left;transition:transform .16s,border-color .16s,filter .16s}
+#levelScreen .chapter-tab:before{content:'';position:absolute;width:72px;height:72px;right:-22px;top:-25px;border-radius:50%;background:#8fc9bb24;box-shadow:0 0 0 14px #9ed0ac0b}
+#levelScreen .chapter-tab:hover{transform:translateY(-3px);border-color:#a9e2d0}
+#levelScreen .chapter-tab.active{border-color:#ffdf91;background:linear-gradient(135deg,#315c58,#204b52);box-shadow:0 5px 0 #76502e,inset 0 3px #fff4c38c}
+#levelScreen .chapter-tab small{font-size:.6rem;color:#93ddcd;letter-spacing:.12em;margin:0;font-weight:1000}
+#levelScreen .chapter-tab.active small{color:#ffe4a0}
+#levelScreen .chapter-tab strong{position:relative;font-size:.78rem;line-height:1.15;min-height:2.2em;display:flex;align-items:center}
+#levelScreen .chapter-tab span{color:#a9c9d2;font-size:.6rem;margin:0}
+.chapter-hero{max-width:1260px;min-height:260px;margin:0 auto 21px;padding:25px 31px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;border:2px solid #b36d70;border-radius:22px;background:linear-gradient(90deg,#211627ec 0,#261729d9 34%,#270f2180 62%,#190c1b15),url('../assets/campaign/route-panorama.webp') center 46%/cover;box-shadow:0 7px 0 #08151e,0 20px 40px #0006}
+.chapter-hero:after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:20px;box-shadow:inset 0 0 0 2px #ffddb537,inset 0 -90px 95px #0e1b25aa}
+.chapter-hero-copy,.chapter-hero-progress{position:relative;z-index:1}
+.chapter-hero-copy{max-width:570px;text-shadow:0 2px 12px #090f1a}
+.chapter-hero h2{font-size:clamp(1.6rem,3.5vw,2.65rem);line-height:1.05;margin:11px 0;color:#fff4d8;text-shadow:0 3px 0 #763f46,0 6px 18px #000b}
+.chapter-hero p:not(.kicker){max-width:44ch;margin:0 0 19px;font-size:.86rem;line-height:1.55;color:#f1e0de}
+.chapter-hero .primary-btn{padding:11px 19px}
+.chapter-hero-progress{align-self:flex-start;white-space:nowrap;border:1px solid #ffd792a9;background:#241725da;color:#ffe39f;border-radius:100px;padding:8px 12px;font-size:.68rem;font-weight:900;letter-spacing:.07em}
+#levelScreen .campaign-toolbar{margin-bottom:12px}
+#levelScreen .campaign-toolbar p{font-size:.76rem}
+#levelGrid{gap:13px}
+#levelGrid .level-card{position:relative;border:2px solid #527585;border-radius:16px;background:linear-gradient(#1b3946,#0d2733);box-shadow:0 5px 0 #061720,0 10px 22px #0005}
+#levelGrid .level-card:hover{border-color:#d7efba;box-shadow:0 5px 0 #547c64,0 14px 28px #0007}
+#levelGrid .level-card.featured{border-color:#ffdf87;box-shadow:0 5px 0 #8a6337,0 0 20px #ffc77330}
+#levelGrid .level-card.boss-mission{border-color:#bd6e9f}
+#levelGrid .level-thumb{height:126px;background-position:center 45%}
+#levelGrid .level-thumb:after{background:linear-gradient(180deg,#07192352,transparent 38%,#102b39ed)}
+#levelGrid .level-number{width:auto;min-width:38px;height:38px;left:10px;bottom:9px;padding:0 7px;border-radius:11px;font-size:.9rem;box-shadow:0 3px 0 #ad713c}
+#levelGrid .level-status{right:9px;top:9px;padding:6px 8px;font-size:.52rem}
+#levelGrid .boss-mission .level-status{background:#5c2447;border-color:#e999cb;color:#fff1d7}
+#levelGrid .level-body{padding:12px 13px 14px}
+#levelGrid .level-body h2{min-height:2.4em;margin:0 0 5px;font-size:.94rem;line-height:1.2}
+#levelGrid .level-stars{font-size:.9rem;letter-spacing:.08em;margin:3px 0}
+#levelGrid .level-card.locked{opacity:.72;filter:saturate(.38)}
+#levelGrid .level-card.locked:hover{transform:none;border-color:#527585;box-shadow:0 5px 0 #061720,0 10px 22px #0005}
+@media(max-width:900px){#levelScreen .chapter-tabs{grid-template-columns:repeat(5,minmax(150px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:9px}#levelScreen .chapter-tab{scroll-snap-align:start}#levelGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){#levelScreen .screen-header{margin:4px auto 16px}#levelScreen .chapter-tab{min-height:80px}#levelScreen .chapter-tab strong{font-size:.72rem}.chapter-hero{min-height:250px;padding:18px;align-items:flex-end;background-position:55% center}.chapter-hero-progress{position:absolute;top:12px;right:12px;font-size:.56rem;padding:5px 8px}.chapter-hero h2{font-size:1.75rem}.chapter-hero p:not(.kicker){font-size:.75rem;margin-bottom:13px}#levelGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#levelGrid .level-thumb{height:94px}#levelGrid .level-body{padding:10px}#levelGrid .level-body h2{font-size:.81rem}#levelGrid .level-body small{font-size:.59rem}#levelGrid .level-status{font-size:.45rem;padding:4px 5px}}
+@media(prefers-reduced-motion:reduce){#levelScreen .chapter-tab{transition:none}}
+
+/* Distinct mission scenes assembled from chapter environments and real enemy art. */
+#levelGrid .mission-thumb{isolation:isolate;background:radial-gradient(circle at 70% 42%,var(--mission-glow,#ef9ad2aa),transparent 50%),#173343}
+#levelGrid .mission-scenery{position:absolute;inset:-24%;background-image:var(--mission-bg);background-size:cover;background-position:var(--scene-x,50%) var(--scene-y,50%);transform:scale(var(--scene-zoom,1.15)) rotate(var(--scene-tilt,0deg));filter:saturate(1.18)}
+#levelGrid .mission-thumb:before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(110deg,#15324270,transparent 65%),radial-gradient(circle at var(--glow-x,70%) 48%,var(--mission-glow,#ffe6a873),transparent 43%)}
+#levelGrid .mission-orbit{position:absolute;z-index:1;width:125px;height:125px;left:var(--orbit-x,45%);top:-22px;border:2px solid #fff9;border-radius:50%;box-shadow:0 0 30px var(--mission-glow,#b6f2dbaa),inset 0 0 25px #fff5;transform:rotate(-25deg) scaleX(.84);opacity:.68}
+#levelGrid .mission-threat,#levelGrid .mission-support{position:absolute;z-index:2;object-fit:contain;pointer-events:none;filter:drop-shadow(0 8px 5px #160f2bc9)}
+#levelGrid .mission-threat{width:120px;height:120px;right:var(--threat-right,-5px);bottom:var(--threat-bottom,-24px);transform:rotate(var(--threat-rotate,0deg)) scale(var(--threat-scale,1))}
+#levelGrid .mission-support{width:77px;height:77px;left:var(--support-left,10%);top:var(--support-top,1px);transform:rotate(var(--support-rotate,-12deg));opacity:.9}
+#levelGrid .mission-thumb:after{z-index:2;background:linear-gradient(180deg,#0719231f,transparent 45%,#102b39d9)}
+#levelGrid .mission-thumb .level-number,#levelGrid .mission-thumb .level-status{z-index:3}
+#levelGrid .boss-thumb{background-position:center;background-size:cover}
+#levelGrid .boss-thumb:after{background:linear-gradient(180deg,#230d2918,transparent 48%,#170b23df)}
+#levelGrid .boss-thumb .level-number,#levelGrid .boss-thumb .level-status{z-index:3}
+#levelGrid .mission-thumb.scene-0{--scene-x:18%;--scene-y:24%;--scene-zoom:1.2;--mission-glow:#ffc481a6;--orbit-x:48%;--support-left:8%;--threat-right:-8px}
+#levelGrid .mission-thumb.scene-1{--scene-x:80%;--scene-y:32%;--scene-zoom:1.27;--mission-glow:#9de9f2a6;--orbit-x:33%;--support-left:20%;--threat-right:15px;--threat-rotate:-7deg}
+#levelGrid .mission-thumb.scene-2{--scene-x:38%;--scene-y:77%;--scene-zoom:1.35;--mission-glow:#ed9ce6a6;--orbit-x:59%;--support-left:4%;--threat-right:3px;--threat-scale:1.12}
+#levelGrid .mission-thumb.scene-3{--scene-x:73%;--scene-y:20%;--scene-zoom:1.22;--mission-glow:#f9d583a6;--orbit-x:28%;--support-left:24%;--threat-right:-16px;--threat-rotate:7deg}
+#levelGrid .mission-thumb.scene-4{--scene-x:23%;--scene-y:62%;--scene-zoom:1.31;--mission-glow:#b8b2f8a6;--orbit-x:53%;--support-left:11%;--threat-right:21px;--threat-bottom:-31px}
+#levelGrid .mission-thumb.scene-5{--scene-x:83%;--scene-y:68%;--scene-zoom:1.26;--mission-glow:#b4e79da6;--orbit-x:42%;--support-left:3%;--threat-right:-1px;--threat-rotate:-10deg}
+#levelGrid .mission-thumb.scene-6{--scene-x:42%;--scene-y:18%;--scene-zoom:1.34;--mission-glow:#ff9c9ca6;--orbit-x:52%;--support-left:19%;--threat-right:12px;--threat-scale:1.08}
+#levelGrid .mission-thumb.scene-7{--scene-x:64%;--scene-y:82%;--scene-zoom:1.23;--mission-glow:#84ddd9a6;--orbit-x:27%;--support-left:6%;--threat-right:-13px;--threat-rotate:8deg}
+#levelGrid .mission-thumb.scene-8{--scene-x:13%;--scene-y:43%;--scene-zoom:1.4;--mission-glow:#fbc389a6;--orbit-x:58%;--support-left:22%;--threat-right:18px;--threat-bottom:-28px}
+@media(max-width:600px){#levelGrid .mission-threat{width:95px;height:95px;bottom:-17px}#levelGrid .mission-support{width:60px;height:60px}#levelGrid .mission-orbit{width:95px;height:95px;top:-12px}}
