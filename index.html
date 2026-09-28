@@ -4,6 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>IMUNO WARS: Battle in the Bloodstream</title>
+  <meta name="theme-color" content="#102b3b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="IMUNO WARS" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/pwa/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/game.css" />
 </head>
 <body>
@@ -164,5 +170,14 @@
   <script src="js/music.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(error => {
+          console.warn('PWA tidak dapat diaktifkan:', error);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
