@@ -1,5 +1,5 @@
 /* IMUNO WARS PWA: cache the app shell; assets are cached as they are loaded. */
-const CACHE_NAME = 'imuno-wars-v1.1.5';
+const CACHE_NAME = 'imuno-wars-v1.1.7-mission-art';
 const CACHE_PREFIX = 'imuno-wars-';
 const BASE = new URL('./', self.location.href);
 const CORE = [
@@ -8,6 +8,10 @@ const CORE = [
   './data/audio-data.js', './js/campaign.js', './js/progression.js',
   './js/audio.js', './js/music.js', './js/settings.js', './js/game.js',
   './assets/menu/start-screen.webp', './assets/menu/main-menu.webp',
+  './assets/campaign/route-panorama.webp',
+  './assets/campaign/boss/bab-01.webp', './assets/campaign/boss/bab-02.webp',
+  './assets/campaign/boss/bab-03.webp', './assets/campaign/boss/bab-04.webp',
+  './assets/campaign/boss/bab-05.webp',
   './assets/pwa/icon-192.png', './assets/pwa/icon-512.png',
   './assets/pwa/icon-maskable-512.png', './assets/pwa/apple-touch-icon.png'
 ];
