@@ -121,14 +121,43 @@
   }
 
   function saveNotice(){return PROGRESS.storageUnavailable?'Progres hanya tersimpan selama sesi ini karena penyimpanan browser tidak tersedia.':'Progres tersimpan otomatis di browser ini.';}
+  function bossMissionArt(level){
+    return `assets/campaign/boss/bab-${String(Math.ceil(level.id/10)).padStart(2,'0')}.webp`;
+  }
+  function missionThumbnail(level,status){
+    if(level.id%10===0){
+      return `<div class="level-thumb boss-thumb" style="background-image:url('${bossMissionArt(level)}')"><span class="level-number">${String(level.id).padStart(2,'0')}</span><span class="level-status">${status}</span></div>`;
+    }
+    const step=(level.id-1)%10;
+    const threats=[...new Set(level.waves.flat().map(group=>group.type))].filter(type=>DATA.enemies[type]&&!DATA.enemies[type].boss);
+    const lead=DATA.enemies[threats[step%threats.length]]?.asset||DATA.enemies.coccus.asset;
+    const support=DATA.enemies[threats[(step+1)%threats.length]]?.asset||lead;
+    return `<div class="level-thumb mission-thumb scene-${step}" style="--mission-bg:url('${level.background}')"><div class="mission-scenery"></div><div class="mission-orbit"></div><img class="mission-threat" src="${lead}" alt="" loading="lazy"><img class="mission-support" src="${support}" alt="" loading="lazy"><span class="level-number">${String(level.id).padStart(2,'0')}</span><span class="level-status">${status}</span></div>`;
+  }
   function renderLevelSelect(){
     setText($('#saveStatus'),saveNotice());
-    $('#chapterTabs').innerHTML=DATA.chapters.map(c=>`<button class="chapter-tab ${c.id===selectedChapter?'active':''}" aria-pressed="${c.id===selectedChapter}" data-chapter="${c.id}"><small>BAB ${c.id}</small>${c.name}<span>${(c.id-1)*10+1}–${c.id*10}</span></button>`).join('');
+    $('#chapterTabs').innerHTML=DATA.chapters.map(c=>`<button class="chapter-tab ${c.id===selectedChapter?'active':''}" aria-pressed="${c.id===selectedChapter}" data-chapter="${c.id}"><small>BAB ${String(c.id).padStart(2,'0')}</small><strong>${c.name}</strong><span>${(c.id-1)*10+1}–${c.id*10} · ${DATA.levels.filter(l=>Math.ceil(l.id/10)===c.id && PROGRESS.save.levelStars[l.id]>0).length}/10 selesai</span></button>`).join('');
     $$('#chapterTabs button').forEach(b=>b.onclick=()=>{selectedChapter=Number(b.dataset.chapter);renderLevelSelect();});
-    $('#chapterSummary').textContent=DATA.chapters[selectedChapter-1].theme+' • Riset: '+PROGRESS.save.researchPoints;
-    $('#levelGrid').innerHTML=DATA.levels.filter(l=>Math.ceil(l.id/10)===selectedChapter).map(l=>{
+    const chapter=DATA.chapters[selectedChapter-1];
+    const chapterLevels=DATA.levels.filter(l=>Math.ceil(l.id/10)===selectedChapter);
+    const completed=chapterLevels.filter(l=>PROGRESS.save.levelStars[l.id]>0).length;
+    const spotlight=chapterLevels.find(l=>l.id<=getUnlocked() && !PROGRESS.save.levelStars[l.id]) || [...chapterLevels].reverse().find(l=>l.id<=getUnlocked()) || chapterLevels[0];
+    const spotlightLocked=spotlight.id>getUnlocked();
+    $('#chapterEyebrow').textContent=`BAB ${String(selectedChapter).padStart(2,'0')} · ${spotlightLocked?'BELUM TERBUKA':completed===10?'BAB TUNTAS':'MISI BERIKUTNYA'}`;
+    $('#chapterHeroTitle').textContent=spotlight.title;
+    $('#chapterHeroDescription').textContent=chapter.theme;
+    $('#chapterHeroProgress').textContent=`${completed}/10 MISI SELESAI`;
+    $('.chapter-hero').style.backgroundImage=spotlight.id%10===0
+      ?`linear-gradient(90deg,#211627f5 0,#261729d9 38%,#270f2180 66%,#190c1b15),url('${bossMissionArt(spotlight)}')`
+      :'';
+    $('#chapterPlayBtn').disabled=spotlightLocked;
+    $('#chapterPlayBtn').innerHTML=spotlightLocked?'Buka bab sebelumnya':'Mainkan level '+spotlight.id+' <span aria-hidden="true">▶</span>';
+    $('#chapterPlayBtn').onclick=()=>startLevel(spotlight.id);
+    $('#chapterSummary').textContent=chapter.theme+' • Riset: '+PROGRESS.save.researchPoints;
+    $('#levelGrid').innerHTML=chapterLevels.map(l=>{
       const locked=l.id>getUnlocked(),stars=PROGRESS.save.levelStars[l.id]||0;
-      return `<button class="level-card ${locked?'locked':''}" data-level="${l.id}" ${locked?'disabled':''} aria-label="Level ${l.id}: ${l.title}${locked?', terkunci':''}"><div class="level-thumb" style="background-image:url('${l.background}')"><span class="level-number">${l.id}</span><span class="level-status">${locked?'TERKUNCI':l.id%10===0?'BOSS BAB':stars?'SELESAI':'SIAP'}</span></div><div class="level-body"><h2>${l.title}</h2><div class="level-stars" aria-label="${stars} bintang">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</div><small>Skor ${PROGRESS.save.bestScore[l.id]||0}${getQuiz()[l.id]?' · Kuis ✓':''}</small></div></button>`;
+      const thumb=missionThumbnail(l,locked?'TERKUNCI':l.id%10===0?'BOSS BAB':stars?'SELESAI':'SIAP');
+      return `<button class="level-card ${locked?'locked':''} ${l.id===spotlight.id&&!locked?'featured':''} ${l.id%10===0?'boss-mission':''}" data-level="${l.id}" ${locked?'disabled':''} aria-label="Level ${l.id}: ${l.title}${locked?', terkunci':''}">${thumb}<div class="level-body"><h2>${l.title}</h2><div class="level-stars" aria-label="${stars} bintang">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</div><small>Skor ${PROGRESS.save.bestScore[l.id]||0}${getQuiz()[l.id]?' · Kuis ✓':''}</small></div></button>`;
     }).join('');
     $$('.level-card').forEach(b=>b.onclick=()=>startLevel(Number(b.dataset.level)));
   }
@@ -959,6 +988,34 @@
     ctx.fillStyle='rgba(106,221,253,.25)';ctx.strokeStyle='#b4f5ff';ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.stroke();
     ctx.fillStyle='#f0ffff';ctx.beginPath();ctx.arc(x-r*.3,y-r*.35,Math.max(.7,r*.2),0,Math.PI*2);ctx.fill();ctx.restore();
   }
+  function drawFrontierStrip(hostile){
+    const x=hostile?1028:36,center=x+31,top=GRID.y,height=GRID.rows*GRID.th;
+    ctx.save();
+    const glow=ctx.createLinearGradient(x,0,x+62,0);
+    if(hostile){glow.addColorStop(0,'#33183eb8');glow.addColorStop(.65,'#481c58e8');glow.addColorStop(1,'#170f32ee');}
+    else{glow.addColorStop(0,'#153f4fe8');glow.addColorStop(.5,'#196a70e8');glow.addColorStop(1,'#164654b8');}
+    roundRect(ctx,x,top,62,height,15);ctx.fillStyle=glow;ctx.fill();ctx.lineWidth=2;
+    ctx.strokeStyle=hostile?'#ed82d8a6':'#8fe9d6a6';ctx.stroke();
+    ctx.fillStyle=hostile?'#fc9de1':'#b8fff2';
+    for(let lane=0;lane<GRID.rows;lane++){
+      const cy=top+GRID.th*(lane+.5);
+      ctx.globalAlpha=lane===2?.8:.52;
+      ctx.beginPath();ctx.arc(center,cy,9,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle=hostile?'#4e1d56':'#155263';
+      ctx.beginPath();
+      if(hostile){ctx.moveTo(center-5,cy);ctx.lineTo(center+3,cy-5);ctx.lineTo(center+3,cy+5);}
+      else{ctx.moveTo(center-3,cy-5);ctx.lineTo(center+5,cy);ctx.lineTo(center-3,cy+5);}
+      ctx.closePath();ctx.fill();ctx.fillStyle=hostile?'#fc9de1':'#b8fff2';
+    }
+    ctx.globalAlpha=1;
+    const plaqueY=top+height/2;
+    ctx.save();ctx.translate(center,plaqueY);ctx.rotate(-Math.PI/2);
+    roundRect(ctx,-59,-17,118,34,12);ctx.fillStyle=hostile?'#381c48f5':'#0d4450f5';ctx.fill();
+    ctx.strokeStyle=hostile?'#ff93d8':'#a6fff1';ctx.lineWidth=1.6;ctx.stroke();
+    ctx.fillStyle=hostile?'#ffe0f6':'#e3fff8';ctx.font='900 12px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.letterSpacing='1.2px';
+    ctx.fillText(hostile?'PATOGEN':'JARINGAN',0,1);
+    ctx.restore();ctx.restore();
+  }
   function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     if(!state.level){ctx.fillStyle='#19384a';ctx.fillRect(0,0,canvas.width,canvas.height);return;}
@@ -979,12 +1036,8 @@
       ctx.fill();
     }
 
-    // tissue base and spawn edge
-    ctx.fillStyle='rgba(218,244,245,.86)';ctx.fillRect(36,GRID.y,62,GRID.rows*GRID.th);
-    ctx.fillStyle='rgba(18,47,65,.62)';ctx.fillRect(GRID.x+GRID.cols*GRID.tw+10,GRID.y,60,GRID.rows*GRID.th);
-    ctx.fillStyle='#17324d';ctx.font='800 13px system-ui';ctx.textAlign='center';
-    ctx.save();ctx.translate(67,GRID.y+GRID.rows*GRID.th/2);ctx.rotate(-Math.PI/2);ctx.fillText('JARINGAN',0,0);ctx.restore();
-    ctx.save();ctx.fillStyle='#e6f8ff';ctx.translate(1056,GRID.y+GRID.rows*GRID.th/2);ctx.rotate(Math.PI/2);ctx.fillText('PATOGEN',0,0);ctx.restore();
+    // Illustrated frontier strips make the defend and spawn sides immediately distinct.
+    drawFrontierStrip(false);drawFrontierStrip(true);
 
     // grid tiles
     for(let r=0;r<GRID.rows;r++)for(let c=0;c<GRID.cols;c++){
