@@ -1,6 +1,0 @@
-{
-  "mode": "built-in image_gen",
-  "transparent_background": true,
-  "refinement": "Preserve four poses and separate oxygen bubbles; remove diffuse haze and keep genuine alpha transparency.",
-  "finalAtlas": "assets/source-atlases/erythrocyte-oxygen.png"
-}
